@@ -10,9 +10,9 @@ To Run Server :
 2.  cd to project folder
 
 3. Deploying Business Network
-    a. composer network install --card PeerAdmin@hlfv1 --archiveFile bond-marketplace@0.0.1.bna
+    a. composer network install --card PeerAdmin@hlfv1 --archiveFile bond-marketplace@<LATEST VERSION>.bna
 
-    b. composer network start --networkName bond-marketplace --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+    b. composer network start --networkName bond-marketplace --networkVersion <LATEST VERSION> --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
     c. composer card import --file networkadmin.card
 
