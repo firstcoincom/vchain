@@ -1,0 +1,55 @@
+namespace shipping
+
+asset Contract identified by contractId {
+  o String contractId
+  o String voyageNumber
+  o DateTime eta
+  o CargoItem[] cargo
+  --> Vessel vessel
+  --> Terminal departure
+  --> Terminal destination
+  --> Pilot pilot
+  --> Captain captain
+  --> TowageCompany towageCompany
+  --> ShippingCompany shippingCompany
+}
+
+// should this be an asset???
+asset Vessel identified by imoNumber {
+  o String imoNumber
+  o String name
+}
+
+participant Terminal identified by terminalId {
+  o String terminalId
+}
+
+participant Pilot identified by pilotId {
+  o String pilotId
+}
+
+participant Captain identified by captainId {
+  o String captainId
+}
+
+participant TowageCompany identified by companyId {
+  o String companyId
+}
+
+participant ShippingCompany identified by companyId {
+  o String companyId
+}
+
+concept CargoItem {
+  o String name
+  o Double quantity
+  o CargoType type
+}
+
+enum CargoType {
+  o CONTAINER_CARGO
+  o LIQUID_BULK
+  o DRY_BULK
+  o BREAK_BULK
+  o RORO
+}
