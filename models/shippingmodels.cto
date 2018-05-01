@@ -14,7 +14,7 @@ asset Contract identified by contractId {
   --> ShippingCompany shippingCompany
 }
 
-// should this be an asset???
+// should this be an asset or should this info just be in the contract
 asset Vessel identified by imoNumber {
   o String imoNumber
   o String name
