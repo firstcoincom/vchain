@@ -1,9 +1,9 @@
-namespace shipping
+namespace firstcoin.shipping
 
 asset Contract identified by contractId {
   o String contractId
   o String voyageNumber
-  o DateTime eta
+  o DateTime ETA
   o CargoItem[] cargo
   --> Vessel vessel
   --> Terminal departure
@@ -52,4 +52,11 @@ enum CargoType {
   o DRY_BULK
   o BREAK_BULK
   o RORO
+}
+
+// transaction models
+
+transaction UpdateETA {
+  --> Contract contract
+  o DateTime newETA
 }
