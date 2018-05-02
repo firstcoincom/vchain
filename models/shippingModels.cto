@@ -5,6 +5,7 @@ asset Contract identified by contractId {
   o String voyageNumber
   o DateTime ETA
   o CargoItem[] cargo
+  o ContractEvent[] events
   --> Vessel vessel
   --> Terminal departure
   --> Terminal destination
@@ -12,6 +13,26 @@ asset Contract identified by contractId {
   --> Captain captain
   --> TowageCompany towageCompany
   --> ShippingCompany shippingCompany
+}
+
+concept CargoItem {
+  o String name
+  o Double quantity
+  o CargoType type
+}
+
+enum CargoType {
+  o CONTAINER_CARGO
+  o LIQUID_BULK
+  o DRY_BULK
+  o BREAK_BULK
+  o RORO
+}
+
+concept ContractEvent {
+  o String description
+  o DateTime timeStamp
+  --> Participant creator
 }
 
 // should this be an asset or should this info just be in the contract
@@ -38,20 +59,6 @@ participant TowageCompany identified by companyId {
 
 participant ShippingCompany identified by companyId {
   o String companyId
-}
-
-concept CargoItem {
-  o String name
-  o Double quantity
-  o CargoType type
-}
-
-enum CargoType {
-  o CONTAINER_CARGO
-  o LIQUID_BULK
-  o DRY_BULK
-  o BREAK_BULK
-  o RORO
 }
 
 // transaction models
