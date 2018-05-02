@@ -31,8 +31,15 @@ enum CargoType {
 
 concept ContractEvent {
   o String description
-  o DateTime timeStamp
+  o DateTime timestamp
   --> Participant creator
+  o EventType type
+}
+
+enum EventType {
+  o ARRIVAL
+  o DEPARTURE
+  o DELAY
 }
 
 // should this be an asset or should this info just be in the contract
@@ -66,4 +73,15 @@ participant ShippingCompany identified by companyId {
 transaction UpdateETA {
   --> Contract contract
   o DateTime newETA
+}
+
+transaction AddEvent {
+  --> Contract contract
+  o String description
+  o EventType type
+}
+
+transaction GetEvent {
+  --> Contract contract
+  o EventType type
 }
