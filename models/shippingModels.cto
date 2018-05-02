@@ -80,8 +80,3 @@ transaction AddEvent {
   o String description
   o EventType type
 }
-
-transaction GetEvent {
-  --> Contract contract
-  o EventType type
-}
