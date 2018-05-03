@@ -1,4 +1,4 @@
-echo 'Upgrades the existing business network'
+echo 'Upgrades the existing business network.'
 echo -e 'Use \e[3mdeployNetwork.sh\e[0m to perform the initial deployment of the business network.'
 echo 'Enter version number:'
 read VERSION_NUMBER
