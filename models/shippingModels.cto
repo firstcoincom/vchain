@@ -4,8 +4,6 @@ asset Contract identified by contractId {
   o String contractId
   o String voyageNumber
   o DateTime ETA
-  o CargoItem[] cargo
-  o ContractEvent[] events
   --> Vessel vessel
   --> Terminal departure
   --> Terminal destination
@@ -13,6 +11,7 @@ asset Contract identified by contractId {
   --> Captain captain
   --> TowageCompany towageCompany
   --> ShippingCompany shippingCompany
+  o CargoItem[] cargo
 }
 
 concept CargoItem {
@@ -29,11 +28,13 @@ enum CargoType {
   o RORO
 }
 
-concept ContractEvent {
-  o String description
-  o DateTime timestamp
+asset ContractEvent identified by eventId {
+  o String eventId
+  --> Contract contract
   --> Participant creator
   o EventType type
+  o String description
+  o DateTime timestamp
 }
 
 enum EventType {
@@ -77,6 +78,7 @@ transaction UpdateETA {
 
 transaction AddEvent {
   --> Contract contract
+  o String eventId
   o String description
   o EventType type
 }
