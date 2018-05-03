@@ -1,4 +1,6 @@
-echo 'Enter version number'
+echo 'Initially deploys the business network.'
+echo -e 'Use \e[3mupgradeNetwork.sh\e[0m to make changes to the existing business network'
+echo 'Enter version number:'
 read VERSION_NUMBER
 composer archive create -t dir -n .
 composer network install --card PeerAdmin@hlfv1 --archiveFile bond-marketplace@${VERSION_NUMBER}.bna
