@@ -1,5 +1,5 @@
 echo 'Initially deploys the business network.'
-echo -e 'Use \e[3mupgradeNetwork.sh\e[0m to make changes to the existing business network'
+echo -e 'Use \e[3mupgradeNetwork.sh\e[0m to make changes to the existing business network.'
 echo 'Enter version number:'
 read VERSION_NUMBER
 composer archive create -t dir -n .
