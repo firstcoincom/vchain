@@ -24,6 +24,7 @@ asset Contract identified by contractId {
   o DateTime allowedLayTime
   o Double maxQuantity
   o Double minQuantity
+  o Boolean validated
   // --> Vessel vessel
   // --> Pilot pilot
   // --> Captain captain
