@@ -1,84 +1,16 @@
 namespace firstcoin.shipping
 
-asset Contract identified by contractId {
-  o String contractId
-  o String voyageNumber
-  o DateTime ETA
-  --> Vessel vessel
-  --> Terminal departure
-  --> Terminal destination
-  --> Pilot pilot
-  --> Captain captain
-  --> TowageCompany towageCompany
-  --> ShippingCompany shippingCompany
-  o CargoItem[] cargo
+asset Discharge identified by dischargeId {
+  o String dischargeId
+  o DateTime hoseConnected
+  o DateTime hoseDisconnected
 }
 
-concept CargoItem {
-  o String name
-  o Double quantity
-  o CargoType type
+transaction SetDischargeTimestamp {
+  --> Discharge discharge
 }
 
-enum CargoType {
-  o CONTAINER_CARGO
-  o LIQUID_BULK
-  o DRY_BULK
-  o BREAK_BULK
-  o RORO
-}
-
-asset ContractEvent identified by eventId {
-  o String eventId
-  --> Contract contract
-  --> Participant creator
-  o EventType type
-  o String description
-  o DateTime timestamp
-}
-
-enum EventType {
-  o ARRIVAL
-  o DEPARTURE
-  o DELAY
-}
-
-// should this be an asset or should this info just be in the contract
-asset Vessel identified by imoNumber {
-  o String imoNumber
-  o String name
-}
-
-participant Terminal identified by terminalId {
-  o String terminalId
-}
-
-participant Pilot identified by pilotId {
-  o String pilotId
-}
-
-participant Captain identified by captainId {
-  o String captainId
-}
-
-participant TowageCompany identified by companyId {
-  o String companyId
-}
-
-participant ShippingCompany identified by companyId {
-  o String companyId
-}
-
-// transaction models
-
-transaction UpdateETA {
-  --> Contract contract
-  o DateTime newETA
-}
-
-transaction AddEvent {
-  --> Contract contract
-  o String eventId
-  o String description
-  o EventType type
+asset Loading identified by loadingId {
+  o String loadingId
+  o Double BLQuantity range=[0.0,]
 }
