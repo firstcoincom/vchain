@@ -18,63 +18,30 @@ asset Contract identified by contractId {
   o Double operationTime
   o DateTime charterDate
   --> Charterer charterer
-  --> Option1 opt1
-  --> Option2 opt2
-  --> Option3 opt3
+  --> Option opt1
+  --> Option opt2
+  --> Option opt3
   o DateTime allowedLayTime
   o Double maxQuantity
-  o Double minQuantity
+  o Double minQuantity 
+  --> Participant madeBy
+  o Boolean contractVerified default = false
   // --> Vessel vessel
   // --> Pilot pilot
   // --> Captain captain
   // --> TowageCompany towageCompany
   // --> ShippingCompany shippingCompany
 }
-asset ContractVerified extends Contract{
-  o Boolean verified
-  o String verifiedBy optional
-}
-transaction Verification extends MakeContract{
-  --> ContractVerified verificationSignedBy
-}
-transaction MakeContract{
+// asset Verified identified by verifiedBy {
+//   o Boolean verified default = true
+//   o String verifiedBy default = 'Charterer'
+// }
+transaction Verification{
   --> Contract contract
-  o String vesselName
-  o String voyageNumber
-  --> Terminal departure
-  --> Terminal destination
-  o DateTime ETA
-  o CargoItem[] cargo
-  o Operation operationType
-  o Double nominatedQuantity
-  o Double wscFlat
-  o Double wscPercent
-  o Double overageRate
-  o Double freightCommission
-  o Double demurrageRate
-  o Double operationTime
-  o DateTime charterDate
-  --> Charterer charterer
-  --> Option1 opt1
-  --> Option2 opt2
-  --> Option3 opt3
-  o DateTime allowedLayTime
-  o Double maxQuantity
-  o Double minQuantity
-  o String madeBy optional
-  o Verification verifiedBy optional
+  o Boolean verified
+  --> Participant verifiedBy
 }
-asset Option1 identified by optionId {
-  o String optionId
-  o Double rate
-}
-
-asset Option2 identified by optionId {
-  o String optionId
-  o Double rate
-}
-
-asset Option3 identified by optionId {
+asset Option identified by optionId {
   o String optionId
   o Double rate
 }
