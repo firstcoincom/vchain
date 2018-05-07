@@ -1,8 +1,9 @@
 namespace firstcoin.shipping
 
-asset Contract identified by contractId {
-  o String contractId
+asset Nomination identified by nominationId {
+  o String nominationId
   o String vesselName
+  o String IMONumber
   o String voyageNumber
   --> Terminal departure
   --> Terminal destination
@@ -18,32 +19,29 @@ asset Contract identified by contractId {
   o Double operationTime
   o DateTime charterDate
   --> Charterer charterer
-  --> Option opt1
-  --> Option opt2
-  --> Option opt3
-  o DateTime allowedLayTime
+  o FreightOption option1
+  o FreightOption option2
+  o FreightOption option3
+  o Integer allowedLayTimeHours
+  // represent this as references to participants?
+  o String chartererEmail
+  o String voyageManagerEmail
+  o String shippingCompanyEmail
   o Double maxQuantity
-  o Double minQuantity 
+  o Double minQuantity
   --> Participant madeBy
   o Boolean contractVerified default = false
-  // --> Vessel vessel
-  // --> Pilot pilot
-  // --> Captain captain
-  // --> TowageCompany towageCompany
-  // --> ShippingCompany shippingCompany
 }
-// asset Verified identified by verifiedBy {
-//   o Boolean verified default = true
-//   o String verifiedBy default = 'Charterer'
-// }
-transaction Verification{
-  --> Contract contract
+
+transaction Verification {
+  --> Nomination nomination
   o Boolean verified
   --> Participant verifiedBy
 }
-asset Option identified by optionId {
-  o String optionId
+
+concept FreightOption {
   o Double rate
+  // what else does this represent?
 }
 
 enum Operation {
@@ -63,27 +61,6 @@ enum CargoType {
   o DRY_BULK
   o BREAK_BULK
   o RORO
-}
-
-asset ContractEvent identified by eventId {
-  o String eventId
-  --> Contract contract
-  --> Participant creator
-  o EventType type
-  o String description
-  o DateTime timestamp
-}
-
-enum EventType {
-  o ARRIVAL
-  o DEPARTURE
-  o DELAY
-}
-
-// should this be an asset or should this info just be in the contract
-asset Vessel identified by imoNumber {
-  o String imoNumber
-  o String name
 }
 
 participant Terminal identified by terminalId {
@@ -121,13 +98,6 @@ participant VoyageManager identified by voyagerId {
 // transaction models
 
 transaction UpdateETA {
-  --> Contract contract
+  --> Nomination nomination
   o DateTime newETA
-}
-
-transaction AddEvent {
-  --> Contract contract
-  o String eventId
-  o String description
-  o EventType type
 }
