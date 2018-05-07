@@ -1,5 +1,7 @@
 namespace firstcoin.shipping
 
+// nomination models
+
 asset Nomination identified by nominationId {
   o String nominationId
   o String vesselName
@@ -33,12 +35,6 @@ asset Nomination identified by nominationId {
   o Boolean contractVerified default = false
 }
 
-transaction Verification {
-  --> Nomination nomination
-  o Boolean verified
-  --> Participant verifiedBy
-}
-
 concept FreightOption {
   o Double rate
   // what else does this represent?
@@ -51,8 +47,7 @@ enum Operation {
 
 concept CargoItem {
   o String name
-  o Double quantity
-  o CargoType type
+  o String quantity
 }
 
 enum CargoType {
@@ -95,9 +90,35 @@ participant VoyageManager identified by voyagerId {
   o String email
 }
 
+// discharge models
+
+asset Discharge identified by dischargeId {
+  o String dischargeId
+  o DateTime hoseConnected
+  o DateTime hoseDisconnected
+}
+
+// loading models
+
+asset Loading identified by loadingId {
+  --> Nomination nomination
+  o String loadingId
+  o Double BLQuantity range=[0.0,]
+}
+
 // transaction models
+
+transaction Verification {
+  --> Nomination nomination
+  o Boolean verified
+  --> Participant verifiedBy
+}
 
 transaction UpdateETA {
   --> Nomination nomination
   o DateTime newETA
+}
+
+transaction SetDischargeTimestamp {
+  --> Discharge discharge
 }
