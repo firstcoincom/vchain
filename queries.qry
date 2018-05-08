@@ -1,6 +1,0 @@
-query getEventsByContract {
-  description: "Get all events pertaining to a contract"
-  statement:
-    SELECT firstcoin.shipping.ContractEvent
-      WHERE (contract == _$contractId)
-}
