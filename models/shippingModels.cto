@@ -1,6 +1,8 @@
 namespace firstcoin.shipping
 
-// nomination models
+/*
+ * Nomination models
+ */
 
 asset Nomination identified by nominationId {
   o String nominationId
@@ -58,7 +60,9 @@ enum CargoType {
   o RORO
 }
 
-// discharge models
+/*
+ * Discharge models
+ */
 
 asset Discharge identified by dischargeId {
   o String dischargeId
@@ -67,7 +71,9 @@ asset Discharge identified by dischargeId {
   o DateTime hoseDisconnected
 }
 
-// loading models
+/*
+ * Loading models
+ */
 
 asset Loading identified by loadingId {
   o String loadingId
@@ -75,7 +81,9 @@ asset Loading identified by loadingId {
   o Double BLQuantity range=[0.0,]
 }
 
-// participants
+/*
+ * Participants
+ */
 
 participant Terminal identified by terminalId {
   o String terminalId
@@ -109,7 +117,9 @@ participant VoyageManager identified by voyagerId {
   o String email
 }
 
-// transaction models
+/*
+ * Transaction parameters
+ */
 
 transaction Verification {
   --> Nomination nomination
