@@ -22,15 +22,13 @@ asset Nomination identified by nominationId {
   o Double demurrageRate
   o Double operationTime
   o DateTime charterDate
-  --> Charterer charterer
   o FreightOption option1
   o FreightOption option2
   o FreightOption option3
   o Integer allowedLayTimeHours
-  // represent this as references to participants?
-  o String chartererEmail
-  o String voyageManagerEmail
-  o String shippingCompanyEmail
+  --> Charterer charterer
+  --> VoyageManager voyageManager
+  --> ShippingCompany shippingCompany
   o Double maxQuantity
   o Double minQuantity
   --> Participant madeBy
@@ -103,6 +101,7 @@ participant TowageCompany identified by companyId {
 
 participant ShippingCompany identified by companyId {
   o String companyId
+  o String email
 }
 
 participant Charterer identified by chartererId {
@@ -154,11 +153,13 @@ transaction CreateNomination {
   o Double demurrageRate
   o Double operationTime
   o DateTime charterDate
-  --> Charterer charterer
   o FreightOption option1
   o FreightOption option2
   o FreightOption option3
   o Integer allowedLayTimeHours
+  --> Charterer charterer
+  --> VoyageManager voyageManager
+  --> ShippingCompany shippingCompany
   o String chartererEmail
   o String voyageManagerEmail
   o String shippingCompanyEmail
