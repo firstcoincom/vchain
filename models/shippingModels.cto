@@ -133,11 +133,19 @@ transaction UpdateETA {
   o DateTime newETA
 }
 
-transaction SetDischargeTimestamp {
+transaction SetDischargeConnectTimestamp {
   --> Discharge discharge
 }
 
-transaction SetLoadingTimestamp {
+transaction SetDischargeDisconnectTimestamp {
+  --> Discharge discharge
+}
+
+transaction SetLoadingNORTemperedTimestamp {
+  --> Loading loading
+}
+
+transaction SetLoadingDocumentsOnBoardTimestamp {
   --> Loading loading
 }
 
