@@ -94,6 +94,7 @@ participant VoyageManager identified by voyagerId {
 
 asset Discharge identified by dischargeId {
   o String dischargeId
+  --> Nomination nomination
   o DateTime hoseConnected
   o DateTime hoseDisconnected
 }
@@ -101,8 +102,8 @@ asset Discharge identified by dischargeId {
 // loading models
 
 asset Loading identified by loadingId {
-  --> Nomination nomination
   o String loadingId
+  --> Nomination nomination
   o Double BLQuantity range=[0.0,]
 }
 
