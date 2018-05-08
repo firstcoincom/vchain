@@ -14,43 +14,67 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Option3Service } from './Option3.service';
+import { VerificationService } from './Verification.service';
 import 'rxjs/add/operator/toPromise';
 @Component({
-	selector: 'app-Option3',
-	templateUrl: './Option3.component.html',
-	styleUrls: ['./Option3.component.css'],
-  providers: [Option3Service]
+	selector: 'app-Verification',
+	templateUrl: './Verification.component.html',
+	styleUrls: ['./Verification.component.css'],
+  providers: [VerificationService]
 })
-export class Option3Component implements OnInit {
+export class VerificationComponent implements OnInit {
 
   myForm: FormGroup;
 
-  private allAssets;
-  private asset;
+  private allTransactions;
+  private Transaction;
   private currentId;
 	private errorMessage;
 
   
       
-          optionId = new FormControl("", Validators.required);
+          nomination = new FormControl("", Validators.required);
         
   
       
-          rate = new FormControl("", Validators.required);
+          verified = new FormControl("", Validators.required);
+        
+  
+      
+          verifiedBy = new FormControl("", Validators.required);
+        
+  
+      
+          transactionId = new FormControl("", Validators.required);
+        
+  
+      
+          timestamp = new FormControl("", Validators.required);
         
   
 
 
-  constructor(private serviceOption3:Option3Service, fb: FormBuilder) {
+  constructor(private serviceVerification:VerificationService, fb: FormBuilder) {
     this.myForm = fb.group({
     
         
-          optionId:this.optionId,
+          nomination:this.nomination,
         
     
         
-          rate:this.rate
+          verified:this.verified,
+        
+    
+        
+          verifiedBy:this.verifiedBy,
+        
+    
+        
+          transactionId:this.transactionId,
+        
+    
+        
+          timestamp:this.timestamp
         
     
     });
@@ -62,14 +86,14 @@ export class Option3Component implements OnInit {
 
   loadAll(): Promise<any> {
     let tempList = [];
-    return this.serviceOption3.getAll()
+    return this.serviceVerification.getAll()
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
-      result.forEach(asset => {
-        tempList.push(asset);
+      result.forEach(transaction => {
+        tempList.push(transaction);
       });
-      this.allAssets = tempList;
+      this.allTransactions = tempList;
     })
     .catch((error) => {
         if(error == 'Server error'){
@@ -86,7 +110,7 @@ export class Option3Component implements OnInit {
 
 	/**
    * Event handler for changing the checked state of a checkbox (handles array enumeration values)
-   * @param {String} name - the name of the asset field to update
+   * @param {String} name - the name of the transaction field to update
    * @param {any} value - the enumeration value for which to toggle the checked state
    */
   changeArrayValue(name: string, value: any): void {
@@ -100,25 +124,37 @@ export class Option3Component implements OnInit {
 
 	/**
 	 * Checkbox helper, determining whether an enumeration value should be selected or not (for array enumeration values
-   * only). This is used for checkboxes in the asset updateDialog.
-   * @param {String} name - the name of the asset field to check
+   * only). This is used for checkboxes in the transaction updateDialog.
+   * @param {String} name - the name of the transaction field to check
    * @param {any} value - the enumeration value to check for
-   * @return {Boolean} whether the specified asset field contains the provided value
+   * @return {Boolean} whether the specified transaction field contains the provided value
    */
   hasArrayValue(name: string, value: any): boolean {
     return this[name].value.indexOf(value) !== -1;
   }
 
-  addAsset(form: any): Promise<any> {
-    this.asset = {
-      $class: "firstcoin.shipping.Option3",
+  addTransaction(form: any): Promise<any> {
+    this.Transaction = {
+      $class: "firstcoin.shipping.Verification",
       
         
-          "optionId":this.optionId.value,
+          "nomination":this.nomination.value,
         
       
         
-          "rate":this.rate.value
+          "verified":this.verified.value,
+        
+      
+        
+          "verifiedBy":this.verifiedBy.value,
+        
+      
+        
+          "transactionId":this.transactionId.value,
+        
+      
+        
+          "timestamp":this.timestamp.value
         
       
     };
@@ -126,27 +162,51 @@ export class Option3Component implements OnInit {
     this.myForm.setValue({
       
         
-          "optionId":null,
+          "nomination":null,
         
       
         
-          "rate":null
+          "verified":null,
+        
+      
+        
+          "verifiedBy":null,
+        
+      
+        
+          "transactionId":null,
+        
+      
+        
+          "timestamp":null
         
       
     });
 
-    return this.serviceOption3.addAsset(this.asset)
+    return this.serviceVerification.addTransaction(this.Transaction)
     .toPromise()
     .then(() => {
 			this.errorMessage = null;
       this.myForm.setValue({
       
         
-          "optionId":null,
+          "nomination":null,
         
       
         
-          "rate":null 
+          "verified":null,
+        
+      
+        
+          "verifiedBy":null,
+        
+      
+        
+          "transactionId":null,
+        
+      
+        
+          "timestamp":null 
         
       
       });
@@ -162,23 +222,41 @@ export class Option3Component implements OnInit {
   }
 
 
-   updateAsset(form: any): Promise<any> {
-    this.asset = {
-      $class: "firstcoin.shipping.Option3",
+   updateTransaction(form: any): Promise<any> {
+    this.Transaction = {
+      $class: "firstcoin.shipping.Verification",
       
+        
+          
+            "nomination":this.nomination.value,
+          
+        
+    
+        
+          
+            "verified":this.verified.value,
+          
+        
+    
+        
+          
+            "verifiedBy":this.verifiedBy.value,
+          
+        
+    
         
           
         
     
         
           
-            "rate":this.rate.value
+            "timestamp":this.timestamp.value
           
         
     
     };
 
-    return this.serviceOption3.updateAsset(form.get("optionId").value,this.asset)
+    return this.serviceVerification.updateTransaction(form.get("transactionId").value,this.Transaction)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -197,9 +275,9 @@ export class Option3Component implements OnInit {
   }
 
 
-  deleteAsset(): Promise<any> {
+  deleteTransaction(): Promise<any> {
 
-    return this.serviceOption3.deleteAsset(this.currentId)
+    return this.serviceVerification.deleteTransaction(this.currentId)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -223,18 +301,30 @@ export class Option3Component implements OnInit {
 
   getForm(id: any): Promise<any>{
 
-    return this.serviceOption3.getAsset(id)
+    return this.serviceVerification.getTransaction(id)
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
       let formObject = {
         
           
-            "optionId":null,
+            "nomination":null,
           
         
           
-            "rate":null 
+            "verified":null,
+          
+        
+          
+            "verifiedBy":null,
+          
+        
+          
+            "transactionId":null,
+          
+        
+          
+            "timestamp":null 
           
         
       };
@@ -242,20 +332,44 @@ export class Option3Component implements OnInit {
 
 
       
-        if(result.optionId){
+        if(result.nomination){
           
-            formObject.optionId = result.optionId;
+            formObject.nomination = result.nomination;
           
         }else{
-          formObject.optionId = null;
+          formObject.nomination = null;
         }
       
-        if(result.rate){
+        if(result.verified){
           
-            formObject.rate = result.rate;
+            formObject.verified = result.verified;
           
         }else{
-          formObject.rate = null;
+          formObject.verified = null;
+        }
+      
+        if(result.verifiedBy){
+          
+            formObject.verifiedBy = result.verifiedBy;
+          
+        }else{
+          formObject.verifiedBy = null;
+        }
+      
+        if(result.transactionId){
+          
+            formObject.transactionId = result.transactionId;
+          
+        }else{
+          formObject.transactionId = null;
+        }
+      
+        if(result.timestamp){
+          
+            formObject.timestamp = result.timestamp;
+          
+        }else{
+          formObject.timestamp = null;
         }
       
 
@@ -280,14 +394,27 @@ export class Option3Component implements OnInit {
     this.myForm.setValue({
       
         
-          "optionId":null,
+          "nomination":null,
         
       
         
-          "rate":null 
+          "verified":null,
+        
+      
+        
+          "verifiedBy":null,
+        
+      
+        
+          "transactionId":null,
+        
+      
+        
+          "timestamp":null 
         
       
       });
   }
 
 }
+

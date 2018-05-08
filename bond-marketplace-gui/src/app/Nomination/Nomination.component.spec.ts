@@ -21,28 +21,28 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Configuration } from '../configuration';
 import { DataService } from '../data.service';
-import { Option3Component } from './Option3.component';
-import {Option3Service} from './Option3.service';
-describe('Option3Component', () => {
-  let component: Option3Component;
-  let fixture: ComponentFixture<Option3Component>;
+import { NominationComponent } from './Nomination.component';
+import {NominationService} from './Nomination.service';
+describe('NominationComponent', () => {
+  let component: NominationComponent;
+  let fixture: ComponentFixture<NominationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Option3Component ],
+      declarations: [ NominationComponent ],
 imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule
   ],
-providers: [Option3Service,DataService,Configuration]
+providers: [NominationService,DataService,Configuration]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Option3Component);
+    fixture = TestBed.createComponent(NominationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

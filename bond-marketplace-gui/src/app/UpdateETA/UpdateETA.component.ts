@@ -33,7 +33,7 @@ export class UpdateETAComponent implements OnInit {
 
   
       
-          contract = new FormControl("", Validators.required);
+          nomination = new FormControl("", Validators.required);
         
   
       
@@ -54,7 +54,7 @@ export class UpdateETAComponent implements OnInit {
     this.myForm = fb.group({
     
         
-          contract:this.contract,
+          nomination:this.nomination,
         
     
         
@@ -130,7 +130,7 @@ export class UpdateETAComponent implements OnInit {
       $class: "firstcoin.shipping.UpdateETA",
       
         
-          "contract":this.contract.value,
+          "nomination":this.nomination.value,
         
       
         
@@ -150,7 +150,7 @@ export class UpdateETAComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "contract":null,
+          "nomination":null,
         
       
         
@@ -174,7 +174,7 @@ export class UpdateETAComponent implements OnInit {
       this.myForm.setValue({
       
         
-          "contract":null,
+          "nomination":null,
         
       
         
@@ -208,7 +208,7 @@ export class UpdateETAComponent implements OnInit {
       
         
           
-            "contract":this.contract.value,
+            "nomination":this.nomination.value,
           
         
     
@@ -282,7 +282,7 @@ export class UpdateETAComponent implements OnInit {
       let formObject = {
         
           
-            "contract":null,
+            "nomination":null,
           
         
           
@@ -302,12 +302,12 @@ export class UpdateETAComponent implements OnInit {
 
 
       
-        if(result.contract){
+        if(result.nomination){
           
-            formObject.contract = result.contract;
+            formObject.nomination = result.nomination;
           
         }else{
-          formObject.contract = null;
+          formObject.nomination = null;
         }
       
         if(result.newETA){
@@ -356,7 +356,7 @@ export class UpdateETAComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "contract":null,
+          "nomination":null,
         
       
         

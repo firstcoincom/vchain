@@ -17,12 +17,9 @@ import { Routes, RouterModule } from '@angular/router';
 // import { TransactionComponent } from './Transaction/Transaction.component'
 import { HomeComponent } from './home/home.component';
 
-import { ContractComponent } from './Contract/Contract.component';
-import { Option1Component } from './Option1/Option1.component';
-import { Option2Component } from './Option2/Option2.component';
-import { Option3Component } from './Option3/Option3.component';
-import { ContractEventComponent } from './ContractEvent/ContractEvent.component';
-import { VesselComponent } from './Vessel/Vessel.component';
+import { NominationComponent } from './Nomination/Nomination.component';
+import { DischargeComponent } from './Discharge/Discharge.component';
+import { LoadingComponent } from './Loading/Loading.component';
 
 
   import { TerminalComponent } from './Terminal/Terminal.component';
@@ -34,23 +31,18 @@ import { VesselComponent } from './Vessel/Vessel.component';
   import { VoyageManagerComponent } from './VoyageManager/VoyageManager.component';
 
 
+  import { VerificationComponent } from './Verification/Verification.component';
   import { UpdateETAComponent } from './UpdateETA/UpdateETA.component';
-  import { AddEventComponent } from './AddEvent/AddEvent.component';  
+  import { SetDischargeTimestampComponent } from './SetDischargeTimestamp/SetDischargeTimestamp.component';  
 const routes: Routes = [
-     //{ path: 'transaction', component: TransactionComponent },
+    //  { path: 'transaction', component: TransactionComponent },
     {path: '', component: HomeComponent},
 		
-		{ path: 'Contract', component: ContractComponent},
+		{ path: 'Nomination', component: NominationComponent},
     
-		{ path: 'Option1', component: Option1Component},
+		{ path: 'Discharge', component: DischargeComponent},
     
-		{ path: 'Option2', component: Option2Component},
-    
-		{ path: 'Option3', component: Option3Component},
-    
-		{ path: 'ContractEvent', component: ContractEventComponent},
-    
-		{ path: 'Vessel', component: VesselComponent},
+		{ path: 'Loading', component: LoadingComponent},
     
     
       { path: 'Terminal', component: TerminalComponent},
@@ -68,9 +60,11 @@ const routes: Routes = [
       { path: 'VoyageManager', component: VoyageManagerComponent},
       
       
+        { path: 'Verification', component: VerificationComponent},
+        
         { path: 'UpdateETA', component: UpdateETAComponent},
         
-        { path: 'AddEvent', component: AddEventComponent},
+        { path: 'SetDischargeTimestamp', component: SetDischargeTimestampComponent},
         
 		{path: '**', redirectTo:''}
 

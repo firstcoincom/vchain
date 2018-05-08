@@ -21,28 +21,28 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Configuration } from '../configuration';
 import { DataService } from '../data.service';
-import { AddEventComponent } from './AddEvent.component';
-import {AddEventService} from './AddEvent.service';
-describe('AddEventComponent', () => {
-  let component: AddEventComponent;
-  let fixture: ComponentFixture<AddEventComponent>;
+import { SetDischargeTimestampComponent } from './SetDischargeTimestamp.component';
+import {SetDischargeTimestampService} from './SetDischargeTimestamp.service';
+describe('SetDischargeTimestampComponent', () => {
+  let component: SetDischargeTimestampComponent;
+  let fixture: ComponentFixture<SetDischargeTimestampComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddEventComponent ],
+      declarations: [ SetDischargeTimestampComponent ],
 imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule
   ],
-providers: [AddEventService,DataService,Configuration]
+providers: [SetDischargeTimestampService,DataService,Configuration]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddEventComponent);
+    fixture = TestBed.createComponent(SetDischargeTimestampComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

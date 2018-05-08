@@ -15,40 +15,41 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
-import { Option1 } from '../firstcoin.shipping';
+import { SetDischargeTimestamp } from '../firstcoin.shipping';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor
 @Injectable()
-export class Option1Service {
+export class SetDischargeTimestampService {
 
 	
-		private NAMESPACE: string = 'firstcoin.shipping.Option1';
+		private NAMESPACE: string = 'firstcoin.shipping.SetDischargeTimestamp';
 	
 
 
 
-    constructor(private dataService: DataService<Option1>) {
+    constructor(private dataService: DataService<SetDischargeTimestamp>) {
     };
 
-    public getAll(): Observable<Option1[]> {
+    public getAll(): Observable<SetDischargeTimestamp[]> {
         return this.dataService.getAll(this.NAMESPACE);
     }
 
-    public getAsset(id: any): Observable<Option1> {
+    public getTransaction(id: any): Observable<SetDischargeTimestamp> {
       return this.dataService.getSingle(this.NAMESPACE, id);
     }
 
-    public addAsset(itemToAdd: any): Observable<Option1> {
+    public addTransaction(itemToAdd: any): Observable<SetDischargeTimestamp> {
       return this.dataService.add(this.NAMESPACE, itemToAdd);
     }
 
-    public updateAsset(id: any, itemToUpdate: any): Observable<Option1> {
+    public updateTransaction(id: any, itemToUpdate: any): Observable<SetDischargeTimestamp> {
       return this.dataService.update(this.NAMESPACE, id, itemToUpdate);
     }
 
-    public deleteAsset(id: any): Observable<Option1> {
+    public deleteTransaction(id: any): Observable<SetDischargeTimestamp> {
       return this.dataService.delete(this.NAMESPACE, id);
     }
 
 }
+

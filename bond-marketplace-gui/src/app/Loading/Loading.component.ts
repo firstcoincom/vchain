@@ -14,15 +14,15 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { ContractEventService } from './ContractEvent.service';
+import { LoadingService } from './Loading.service';
 import 'rxjs/add/operator/toPromise';
 @Component({
-	selector: 'app-ContractEvent',
-	templateUrl: './ContractEvent.component.html',
-	styleUrls: ['./ContractEvent.component.css'],
-  providers: [ContractEventService]
+	selector: 'app-Loading',
+	templateUrl: './Loading.component.html',
+	styleUrls: ['./Loading.component.css'],
+  providers: [LoadingService]
 })
-export class ContractEventComponent implements OnInit {
+export class LoadingComponent implements OnInit {
 
   myForm: FormGroup;
 
@@ -33,56 +33,32 @@ export class ContractEventComponent implements OnInit {
 
   
       
-          eventId = new FormControl("", Validators.required);
+          loadingId = new FormControl("", Validators.required);
         
   
       
-          contract = new FormControl("", Validators.required);
+          nomination = new FormControl("", Validators.required);
         
   
       
-          creator = new FormControl("", Validators.required);
-        
-  
-      
-          type = new FormControl("", Validators.required);
-        
-  
-      
-          description = new FormControl("", Validators.required);
-        
-  
-      
-          timestamp = new FormControl("", Validators.required);
+          BLQuantity = new FormControl("", Validators.required);
         
   
 
 
-  constructor(private serviceContractEvent:ContractEventService, fb: FormBuilder) {
+  constructor(private serviceLoading:LoadingService, fb: FormBuilder) {
     this.myForm = fb.group({
     
         
-          eventId:this.eventId,
+          loadingId:this.loadingId,
         
     
         
-          contract:this.contract,
+          nomination:this.nomination,
         
     
         
-          creator:this.creator,
-        
-    
-        
-          type:this.type,
-        
-    
-        
-          description:this.description,
-        
-    
-        
-          timestamp:this.timestamp
+          BLQuantity:this.BLQuantity
         
     
     });
@@ -94,7 +70,7 @@ export class ContractEventComponent implements OnInit {
 
   loadAll(): Promise<any> {
     let tempList = [];
-    return this.serviceContractEvent.getAll()
+    return this.serviceLoading.getAll()
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
@@ -143,30 +119,18 @@ export class ContractEventComponent implements OnInit {
 
   addAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.ContractEvent",
+      $class: "firstcoin.shipping.Loading",
       
         
-          "eventId":this.eventId.value,
-        
-      
-        
-          "contract":this.contract.value,
+          "loadingId":this.loadingId.value,
         
       
         
-          "creator":this.creator.value,
+          "nomination":this.nomination.value,
         
       
         
-          "type":this.type.value,
-        
-      
-        
-          "description":this.description.value,
-        
-      
-        
-          "timestamp":this.timestamp.value
+          "BLQuantity":this.BLQuantity.value
         
       
     };
@@ -174,59 +138,35 @@ export class ContractEventComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "eventId":null,
+          "loadingId":null,
         
       
         
-          "contract":null,
+          "nomination":null,
         
       
         
-          "creator":null,
-        
-      
-        
-          "type":null,
-        
-      
-        
-          "description":null,
-        
-      
-        
-          "timestamp":null
+          "BLQuantity":null
         
       
     });
 
-    return this.serviceContractEvent.addAsset(this.asset)
+    return this.serviceLoading.addAsset(this.asset)
     .toPromise()
     .then(() => {
 			this.errorMessage = null;
       this.myForm.setValue({
       
         
-          "eventId":null,
+          "loadingId":null,
         
       
         
-          "contract":null,
+          "nomination":null,
         
       
         
-          "creator":null,
-        
-      
-        
-          "type":null,
-        
-      
-        
-          "description":null,
-        
-      
-        
-          "timestamp":null 
+          "BLQuantity":null 
         
       
       });
@@ -244,7 +184,7 @@ export class ContractEventComponent implements OnInit {
 
    updateAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.ContractEvent",
+      $class: "firstcoin.shipping.Loading",
       
         
           
@@ -252,37 +192,19 @@ export class ContractEventComponent implements OnInit {
     
         
           
-            "contract":this.contract.value,
+            "nomination":this.nomination.value,
           
         
     
         
           
-            "creator":this.creator.value,
-          
-        
-    
-        
-          
-            "type":this.type.value,
-          
-        
-    
-        
-          
-            "description":this.description.value,
-          
-        
-    
-        
-          
-            "timestamp":this.timestamp.value
+            "BLQuantity":this.BLQuantity.value
           
         
     
     };
 
-    return this.serviceContractEvent.updateAsset(form.get("eventId").value,this.asset)
+    return this.serviceLoading.updateAsset(form.get("loadingId").value,this.asset)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -303,7 +225,7 @@ export class ContractEventComponent implements OnInit {
 
   deleteAsset(): Promise<any> {
 
-    return this.serviceContractEvent.deleteAsset(this.currentId)
+    return this.serviceLoading.deleteAsset(this.currentId)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -327,34 +249,22 @@ export class ContractEventComponent implements OnInit {
 
   getForm(id: any): Promise<any>{
 
-    return this.serviceContractEvent.getAsset(id)
+    return this.serviceLoading.getAsset(id)
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
       let formObject = {
         
           
-            "eventId":null,
+            "loadingId":null,
           
         
           
-            "contract":null,
+            "nomination":null,
           
         
           
-            "creator":null,
-          
-        
-          
-            "type":null,
-          
-        
-          
-            "description":null,
-          
-        
-          
-            "timestamp":null 
+            "BLQuantity":null 
           
         
       };
@@ -362,52 +272,28 @@ export class ContractEventComponent implements OnInit {
 
 
       
-        if(result.eventId){
+        if(result.loadingId){
           
-            formObject.eventId = result.eventId;
+            formObject.loadingId = result.loadingId;
           
         }else{
-          formObject.eventId = null;
+          formObject.loadingId = null;
         }
       
-        if(result.contract){
+        if(result.nomination){
           
-            formObject.contract = result.contract;
+            formObject.nomination = result.nomination;
           
         }else{
-          formObject.contract = null;
+          formObject.nomination = null;
         }
       
-        if(result.creator){
+        if(result.BLQuantity){
           
-            formObject.creator = result.creator;
-          
-        }else{
-          formObject.creator = null;
-        }
-      
-        if(result.type){
-          
-            formObject.type = result.type;
+            formObject.BLQuantity = result.BLQuantity;
           
         }else{
-          formObject.type = null;
-        }
-      
-        if(result.description){
-          
-            formObject.description = result.description;
-          
-        }else{
-          formObject.description = null;
-        }
-      
-        if(result.timestamp){
-          
-            formObject.timestamp = result.timestamp;
-          
-        }else{
-          formObject.timestamp = null;
+          formObject.BLQuantity = null;
         }
       
 
@@ -432,27 +318,15 @@ export class ContractEventComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "eventId":null,
+          "loadingId":null,
         
       
         
-          "contract":null,
+          "nomination":null,
         
       
         
-          "creator":null,
-        
-      
-        
-          "type":null,
-        
-      
-        
-          "description":null,
-        
-      
-        
-          "timestamp":null 
+          "BLQuantity":null 
         
       
       });

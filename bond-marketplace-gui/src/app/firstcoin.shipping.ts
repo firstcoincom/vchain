@@ -1,12 +1,13 @@
 import {Asset} from './org.hyperledger.composer.system';
-import {Participant} from './org.hyperledger.composer.system';
+
 import {Transaction} from './org.hyperledger.composer.system';
 import {Event} from './org.hyperledger.composer.system';
-
-// export namespace firstcoin.shipping{
-   export class Contract extends Asset {
-      contractId: string;
+import {Participant} from './org.hyperledger.composer.system';
+// export namespace firstcoin.shipping {
+   export class Nomination extends Asset {
+      nominationId: string;
       vesselName: string;
+      IMONumber: string;
       voyageNumber: string;
       departure: Terminal;
       destination: Terminal;
@@ -22,34 +23,28 @@ import {Event} from './org.hyperledger.composer.system';
       operationTime: number;
       charterDate: Date;
       charterer: Charterer;
-      opt1: Option1;
-      opt2: Option2;
-      opt3: Option3;
-      allowedLayTime: Date;
+      option1: FreightOption;
+      option2: FreightOption;
+      option3: FreightOption;
+      allowedLayTimeHours: number;
+      chartererEmail: string;
+      voyageManagerEmail: string;
+      shippingCompanyEmail: string;
       maxQuantity: number;
       minQuantity: number;
-      validated: boolean;
+      madeBy: Participant;
+      verified: boolean;
    }
-   export class Option1 extends Asset {
-      optionId: string;
+   export class FreightOption {
       rate: number;
    }
-   export class Option2 extends Asset {
-      optionId: string;
-      rate: number;
-   }
-   export class Option3 extends Asset {
-      optionId: string;
-      rate: number;
+   export class CargoItem {
+      name: string;
+      quantity: string;
    }
    export enum Operation {
       LOADING,
       DISCHARGING,
-   }
-   export class CargoItem {
-      name: string;
-      quantity: number;
-      type: CargoType;
    }
    export enum CargoType {
       CONTAINER_CARGO,
@@ -58,22 +53,16 @@ import {Event} from './org.hyperledger.composer.system';
       BREAK_BULK,
       RORO,
    }
-   export class ContractEvent extends Asset {
-      eventId: string;
-      contract: Contract;
-      creator: Participant;
-      type: EventType;
-      description: string;
-      timestamp: Date;
+   export class Discharge extends Asset {
+      dischargeId: string;
+      nomination: Nomination;
+      hoseConnected: Date;
+      hoseDisconnected: Date;
    }
-   export enum EventType {
-      ARRIVAL,
-      DEPARTURE,
-      DELAY,
-   }
-   export class Vessel extends Asset {
-      imoNumber: string;
-      name: string;
+   export class Loading extends Asset {
+      loadingId: string;
+      nomination: Nomination;
+      BLQuantity: number;
    }
    export class Terminal extends Participant {
       terminalId: string;
@@ -100,14 +89,16 @@ import {Event} from './org.hyperledger.composer.system';
       desc: string;
       email: string;
    }
+   export class Verification extends Transaction {
+      nomination: Nomination;
+      verified: boolean;
+      verifiedBy: Participant;
+   }
    export class UpdateETA extends Transaction {
-      contract: Contract;
+      nomination: Nomination;
       newETA: Date;
    }
-   export class AddEvent extends Transaction {
-      contract: Contract;
-      eventId: string;
-      description: string;
-      type: EventType;
+   export class SetDischargeTimestamp extends Transaction {
+      discharge: Discharge;
    }
 // }

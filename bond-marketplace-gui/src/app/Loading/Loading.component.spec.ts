@@ -21,28 +21,28 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Configuration } from '../configuration';
 import { DataService } from '../data.service';
-import { VesselComponent } from './Vessel.component';
-import {VesselService} from './Vessel.service';
-describe('VesselComponent', () => {
-  let component: VesselComponent;
-  let fixture: ComponentFixture<VesselComponent>;
+import { LoadingComponent } from './Loading.component';
+import {LoadingService} from './Loading.service';
+describe('LoadingComponent', () => {
+  let component: LoadingComponent;
+  let fixture: ComponentFixture<LoadingComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VesselComponent ],
+      declarations: [ LoadingComponent ],
 imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule
   ],
-providers: [VesselService,DataService,Configuration]
+providers: [LoadingService,DataService,Configuration]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VesselComponent);
+    fixture = TestBed.createComponent(LoadingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

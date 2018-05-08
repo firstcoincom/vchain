@@ -21,28 +21,28 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Configuration } from '../configuration';
 import { DataService } from '../data.service';
-import { ContractEventComponent } from './ContractEvent.component';
-import {ContractEventService} from './ContractEvent.service';
-describe('ContractEventComponent', () => {
-  let component: ContractEventComponent;
-  let fixture: ComponentFixture<ContractEventComponent>;
+import { DischargeComponent } from './Discharge.component';
+import {DischargeService} from './Discharge.service';
+describe('DischargeComponent', () => {
+  let component: DischargeComponent;
+  let fixture: ComponentFixture<DischargeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContractEventComponent ],
+      declarations: [ DischargeComponent ],
 imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule
   ],
-providers: [ContractEventService,DataService,Configuration]
+providers: [DischargeService,DataService,Configuration]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContractEventComponent);
+    fixture = TestBed.createComponent(DischargeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

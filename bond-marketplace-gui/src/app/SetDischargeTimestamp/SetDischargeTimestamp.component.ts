@@ -14,43 +14,51 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { VesselService } from './Vessel.service';
+import { SetDischargeTimestampService } from './SetDischargeTimestamp.service';
 import 'rxjs/add/operator/toPromise';
 @Component({
-	selector: 'app-Vessel',
-	templateUrl: './Vessel.component.html',
-	styleUrls: ['./Vessel.component.css'],
-  providers: [VesselService]
+	selector: 'app-SetDischargeTimestamp',
+	templateUrl: './SetDischargeTimestamp.component.html',
+	styleUrls: ['./SetDischargeTimestamp.component.css'],
+  providers: [SetDischargeTimestampService]
 })
-export class VesselComponent implements OnInit {
+export class SetDischargeTimestampComponent implements OnInit {
 
   myForm: FormGroup;
 
-  private allAssets;
-  private asset;
+  private allTransactions;
+  private Transaction;
   private currentId;
 	private errorMessage;
 
   
       
-          imoNumber = new FormControl("", Validators.required);
+          discharge = new FormControl("", Validators.required);
         
   
       
-          name = new FormControl("", Validators.required);
+          transactionId = new FormControl("", Validators.required);
+        
+  
+      
+          timestamp = new FormControl("", Validators.required);
         
   
 
 
-  constructor(private serviceVessel:VesselService, fb: FormBuilder) {
+  constructor(private serviceSetDischargeTimestamp:SetDischargeTimestampService, fb: FormBuilder) {
     this.myForm = fb.group({
     
         
-          imoNumber:this.imoNumber,
+          discharge:this.discharge,
         
     
         
-          name:this.name
+          transactionId:this.transactionId,
+        
+    
+        
+          timestamp:this.timestamp
         
     
     });
@@ -62,14 +70,14 @@ export class VesselComponent implements OnInit {
 
   loadAll(): Promise<any> {
     let tempList = [];
-    return this.serviceVessel.getAll()
+    return this.serviceSetDischargeTimestamp.getAll()
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
-      result.forEach(asset => {
-        tempList.push(asset);
+      result.forEach(transaction => {
+        tempList.push(transaction);
       });
-      this.allAssets = tempList;
+      this.allTransactions = tempList;
     })
     .catch((error) => {
         if(error == 'Server error'){
@@ -86,7 +94,7 @@ export class VesselComponent implements OnInit {
 
 	/**
    * Event handler for changing the checked state of a checkbox (handles array enumeration values)
-   * @param {String} name - the name of the asset field to update
+   * @param {String} name - the name of the transaction field to update
    * @param {any} value - the enumeration value for which to toggle the checked state
    */
   changeArrayValue(name: string, value: any): void {
@@ -100,25 +108,29 @@ export class VesselComponent implements OnInit {
 
 	/**
 	 * Checkbox helper, determining whether an enumeration value should be selected or not (for array enumeration values
-   * only). This is used for checkboxes in the asset updateDialog.
-   * @param {String} name - the name of the asset field to check
+   * only). This is used for checkboxes in the transaction updateDialog.
+   * @param {String} name - the name of the transaction field to check
    * @param {any} value - the enumeration value to check for
-   * @return {Boolean} whether the specified asset field contains the provided value
+   * @return {Boolean} whether the specified transaction field contains the provided value
    */
   hasArrayValue(name: string, value: any): boolean {
     return this[name].value.indexOf(value) !== -1;
   }
 
-  addAsset(form: any): Promise<any> {
-    this.asset = {
-      $class: "firstcoin.shipping.Vessel",
+  addTransaction(form: any): Promise<any> {
+    this.Transaction = {
+      $class: "firstcoin.shipping.SetDischargeTimestamp",
       
         
-          "imoNumber":this.imoNumber.value,
+          "discharge":this.discharge.value,
         
       
         
-          "name":this.name.value
+          "transactionId":this.transactionId.value,
+        
+      
+        
+          "timestamp":this.timestamp.value
         
       
     };
@@ -126,27 +138,35 @@ export class VesselComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "imoNumber":null,
+          "discharge":null,
         
       
         
-          "name":null
+          "transactionId":null,
+        
+      
+        
+          "timestamp":null
         
       
     });
 
-    return this.serviceVessel.addAsset(this.asset)
+    return this.serviceSetDischargeTimestamp.addTransaction(this.Transaction)
     .toPromise()
     .then(() => {
 			this.errorMessage = null;
       this.myForm.setValue({
       
         
-          "imoNumber":null,
+          "discharge":null,
         
       
         
-          "name":null 
+          "transactionId":null,
+        
+      
+        
+          "timestamp":null 
         
       
       });
@@ -162,23 +182,29 @@ export class VesselComponent implements OnInit {
   }
 
 
-   updateAsset(form: any): Promise<any> {
-    this.asset = {
-      $class: "firstcoin.shipping.Vessel",
+   updateTransaction(form: any): Promise<any> {
+    this.Transaction = {
+      $class: "firstcoin.shipping.SetDischargeTimestamp",
       
+        
+          
+            "discharge":this.discharge.value,
+          
+        
+    
         
           
         
     
         
           
-            "name":this.name.value
+            "timestamp":this.timestamp.value
           
         
     
     };
 
-    return this.serviceVessel.updateAsset(form.get("imoNumber").value,this.asset)
+    return this.serviceSetDischargeTimestamp.updateTransaction(form.get("transactionId").value,this.Transaction)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -197,9 +223,9 @@ export class VesselComponent implements OnInit {
   }
 
 
-  deleteAsset(): Promise<any> {
+  deleteTransaction(): Promise<any> {
 
-    return this.serviceVessel.deleteAsset(this.currentId)
+    return this.serviceSetDischargeTimestamp.deleteTransaction(this.currentId)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -223,18 +249,22 @@ export class VesselComponent implements OnInit {
 
   getForm(id: any): Promise<any>{
 
-    return this.serviceVessel.getAsset(id)
+    return this.serviceSetDischargeTimestamp.getTransaction(id)
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
       let formObject = {
         
           
-            "imoNumber":null,
+            "discharge":null,
           
         
           
-            "name":null 
+            "transactionId":null,
+          
+        
+          
+            "timestamp":null 
           
         
       };
@@ -242,20 +272,28 @@ export class VesselComponent implements OnInit {
 
 
       
-        if(result.imoNumber){
+        if(result.discharge){
           
-            formObject.imoNumber = result.imoNumber;
+            formObject.discharge = result.discharge;
           
         }else{
-          formObject.imoNumber = null;
+          formObject.discharge = null;
         }
       
-        if(result.name){
+        if(result.transactionId){
           
-            formObject.name = result.name;
+            formObject.transactionId = result.transactionId;
           
         }else{
-          formObject.name = null;
+          formObject.transactionId = null;
+        }
+      
+        if(result.timestamp){
+          
+            formObject.timestamp = result.timestamp;
+          
+        }else{
+          formObject.timestamp = null;
         }
       
 
@@ -280,14 +318,19 @@ export class VesselComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "imoNumber":null,
+          "discharge":null,
         
       
         
-          "name":null 
+          "transactionId":null,
+        
+      
+        
+          "timestamp":null 
         
       
       });
   }
 
 }
+

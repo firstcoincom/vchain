@@ -22,12 +22,9 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 // import { TransactionComponent } from './Transaction/Transaction.component'
 
-import { ContractComponent } from './Contract/Contract.component';
-import { Option1Component } from './Option1/Option1.component';
-import { Option2Component } from './Option2/Option2.component';
-import { Option3Component } from './Option3/Option3.component';
-import { ContractEventComponent } from './ContractEvent/ContractEvent.component';
-import { VesselComponent } from './Vessel/Vessel.component';
+import { NominationComponent } from './Nomination/Nomination.component';
+import { DischargeComponent } from './Discharge/Discharge.component';
+import { LoadingComponent } from './Loading/Loading.component';
 
 
   import { TerminalComponent } from './Terminal/Terminal.component';
@@ -39,20 +36,18 @@ import { VesselComponent } from './Vessel/Vessel.component';
   import { VoyageManagerComponent } from './VoyageManager/VoyageManager.component';
 
 
+  import { VerificationComponent } from './Verification/Verification.component';
   import { UpdateETAComponent } from './UpdateETA/UpdateETA.component';
-  import { AddEventComponent } from './AddEvent/AddEvent.component';
+  import { SetDischargeTimestampComponent } from './SetDischargeTimestamp/SetDischargeTimestamp.component';
 @NgModule({
   declarations: [
     AppComponent,
 		HomeComponent,
     // TransactionComponent,
-    ContractComponent,
-    Option1Component,
-    Option2Component,
-    Option3Component,
-    ContractEventComponent,
+    NominationComponent,
+    DischargeComponent,
     
-    VesselComponent
+    LoadingComponent
     ,
 
     TerminalComponent,
@@ -65,9 +60,10 @@ import { VesselComponent } from './Vessel/Vessel.component';
       VoyageManagerComponent
       ,
 
-    UpdateETAComponent,
+    VerificationComponent,
+        UpdateETAComponent,
         
-        AddEventComponent
+        SetDischargeTimestampComponent
         
   ],
   imports: [

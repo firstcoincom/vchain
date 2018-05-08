@@ -14,15 +14,15 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Option1Service } from './Option1.service';
+import { DischargeService } from './Discharge.service';
 import 'rxjs/add/operator/toPromise';
 @Component({
-	selector: 'app-Option1',
-	templateUrl: './Option1.component.html',
-	styleUrls: ['./Option1.component.css'],
-  providers: [Option1Service]
+	selector: 'app-Discharge',
+	templateUrl: './Discharge.component.html',
+	styleUrls: ['./Discharge.component.css'],
+  providers: [DischargeService]
 })
-export class Option1Component implements OnInit {
+export class DischargeComponent implements OnInit {
 
   myForm: FormGroup;
 
@@ -33,24 +33,40 @@ export class Option1Component implements OnInit {
 
   
       
-          optionId = new FormControl("", Validators.required);
+          dischargeId = new FormControl("", Validators.required);
         
   
       
-          rate = new FormControl("", Validators.required);
+          nomination = new FormControl("", Validators.required);
+        
+  
+      
+          hoseConnected = new FormControl("", Validators.required);
+        
+  
+      
+          hoseDisconnected = new FormControl("", Validators.required);
         
   
 
 
-  constructor(private serviceOption1:Option1Service, fb: FormBuilder) {
+  constructor(private serviceDischarge:DischargeService, fb: FormBuilder) {
     this.myForm = fb.group({
     
         
-          optionId:this.optionId,
+          dischargeId:this.dischargeId,
         
     
         
-          rate:this.rate
+          nomination:this.nomination,
+        
+    
+        
+          hoseConnected:this.hoseConnected,
+        
+    
+        
+          hoseDisconnected:this.hoseDisconnected
         
     
     });
@@ -62,7 +78,7 @@ export class Option1Component implements OnInit {
 
   loadAll(): Promise<any> {
     let tempList = [];
-    return this.serviceOption1.getAll()
+    return this.serviceDischarge.getAll()
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
@@ -111,14 +127,22 @@ export class Option1Component implements OnInit {
 
   addAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.Option1",
+      $class: "firstcoin.shipping.Discharge",
       
         
-          "optionId":this.optionId.value,
+          "dischargeId":this.dischargeId.value,
         
       
         
-          "rate":this.rate.value
+          "nomination":this.nomination.value,
+        
+      
+        
+          "hoseConnected":this.hoseConnected.value,
+        
+      
+        
+          "hoseDisconnected":this.hoseDisconnected.value
         
       
     };
@@ -126,27 +150,43 @@ export class Option1Component implements OnInit {
     this.myForm.setValue({
       
         
-          "optionId":null,
+          "dischargeId":null,
         
       
         
-          "rate":null
+          "nomination":null,
+        
+      
+        
+          "hoseConnected":null,
+        
+      
+        
+          "hoseDisconnected":null
         
       
     });
 
-    return this.serviceOption1.addAsset(this.asset)
+    return this.serviceDischarge.addAsset(this.asset)
     .toPromise()
     .then(() => {
 			this.errorMessage = null;
       this.myForm.setValue({
       
         
-          "optionId":null,
+          "dischargeId":null,
         
       
         
-          "rate":null 
+          "nomination":null,
+        
+      
+        
+          "hoseConnected":null,
+        
+      
+        
+          "hoseDisconnected":null 
         
       
       });
@@ -164,7 +204,7 @@ export class Option1Component implements OnInit {
 
    updateAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.Option1",
+      $class: "firstcoin.shipping.Discharge",
       
         
           
@@ -172,13 +212,25 @@ export class Option1Component implements OnInit {
     
         
           
-            "rate":this.rate.value
+            "nomination":this.nomination.value,
+          
+        
+    
+        
+          
+            "hoseConnected":this.hoseConnected.value,
+          
+        
+    
+        
+          
+            "hoseDisconnected":this.hoseDisconnected.value
           
         
     
     };
 
-    return this.serviceOption1.updateAsset(form.get("optionId").value,this.asset)
+    return this.serviceDischarge.updateAsset(form.get("dischargeId").value,this.asset)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -199,7 +251,7 @@ export class Option1Component implements OnInit {
 
   deleteAsset(): Promise<any> {
 
-    return this.serviceOption1.deleteAsset(this.currentId)
+    return this.serviceDischarge.deleteAsset(this.currentId)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -223,18 +275,26 @@ export class Option1Component implements OnInit {
 
   getForm(id: any): Promise<any>{
 
-    return this.serviceOption1.getAsset(id)
+    return this.serviceDischarge.getAsset(id)
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
       let formObject = {
         
           
-            "optionId":null,
+            "dischargeId":null,
           
         
           
-            "rate":null 
+            "nomination":null,
+          
+        
+          
+            "hoseConnected":null,
+          
+        
+          
+            "hoseDisconnected":null 
           
         
       };
@@ -242,20 +302,36 @@ export class Option1Component implements OnInit {
 
 
       
-        if(result.optionId){
+        if(result.dischargeId){
           
-            formObject.optionId = result.optionId;
+            formObject.dischargeId = result.dischargeId;
           
         }else{
-          formObject.optionId = null;
+          formObject.dischargeId = null;
         }
       
-        if(result.rate){
+        if(result.nomination){
           
-            formObject.rate = result.rate;
+            formObject.nomination = result.nomination;
           
         }else{
-          formObject.rate = null;
+          formObject.nomination = null;
+        }
+      
+        if(result.hoseConnected){
+          
+            formObject.hoseConnected = result.hoseConnected;
+          
+        }else{
+          formObject.hoseConnected = null;
+        }
+      
+        if(result.hoseDisconnected){
+          
+            formObject.hoseDisconnected = result.hoseDisconnected;
+          
+        }else{
+          formObject.hoseDisconnected = null;
         }
       
 
@@ -280,11 +356,19 @@ export class Option1Component implements OnInit {
     this.myForm.setValue({
       
         
-          "optionId":null,
+          "dischargeId":null,
         
       
         
-          "rate":null 
+          "nomination":null,
+        
+      
+        
+          "hoseConnected":null,
+        
+      
+        
+          "hoseDisconnected":null 
         
       
       });

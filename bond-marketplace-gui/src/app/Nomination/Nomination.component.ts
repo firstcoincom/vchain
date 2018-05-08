@@ -14,15 +14,15 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { ContractService } from './Contract.service';
+import { NominationService } from './Nomination.service';
 import 'rxjs/add/operator/toPromise';
 @Component({
-	selector: 'app-Contract',
-	templateUrl: './Contract.component.html',
-	styleUrls: ['./Contract.component.css'],
-  providers: [ContractService]
+	selector: 'app-Nomination',
+	templateUrl: './Nomination.component.html',
+	styleUrls: ['./Nomination.component.css'],
+  providers: [NominationService]
 })
-export class ContractComponent implements OnInit {
+export class NominationComponent implements OnInit {
 
   myForm: FormGroup;
 
@@ -33,11 +33,15 @@ export class ContractComponent implements OnInit {
 
   
       
-          contractId = new FormControl("", Validators.required);
+          nominationId = new FormControl("", Validators.required);
         
   
       
           vesselName = new FormControl("", Validators.required);
+        
+  
+      
+          IMONumber = new FormControl("", Validators.required);
         
   
       
@@ -101,19 +105,31 @@ export class ContractComponent implements OnInit {
         
   
       
-          opt1 = new FormControl("", Validators.required);
+          option1 = new FormControl("", Validators.required);
         
   
       
-          opt2 = new FormControl("", Validators.required);
+          option2 = new FormControl("", Validators.required);
         
   
       
-          opt3 = new FormControl("", Validators.required);
+          option3 = new FormControl("", Validators.required);
         
   
       
-          allowedLayTime = new FormControl("", Validators.required);
+          allowedLayTimeHours = new FormControl("", Validators.required);
+        
+  
+      
+          chartererEmail = new FormControl("", Validators.required);
+        
+  
+      
+          voyageManagerEmail = new FormControl("", Validators.required);
+        
+  
+      
+          shippingCompanyEmail = new FormControl("", Validators.required);
         
   
       
@@ -125,20 +141,28 @@ export class ContractComponent implements OnInit {
         
   
       
-          validated = new FormControl("", Validators.required);
+          madeBy = new FormControl("", Validators.required);
+        
+  
+      
+          verified = new FormControl("", Validators.required);
         
   
 
 
-  constructor(private serviceContract:ContractService, fb: FormBuilder) {
+  constructor(private serviceNomination:NominationService, fb: FormBuilder) {
     this.myForm = fb.group({
     
         
-          contractId:this.contractId,
+          nominationId:this.nominationId,
         
     
         
           vesselName:this.vesselName,
+        
+    
+        
+          IMONumber:this.IMONumber,
         
     
         
@@ -202,19 +226,31 @@ export class ContractComponent implements OnInit {
         
     
         
-          opt1:this.opt1,
+          option1:this.option1,
         
     
         
-          opt2:this.opt2,
+          option2:this.option2,
         
     
         
-          opt3:this.opt3,
+          option3:this.option3,
         
     
         
-          allowedLayTime:this.allowedLayTime,
+          allowedLayTimeHours:this.allowedLayTimeHours,
+        
+    
+        
+          chartererEmail:this.chartererEmail,
+        
+    
+        
+          voyageManagerEmail:this.voyageManagerEmail,
+        
+    
+        
+          shippingCompanyEmail:this.shippingCompanyEmail,
         
     
         
@@ -226,7 +262,11 @@ export class ContractComponent implements OnInit {
         
     
         
-          validated:this.validated
+          madeBy:this.madeBy,
+        
+    
+        
+          verified:this.verified
         
     
     });
@@ -238,7 +278,7 @@ export class ContractComponent implements OnInit {
 
   loadAll(): Promise<any> {
     let tempList = [];
-    return this.serviceContract.getAll()
+    return this.serviceNomination.getAll()
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
@@ -287,14 +327,18 @@ export class ContractComponent implements OnInit {
 
   addAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.Contract",
+      $class: "firstcoin.shipping.Nomination",
       
         
-          "contractId":this.contractId.value,
+          "nominationId":this.nominationId.value,
         
       
         
           "vesselName":this.vesselName.value,
+        
+      
+        
+          "IMONumber":this.IMONumber.value,
         
       
         
@@ -358,19 +402,31 @@ export class ContractComponent implements OnInit {
         
       
         
-          "opt1":this.opt1.value,
+          "option1":this.option1.value,
         
       
         
-          "opt2":this.opt2.value,
+          "option2":this.option2.value,
         
       
         
-          "opt3":this.opt3.value,
+          "option3":this.option3.value,
         
       
         
-          "allowedLayTime":this.allowedLayTime.value,
+          "allowedLayTimeHours":this.allowedLayTimeHours.value,
+        
+      
+        
+          "chartererEmail":this.chartererEmail.value,
+        
+      
+        
+          "voyageManagerEmail":this.voyageManagerEmail.value,
+        
+      
+        
+          "shippingCompanyEmail":this.shippingCompanyEmail.value,
         
       
         
@@ -382,7 +438,11 @@ export class ContractComponent implements OnInit {
         
       
         
-          "validated":this.validated.value
+          "madeBy":this.madeBy.value,
+        
+      
+        
+          "verified":this.verified.value
         
       
     };
@@ -390,11 +450,15 @@ export class ContractComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "contractId":null,
+          "nominationId":null,
         
       
         
           "vesselName":null,
+        
+      
+        
+          "IMONumber":null,
         
       
         
@@ -458,19 +522,31 @@ export class ContractComponent implements OnInit {
         
       
         
-          "opt1":null,
+          "option1":null,
         
       
         
-          "opt2":null,
+          "option2":null,
         
       
         
-          "opt3":null,
+          "option3":null,
         
       
         
-          "allowedLayTime":null,
+          "allowedLayTimeHours":null,
+        
+      
+        
+          "chartererEmail":null,
+        
+      
+        
+          "voyageManagerEmail":null,
+        
+      
+        
+          "shippingCompanyEmail":null,
         
       
         
@@ -482,23 +558,31 @@ export class ContractComponent implements OnInit {
         
       
         
-          "validated":null
+          "madeBy":null,
+        
+      
+        
+          "verified":null
         
       
     });
 
-    return this.serviceContract.addAsset(this.asset)
+    return this.serviceNomination.addAsset(this.asset)
     .toPromise()
     .then(() => {
 			this.errorMessage = null;
       this.myForm.setValue({
       
         
-          "contractId":null,
+          "nominationId":null,
         
       
         
           "vesselName":null,
+        
+      
+        
+          "IMONumber":null,
         
       
         
@@ -562,19 +646,31 @@ export class ContractComponent implements OnInit {
         
       
         
-          "opt1":null,
+          "option1":null,
         
       
         
-          "opt2":null,
+          "option2":null,
         
       
         
-          "opt3":null,
+          "option3":null,
         
       
         
-          "allowedLayTime":null,
+          "allowedLayTimeHours":null,
+        
+      
+        
+          "chartererEmail":null,
+        
+      
+        
+          "voyageManagerEmail":null,
+        
+      
+        
+          "shippingCompanyEmail":null,
         
       
         
@@ -586,7 +682,11 @@ export class ContractComponent implements OnInit {
         
       
         
-          "validated":null 
+          "madeBy":null,
+        
+      
+        
+          "verified":null 
         
       
       });
@@ -604,7 +704,7 @@ export class ContractComponent implements OnInit {
 
    updateAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.Contract",
+      $class: "firstcoin.shipping.Nomination",
       
         
           
@@ -613,6 +713,12 @@ export class ContractComponent implements OnInit {
         
           
             "vesselName":this.vesselName.value,
+          
+        
+    
+        
+          
+            "IMONumber":this.IMONumber.value,
           
         
     
@@ -708,25 +814,43 @@ export class ContractComponent implements OnInit {
     
         
           
-            "opt1":this.opt1.value,
+            "option1":this.option1.value,
           
         
     
         
           
-            "opt2":this.opt2.value,
+            "option2":this.option2.value,
           
         
     
         
           
-            "opt3":this.opt3.value,
+            "option3":this.option3.value,
           
         
     
         
           
-            "allowedLayTime":this.allowedLayTime.value,
+            "allowedLayTimeHours":this.allowedLayTimeHours.value,
+          
+        
+    
+        
+          
+            "chartererEmail":this.chartererEmail.value,
+          
+        
+    
+        
+          
+            "voyageManagerEmail":this.voyageManagerEmail.value,
+          
+        
+    
+        
+          
+            "shippingCompanyEmail":this.shippingCompanyEmail.value,
           
         
     
@@ -744,13 +868,19 @@ export class ContractComponent implements OnInit {
     
         
           
-            "validated":this.validated.value
+            "madeBy":this.madeBy.value,
+          
+        
+    
+        
+          
+            "verified":this.verified.value
           
         
     
     };
 
-    return this.serviceContract.updateAsset(form.get("contractId").value,this.asset)
+    return this.serviceNomination.updateAsset(form.get("nominationId").value,this.asset)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -771,7 +901,7 @@ export class ContractComponent implements OnInit {
 
   deleteAsset(): Promise<any> {
 
-    return this.serviceContract.deleteAsset(this.currentId)
+    return this.serviceNomination.deleteAsset(this.currentId)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -795,18 +925,22 @@ export class ContractComponent implements OnInit {
 
   getForm(id: any): Promise<any>{
 
-    return this.serviceContract.getAsset(id)
+    return this.serviceNomination.getAsset(id)
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
       let formObject = {
         
           
-            "contractId":null,
+            "nominationId":null,
           
         
           
             "vesselName":null,
+          
+        
+          
+            "IMONumber":null,
           
         
           
@@ -870,19 +1004,31 @@ export class ContractComponent implements OnInit {
           
         
           
-            "opt1":null,
+            "option1":null,
           
         
           
-            "opt2":null,
+            "option2":null,
           
         
           
-            "opt3":null,
+            "option3":null,
           
         
           
-            "allowedLayTime":null,
+            "allowedLayTimeHours":null,
+          
+        
+          
+            "chartererEmail":null,
+          
+        
+          
+            "voyageManagerEmail":null,
+          
+        
+          
+            "shippingCompanyEmail":null,
           
         
           
@@ -894,7 +1040,11 @@ export class ContractComponent implements OnInit {
           
         
           
-            "validated":null 
+            "madeBy":null,
+          
+        
+          
+            "verified":null 
           
         
       };
@@ -902,12 +1052,12 @@ export class ContractComponent implements OnInit {
 
 
       
-        if(result.contractId){
+        if(result.nominationId){
           
-            formObject.contractId = result.contractId;
+            formObject.nominationId = result.nominationId;
           
         }else{
-          formObject.contractId = null;
+          formObject.nominationId = null;
         }
       
         if(result.vesselName){
@@ -916,6 +1066,14 @@ export class ContractComponent implements OnInit {
           
         }else{
           formObject.vesselName = null;
+        }
+      
+        if(result.IMONumber){
+          
+            formObject.IMONumber = result.IMONumber;
+          
+        }else{
+          formObject.IMONumber = null;
         }
       
         if(result.voyageNumber){
@@ -1038,36 +1196,60 @@ export class ContractComponent implements OnInit {
           formObject.charterer = null;
         }
       
-        if(result.opt1){
+        if(result.option1){
           
-            formObject.opt1 = result.opt1;
+            formObject.option1 = result.option1;
           
         }else{
-          formObject.opt1 = null;
+          formObject.option1 = null;
         }
       
-        if(result.opt2){
+        if(result.option2){
           
-            formObject.opt2 = result.opt2;
+            formObject.option2 = result.option2;
           
         }else{
-          formObject.opt2 = null;
+          formObject.option2 = null;
         }
       
-        if(result.opt3){
+        if(result.option3){
           
-            formObject.opt3 = result.opt3;
+            formObject.option3 = result.option3;
           
         }else{
-          formObject.opt3 = null;
+          formObject.option3 = null;
         }
       
-        if(result.allowedLayTime){
+        if(result.allowedLayTimeHours){
           
-            formObject.allowedLayTime = result.allowedLayTime;
+            formObject.allowedLayTimeHours = result.allowedLayTimeHours;
           
         }else{
-          formObject.allowedLayTime = null;
+          formObject.allowedLayTimeHours = null;
+        }
+      
+        if(result.chartererEmail){
+          
+            formObject.chartererEmail = result.chartererEmail;
+          
+        }else{
+          formObject.chartererEmail = null;
+        }
+      
+        if(result.voyageManagerEmail){
+          
+            formObject.voyageManagerEmail = result.voyageManagerEmail;
+          
+        }else{
+          formObject.voyageManagerEmail = null;
+        }
+      
+        if(result.shippingCompanyEmail){
+          
+            formObject.shippingCompanyEmail = result.shippingCompanyEmail;
+          
+        }else{
+          formObject.shippingCompanyEmail = null;
         }
       
         if(result.maxQuantity){
@@ -1086,12 +1268,20 @@ export class ContractComponent implements OnInit {
           formObject.minQuantity = null;
         }
       
-        if(result.validated){
+        if(result.madeBy){
           
-            formObject.validated = result.validated;
+            formObject.madeBy = result.madeBy;
           
         }else{
-          formObject.validated = null;
+          formObject.madeBy = null;
+        }
+      
+        if(result.verified){
+          
+            formObject.verified = result.verified;
+          
+        }else{
+          formObject.verified = null;
         }
       
 
@@ -1116,11 +1306,15 @@ export class ContractComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "contractId":null,
+          "nominationId":null,
         
       
         
           "vesselName":null,
+        
+      
+        
+          "IMONumber":null,
         
       
         
@@ -1184,19 +1378,31 @@ export class ContractComponent implements OnInit {
         
       
         
-          "opt1":null,
+          "option1":null,
         
       
         
-          "opt2":null,
+          "option2":null,
         
       
         
-          "opt3":null,
+          "option3":null,
         
       
         
-          "allowedLayTime":null,
+          "allowedLayTimeHours":null,
+        
+      
+        
+          "chartererEmail":null,
+        
+      
+        
+          "voyageManagerEmail":null,
+        
+      
+        
+          "shippingCompanyEmail":null,
         
       
         
@@ -1208,7 +1414,11 @@ export class ContractComponent implements OnInit {
         
       
         
-          "validated":null 
+          "madeBy":null,
+        
+      
+        
+          "verified":null 
         
       
       });

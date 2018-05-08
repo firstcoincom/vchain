@@ -27,76 +27,9 @@
 
             
               <div class="form-group text-left">
-                <label for="contract">contract</label>
+                <label for="discharge">discharge</label>
                 
-                    <textarea formControlName="contract" class="form-control" rows="3"></textarea>
-                
-              </div>
-            
-          
-
-            
-              <div class="form-group text-left">
-                <label for="eventId">eventId</label>
-                
-                  <input formControlName="eventId" type="text" class="form-control">
-                
-              </div>
-            
-          
-
-            
-              <div class="form-group text-left">
-                <label for="description">description</label>
-                
-                  <input formControlName="description" type="text" class="form-control">
-                
-              </div>
-            
-          
-
-            
-              <label for="type">type</label>
-              <div class="checkbox">
-                
-                  <label>
-                    <input
-                      
-                        formControlName="type"
-                      
-                      name="type"
-                      value="ARRIVAL"
-                      type="radio"
-                      
-                    />
-                    ARRIVAL
-                  </label>
-                
-                  <label>
-                    <input
-                      
-                        formControlName="type"
-                      
-                      name="type"
-                      value="DEPARTURE"
-                      type="radio"
-                      
-                    />
-                    DEPARTURE
-                  </label>
-                
-                  <label>
-                    <input
-                      
-                        formControlName="type"
-                      
-                      name="type"
-                      value="DELAY"
-                      type="radio"
-                      
-                    />
-                    DELAY
-                  </label>
+                    <textarea formControlName="discharge" class="form-control" rows="3"></textarea>
                 
               </div>
             
@@ -149,86 +82,11 @@
 
           
             <div class="form-group text-left">
-              <label for="contract">contract</label>
+              <label for="discharge">discharge</label>
 
               
                 
-                  <textarea [ngModel]="contract" formControlName="contract" class="form-control" rows="3"></textarea>
-                
-              
-
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="eventId">eventId</label>
-
-              
-                <input [ngModel]="eventId"formControlName="eventId" type="text" class="form-control">
-              
-
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="description">description</label>
-
-              
-                <input [ngModel]="description"formControlName="description" type="text" class="form-control">
-              
-
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="type">type</label>
-
-              
-                
-                  <div class="row">
-                    <div class="col-xs-12 checkbox">
-                    
-                      <label>
-                        <input
-                          
-                            formControlName="type"
-                            [ngModel]="type"
-                          
-                          name="type"
-                          value="ARRIVAL"
-                          type="radio"
-                          
-                        />
-                        ARRIVAL
-                      </label>
-                    
-                      <label>
-                        <input
-                          
-                            formControlName="type"
-                            [ngModel]="type"
-                          
-                          name="type"
-                          value="DEPARTURE"
-                          type="radio"
-                          
-                        />
-                        DEPARTURE
-                      </label>
-                    
-                      <label>
-                        <input
-                          
-                            formControlName="type"
-                            [ngModel]="type"
-                          
-                          name="type"
-                          value="DELAY"
-                          type="radio"
-                          
-                        />
-                        DELAY
-                      </label>
-                    
-                    </div>
-                  </div>
+                  <textarea [ngModel]="discharge" formControlName="discharge" class="form-control" rows="3"></textarea>
                 
               
 
@@ -303,7 +161,7 @@
   
   <div class="row">
     <div class="col-md-9">
-        <h1 class="transaction-title" id='transactionName'>AddEvent</h1>
+        <h1 class="transaction-title" id='transactionName'>SetDischargeTimestamp</h1>
     </div>
     <div class="col-md-3">
     </div>
@@ -317,13 +175,7 @@
           <br>
           <ul>
             
-              <li><span class="attribute"><b>contract</b></span></li>
-            
-              <li><span class="attribute"><b>eventId</b></span></li>
-            
-              <li><span class="attribute"><b>description</b></span></li>
-            
-              <li><span class="attribute"><b>type</b></span></li>
+              <li><span class="attribute"><b>discharge</b></span></li>
             
               <li><span class="attribute"><b>transactionId</b></span></li>
             

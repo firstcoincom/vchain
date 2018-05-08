@@ -31,13 +31,13 @@ describe('Starting tests for bond-marketplace-gui', function() {
     })
   });
 
-  it('network-name should be bond-marketplace@0.0.39',() => {
+  it('network-name should be bond-marketplace@0.0.49',() => {
     element(by.css('.network-name')).getWebElement()
     .then((webElement) => {
       return webElement.getText();
     })
     .then((txt) => {
-      expect(txt).toBe('bond-marketplace@0.0.39.bna');
+      expect(txt).toBe('bond-marketplace@0.0.49.bna');
     });
   });
 
@@ -52,111 +52,57 @@ describe('Starting tests for bond-marketplace-gui', function() {
   });
 
   
-    it('Contract component should be loadable',() => {
-      page.navigateTo('/Contract');
+    it('Nomination component should be loadable',() => {
+      page.navigateTo('/Nomination');
       browser.findElement(by.id('assetName'))
       .then((assetName) => {
         return assetName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('Contract');
+        expect(txt).toBe('Nomination');
       });
     });
 
-    it('Contract table should have 25 columns',() => {
-      page.navigateTo('/Contract');
+    it('Nomination table should have 30 columns',() => {
+      page.navigateTo('/Nomination');
       element.all(by.css('.thead-cols th')).then(function(arr) {
-        expect(arr.length).toEqual(25); // Addition of 1 for 'Action' column
+        expect(arr.length).toEqual(30); // Addition of 1 for 'Action' column
       });
     });
   
-    it('Option1 component should be loadable',() => {
-      page.navigateTo('/Option1');
+    it('Discharge component should be loadable',() => {
+      page.navigateTo('/Discharge');
       browser.findElement(by.id('assetName'))
       .then((assetName) => {
         return assetName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('Option1');
+        expect(txt).toBe('Discharge');
       });
     });
 
-    it('Option1 table should have 3 columns',() => {
-      page.navigateTo('/Option1');
+    it('Discharge table should have 5 columns',() => {
+      page.navigateTo('/Discharge');
       element.all(by.css('.thead-cols th')).then(function(arr) {
-        expect(arr.length).toEqual(3); // Addition of 1 for 'Action' column
+        expect(arr.length).toEqual(5); // Addition of 1 for 'Action' column
       });
     });
   
-    it('Option2 component should be loadable',() => {
-      page.navigateTo('/Option2');
+    it('Loading component should be loadable',() => {
+      page.navigateTo('/Loading');
       browser.findElement(by.id('assetName'))
       .then((assetName) => {
         return assetName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('Option2');
+        expect(txt).toBe('Loading');
       });
     });
 
-    it('Option2 table should have 3 columns',() => {
-      page.navigateTo('/Option2');
+    it('Loading table should have 4 columns',() => {
+      page.navigateTo('/Loading');
       element.all(by.css('.thead-cols th')).then(function(arr) {
-        expect(arr.length).toEqual(3); // Addition of 1 for 'Action' column
-      });
-    });
-  
-    it('Option3 component should be loadable',() => {
-      page.navigateTo('/Option3');
-      browser.findElement(by.id('assetName'))
-      .then((assetName) => {
-        return assetName.getText();
-      })
-      .then((txt) => {
-        expect(txt).toBe('Option3');
-      });
-    });
-
-    it('Option3 table should have 3 columns',() => {
-      page.navigateTo('/Option3');
-      element.all(by.css('.thead-cols th')).then(function(arr) {
-        expect(arr.length).toEqual(3); // Addition of 1 for 'Action' column
-      });
-    });
-  
-    it('ContractEvent component should be loadable',() => {
-      page.navigateTo('/ContractEvent');
-      browser.findElement(by.id('assetName'))
-      .then((assetName) => {
-        return assetName.getText();
-      })
-      .then((txt) => {
-        expect(txt).toBe('ContractEvent');
-      });
-    });
-
-    it('ContractEvent table should have 7 columns',() => {
-      page.navigateTo('/ContractEvent');
-      element.all(by.css('.thead-cols th')).then(function(arr) {
-        expect(arr.length).toEqual(7); // Addition of 1 for 'Action' column
-      });
-    });
-  
-    it('Vessel component should be loadable',() => {
-      page.navigateTo('/Vessel');
-      browser.findElement(by.id('assetName'))
-      .then((assetName) => {
-        return assetName.getText();
-      })
-      .then((txt) => {
-        expect(txt).toBe('Vessel');
-      });
-    });
-
-    it('Vessel table should have 3 columns',() => {
-      page.navigateTo('/Vessel');
-      element.all(by.css('.thead-cols th')).then(function(arr) {
-        expect(arr.length).toEqual(3); // Addition of 1 for 'Action' column
+        expect(arr.length).toEqual(4); // Addition of 1 for 'Action' column
       });
     });
   
@@ -290,6 +236,17 @@ describe('Starting tests for bond-marketplace-gui', function() {
   
 
   
+    it('Verification component should be loadable',() => {
+      page.navigateTo('/Verification');
+      browser.findElement(by.id('transactionName'))
+      .then((transactionName) => {
+        return transactionName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('Verification');
+      });
+    });
+  
     it('UpdateETA component should be loadable',() => {
       page.navigateTo('/UpdateETA');
       browser.findElement(by.id('transactionName'))
@@ -301,14 +258,14 @@ describe('Starting tests for bond-marketplace-gui', function() {
       });
     });
   
-    it('AddEvent component should be loadable',() => {
-      page.navigateTo('/AddEvent');
+    it('SetDischargeTimestamp component should be loadable',() => {
+      page.navigateTo('/SetDischargeTimestamp');
       browser.findElement(by.id('transactionName'))
       .then((transactionName) => {
         return transactionName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('AddEvent');
+        expect(txt).toBe('SetDischargeTimestamp');
       });
     });
   
