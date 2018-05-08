@@ -32,7 +32,7 @@ asset Nomination identified by nominationId {
   o Double maxQuantity
   o Double minQuantity
   --> Participant madeBy
-  o Boolean contractVerified default = false
+  o Boolean verified default = false
 }
 
 concept FreightOption {
@@ -40,14 +40,14 @@ concept FreightOption {
   // what else does this represent?
 }
 
-enum Operation {
-  o LOADING
-  o DISCHARGING
-}
-
 concept CargoItem {
   o String name
   o String quantity
+}
+
+enum Operation {
+  o LOADING
+  o DISCHARGING
 }
 
 enum CargoType {
@@ -57,6 +57,25 @@ enum CargoType {
   o BREAK_BULK
   o RORO
 }
+
+// discharge models
+
+asset Discharge identified by dischargeId {
+  o String dischargeId
+  --> Nomination nomination
+  o DateTime hoseConnected
+  o DateTime hoseDisconnected
+}
+
+// loading models
+
+asset Loading identified by loadingId {
+  o String loadingId
+  --> Nomination nomination
+  o Double BLQuantity range=[0.0,]
+}
+
+// participants
 
 participant Terminal identified by terminalId {
   o String terminalId
@@ -88,23 +107,6 @@ participant VoyageManager identified by voyagerId {
   o String voyagerId
   o String desc
   o String email
-}
-
-// discharge models
-
-asset Discharge identified by dischargeId {
-  o String dischargeId
-  --> Nomination nomination
-  o DateTime hoseConnected
-  o DateTime hoseDisconnected
-}
-
-// loading models
-
-asset Loading identified by loadingId {
-  o String loadingId
-  --> Nomination nomination
-  o Double BLQuantity range=[0.0,]
 }
 
 // transaction models
