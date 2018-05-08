@@ -172,3 +172,8 @@ transaction CreateNomination {
   o Double maxQuantity
   o Double minQuantity
 }
+
+transaction CreateDocument {
+  o String id
+  --> Nomination nomination
+}
