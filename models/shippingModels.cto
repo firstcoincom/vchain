@@ -172,13 +172,3 @@ transaction CreateNomination {
   o Double maxQuantity
   o Double minQuantity
 }
-
-transaction CreateDischarge {
-  o String dischargeId
-  --> Nomination nomination
-}
-
-transaction CreateLoading {
-  o String loadingId
-  --> Nomination nomination
-}
