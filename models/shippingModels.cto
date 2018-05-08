@@ -76,6 +76,8 @@ asset Discharge identified by dischargeId {
 asset Loading identified by loadingId {
   o String loadingId
   --> Nomination nomination
+  o DateTime NORTendered
+  o DateTime documentsOnBoard
   o Double BLQuantity range=[0.0,]
 }
 
@@ -133,6 +135,10 @@ transaction UpdateETA {
 
 transaction SetDischargeTimestamp {
   --> Discharge discharge
+}
+
+transaction SetLoadingTimestamp {
+  --> Loading loading
 }
 
 transaction CreateNomination {
