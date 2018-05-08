@@ -65,8 +65,8 @@ enum CargoType {
 asset Discharge identified by dischargeId {
   o String dischargeId
   --> Nomination nomination
-  o DateTime hoseConnected
-  o DateTime hoseDisconnected
+  o DateTime hoseConnected optional
+  o DateTime hoseDisconnected optional
 }
 
 /*
@@ -76,8 +76,8 @@ asset Discharge identified by dischargeId {
 asset Loading identified by loadingId {
   o String loadingId
   --> Nomination nomination
-  o DateTime NORTendered
-  o DateTime documentsOnBoard
+  o DateTime NORTendered optional
+  o DateTime documentsOnBoard optional
   o Double BLQuantity range=[0.0,]
 }
 
@@ -173,7 +173,12 @@ transaction CreateNomination {
   o Double minQuantity
 }
 
-transaction CreateDocument {
-  o String id
+transaction CreateDischarge {
+  o String dischargeId
+  --> Nomination nomination
+}
+
+transaction CreateLoading {
+  o String loadingId
   --> Nomination nomination
 }
