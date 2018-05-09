@@ -28,12 +28,12 @@ asset Nomination identified by nominationId {
   o FreightOption option3
   o Integer allowedLayTimeHours
   // represent this as references to participants?
-  o String chartererEmail
-  o String voyageManagerEmail
-  o String shippingCompanyEmail
-  o Double maxQuantity
-  o Double minQuantity
-  --> Participant madeBy
+  o String chartererEmail optional
+  o String voyageManagerEmail optional
+  o String shippingCompanyEmail optional
+  o Double maxQuantity optional
+  o Double minQuantity optional
+  --> Participant madeBy optional
   o Boolean verified default = false
 }
 
@@ -45,6 +45,7 @@ concept FreightOption {
 concept CargoItem {
   o String name
   o String quantity
+  o CargoType cargoType
 }
 
 enum Operation {
@@ -134,4 +135,7 @@ transaction UpdateETA {
 
 transaction SetDischargeTimestamp {
   --> Discharge discharge
+}
+
+transaction InitializeStuff {
 }
