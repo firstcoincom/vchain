@@ -2,8 +2,8 @@
   "name": "bond-marketplace-gui",
   "description": "Hyperledger Composer Angular project",
   "version": "0.0.1",
-  "author": "vinz b",
-  "email": "vinzbalitaan@hotmail.com",
+  "author": "marc",
+  "email": "ho.mark.96@gmail.com",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=8",

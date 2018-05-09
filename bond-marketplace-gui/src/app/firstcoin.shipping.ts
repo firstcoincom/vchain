@@ -1,9 +1,8 @@
 import {Asset} from './org.hyperledger.composer.system';
-
+import {Participant} from './org.hyperledger.composer.system';
 import {Transaction} from './org.hyperledger.composer.system';
 import {Event} from './org.hyperledger.composer.system';
-import {Participant} from './org.hyperledger.composer.system';
-// export namespace firstcoin.shipping {
+// export namespace firstcoin.shipping{
    export class Nomination extends Asset {
       nominationId: string;
       vesselName: string;
@@ -41,6 +40,7 @@ import {Participant} from './org.hyperledger.composer.system';
    export class CargoItem {
       name: string;
       quantity: string;
+      cargoType: CargoType;
    }
    export enum Operation {
       LOADING,
@@ -100,5 +100,7 @@ import {Participant} from './org.hyperledger.composer.system';
    }
    export class SetDischargeTimestamp extends Transaction {
       discharge: Discharge;
+   }
+   export class InitializeStuff extends Transaction {
    }
 // }
