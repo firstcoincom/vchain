@@ -180,3 +180,17 @@ transaction CreateNomination {
   o Double maxQuantity
   o Double minQuantity
 }
+
+transaction TestTransaction {
+  o String address
+  o String subject
+  o String body
+}
+
+// events
+
+event EmailEvent {
+  o String address
+  o String subject
+  o String body
+}
