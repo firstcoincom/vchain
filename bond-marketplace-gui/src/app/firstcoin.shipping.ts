@@ -101,4 +101,7 @@ import {Participant} from './org.hyperledger.composer.system';
    export class SetDischargeTimestamp extends Transaction {
       discharge: Discharge;
    }
+   export class InitializeStuff extends Transaction {
+       
+   }
 // }

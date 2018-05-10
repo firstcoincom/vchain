@@ -34,6 +34,7 @@ import { LoadingComponent } from './Loading/Loading.component';
   import { VerificationComponent } from './Verification/Verification.component';
   import { UpdateETAComponent } from './UpdateETA/UpdateETA.component';
   import { SetDischargeTimestampComponent } from './SetDischargeTimestamp/SetDischargeTimestamp.component';  
+  import { InitializeStuffComponent } from './InitializeStuff/InitializeStuff.component';  
 const routes: Routes = [
     //  { path: 'transaction', component: TransactionComponent },
     {path: '', component: HomeComponent},
@@ -65,6 +66,8 @@ const routes: Routes = [
         { path: 'UpdateETA', component: UpdateETAComponent},
         
         { path: 'SetDischargeTimestamp', component: SetDischargeTimestampComponent},
+
+        { path: 'InitializeStuff', component: InitializeStuffComponent},
         
 		{path: '**', redirectTo:''}
 

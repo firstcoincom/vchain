@@ -39,6 +39,7 @@ import { LoadingComponent } from './Loading/Loading.component';
   import { VerificationComponent } from './Verification/Verification.component';
   import { UpdateETAComponent } from './UpdateETA/UpdateETA.component';
   import { SetDischargeTimestampComponent } from './SetDischargeTimestamp/SetDischargeTimestamp.component';
+  import { InitializeStuffComponent } from './InitializeStuff/InitializeStuff.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,8 @@ import { LoadingComponent } from './Loading/Loading.component';
     VerificationComponent,
         UpdateETAComponent,
         
-        SetDischargeTimestampComponent
+        SetDischargeTimestampComponent,
+        InitializeStuffComponent
         
   ],
   imports: [
