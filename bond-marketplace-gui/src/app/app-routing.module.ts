@@ -36,7 +36,7 @@ import { LoadingComponent } from './Loading/Loading.component';
   import { SetDischargeTimestampComponent } from './SetDischargeTimestamp/SetDischargeTimestamp.component';  
   import { InitializeStuffComponent } from './InitializeStuff/InitializeStuff.component';  
 const routes: Routes = [
-    //  { path: 'transaction', component: TransactionComponent },
+     //{ path: 'transaction', component: TransactionComponent },
     {path: '', component: HomeComponent},
 		
 		{ path: 'Nomination', component: NominationComponent},
@@ -67,6 +67,8 @@ const routes: Routes = [
         
         { path: 'SetDischargeTimestamp', component: SetDischargeTimestampComponent},
 
+        { path: 'InitializeStuff', component: InitializeStuffComponent},
+        
         { path: 'InitializeStuff', component: InitializeStuffComponent},
         
 		{path: '**', redirectTo:''}

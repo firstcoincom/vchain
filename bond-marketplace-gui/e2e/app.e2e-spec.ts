@@ -31,13 +31,13 @@ describe('Starting tests for bond-marketplace-gui', function() {
     })
   });
 
-  it('network-name should be bond-marketplace@0.0.49',() => {
+  it('network-name should be bond-marketplace@0.0.59-deploy.0',() => {
     element(by.css('.network-name')).getWebElement()
     .then((webElement) => {
       return webElement.getText();
     })
     .then((txt) => {
-      expect(txt).toBe('bond-marketplace@0.0.49.bna');
+      expect(txt).toBe('bond-marketplace@0.0.59-deploy.0.bna');
     });
   });
 
@@ -266,6 +266,17 @@ describe('Starting tests for bond-marketplace-gui', function() {
       })
       .then((txt) => {
         expect(txt).toBe('SetDischargeTimestamp');
+      });
+    });
+  
+    it('InitializeStuff component should be loadable',() => {
+      page.navigateTo('/InitializeStuff');
+      browser.findElement(by.id('transactionName'))
+      .then((transactionName) => {
+        return transactionName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('InitializeStuff');
       });
     });
   

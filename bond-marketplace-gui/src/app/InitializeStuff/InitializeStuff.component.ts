@@ -112,13 +112,13 @@ export class InitializeStuffComponent implements OnInit {
   addTransaction(form: any): Promise<any> {
     this.Transaction = {
       $class: "firstcoin.shipping.InitializeStuff",
-      
-        
+    
           "transactionId":"",
         
       
         
           "timestamp":Date.now()
+
         
       
     };

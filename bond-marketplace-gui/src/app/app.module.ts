@@ -63,7 +63,6 @@ import { LoadingComponent } from './Loading/Loading.component';
 
     VerificationComponent,
         UpdateETAComponent,
-        
         SetDischargeTimestampComponent,
         InitializeStuffComponent
         
