@@ -26,13 +26,12 @@ asset Nomination identified by nominationId {
   o FreightOption option2
   o FreightOption option3
   o Integer allowedLayTimeHours
-  // represent this as references to participants?
-  o String chartererEmail optional
-  o String voyageManagerEmail optional
-  o String shippingCompanyEmail optional
-  o Double maxQuantity optional
-  o Double minQuantity optional
-  --> Participant madeBy optional
+  --> Charterer charterer
+  --> VoyageManager voyageManager
+  --> ShippingCompany shippingCompany
+  o Double maxQuantity
+  o Double minQuantity
+  --> Participant madeBy
   o Boolean verified default = false
 }
 
