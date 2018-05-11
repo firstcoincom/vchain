@@ -1,3 +1,5 @@
+'use strict';
+
 const BusinessNetworkConnection = require("composer-client").BusinessNetworkConnection;
 const nodemailer = require('nodemailer');
 
@@ -18,7 +20,8 @@ this.businessNetworkConnection.connect("admin@bond-marketplace")
         {
             if (event.$type !== 'EmailEvent')
             {
-                return Promise();
+                console.log("Unknown event received:\n" + event);
+                return Promise.resolve();
             }
 
             // event received, time to send email

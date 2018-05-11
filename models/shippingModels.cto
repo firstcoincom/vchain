@@ -187,6 +187,10 @@ transaction TestTransaction {
   o String body
 }
 
+transaction FinalizeNomination {
+  --> Nomination nomination
+}
+
 // events
 
 event EmailEvent {

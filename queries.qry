@@ -9,12 +9,12 @@ query SelectLoadingByNomination {
   description:"Select loading document by the nomination it pertains to"
   statement:
     SELECT firstcoin.shipping.Loading
-     WHERE (nomination == _$nomination)
+     WHERE (nomination == _$id)
 }
 
 query SelectDischargeByNomination {
   description:"Select discharge document by the nomination it pertains to"
   statement:
     SELECT firstcoin.shipping.Discharge
-     WHERE (nomination == _$nomination)
+     WHERE (nomination == _$id)
 }
