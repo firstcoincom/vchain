@@ -31,13 +31,13 @@ describe('Starting tests for bond-marketplace-gui', function() {
     })
   });
 
-  it('network-name should be bond-marketplace@0.0.1',() => {
+  it('network-name should be bond-marketplace@0.0.59-deploy.0',() => {
     element(by.css('.network-name')).getWebElement()
     .then((webElement) => {
       return webElement.getText();
     })
     .then((txt) => {
-      expect(txt).toBe('bond-marketplace@0.0.1.bna');
+      expect(txt).toBe('bond-marketplace@0.0.59-deploy.0.bna');
     });
   });
 
@@ -52,19 +52,55 @@ describe('Starting tests for bond-marketplace-gui', function() {
   });
 
   
-    it('Account component should be loadable',() => {
-      page.navigateTo('/Account');
+    it('Nomination component should be loadable',() => {
+      page.navigateTo('/Nomination');
       browser.findElement(by.id('assetName'))
       .then((assetName) => {
         return assetName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('Account');
+        expect(txt).toBe('Nomination');
       });
     });
 
-    it('Account table should have 4 columns',() => {
-      page.navigateTo('/Account');
+    it('Nomination table should have 30 columns',() => {
+      page.navigateTo('/Nomination');
+      element.all(by.css('.thead-cols th')).then(function(arr) {
+        expect(arr.length).toEqual(30); // Addition of 1 for 'Action' column
+      });
+    });
+  
+    it('Discharge component should be loadable',() => {
+      page.navigateTo('/Discharge');
+      browser.findElement(by.id('assetName'))
+      .then((assetName) => {
+        return assetName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('Discharge');
+      });
+    });
+
+    it('Discharge table should have 5 columns',() => {
+      page.navigateTo('/Discharge');
+      element.all(by.css('.thead-cols th')).then(function(arr) {
+        expect(arr.length).toEqual(5); // Addition of 1 for 'Action' column
+      });
+    });
+  
+    it('Loading component should be loadable',() => {
+      page.navigateTo('/Loading');
+      browser.findElement(by.id('assetName'))
+      .then((assetName) => {
+        return assetName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('Loading');
+      });
+    });
+
+    it('Loading table should have 4 columns',() => {
+      page.navigateTo('/Loading');
       element.all(by.css('.thead-cols th')).then(function(arr) {
         expect(arr.length).toEqual(4); // Addition of 1 for 'Action' column
       });
@@ -72,19 +108,127 @@ describe('Starting tests for bond-marketplace-gui', function() {
   
 
   
-    it('Customer component should be loadable',() => {
-      page.navigateTo('/Customer');
+    it('Terminal component should be loadable',() => {
+      page.navigateTo('/Terminal');
       browser.findElement(by.id('participantName'))
       .then((participantName) => {
         return participantName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('Customer');
+        expect(txt).toBe('Terminal');
       });
     });
 
-    it('Customer table should have 4 columns',() => {
-      page.navigateTo('/Customer');
+    it('Terminal table should have 2 columns',() => {
+      page.navigateTo('/Terminal');
+      element.all(by.css('.thead-cols th')).then(function(arr) {
+        expect(arr.length).toEqual(2); // Addition of 1 for 'Action' column
+      });
+    });
+  
+    it('Pilot component should be loadable',() => {
+      page.navigateTo('/Pilot');
+      browser.findElement(by.id('participantName'))
+      .then((participantName) => {
+        return participantName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('Pilot');
+      });
+    });
+
+    it('Pilot table should have 2 columns',() => {
+      page.navigateTo('/Pilot');
+      element.all(by.css('.thead-cols th')).then(function(arr) {
+        expect(arr.length).toEqual(2); // Addition of 1 for 'Action' column
+      });
+    });
+  
+    it('Captain component should be loadable',() => {
+      page.navigateTo('/Captain');
+      browser.findElement(by.id('participantName'))
+      .then((participantName) => {
+        return participantName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('Captain');
+      });
+    });
+
+    it('Captain table should have 2 columns',() => {
+      page.navigateTo('/Captain');
+      element.all(by.css('.thead-cols th')).then(function(arr) {
+        expect(arr.length).toEqual(2); // Addition of 1 for 'Action' column
+      });
+    });
+  
+    it('TowageCompany component should be loadable',() => {
+      page.navigateTo('/TowageCompany');
+      browser.findElement(by.id('participantName'))
+      .then((participantName) => {
+        return participantName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('TowageCompany');
+      });
+    });
+
+    it('TowageCompany table should have 2 columns',() => {
+      page.navigateTo('/TowageCompany');
+      element.all(by.css('.thead-cols th')).then(function(arr) {
+        expect(arr.length).toEqual(2); // Addition of 1 for 'Action' column
+      });
+    });
+  
+    it('ShippingCompany component should be loadable',() => {
+      page.navigateTo('/ShippingCompany');
+      browser.findElement(by.id('participantName'))
+      .then((participantName) => {
+        return participantName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('ShippingCompany');
+      });
+    });
+
+    it('ShippingCompany table should have 2 columns',() => {
+      page.navigateTo('/ShippingCompany');
+      element.all(by.css('.thead-cols th')).then(function(arr) {
+        expect(arr.length).toEqual(2); // Addition of 1 for 'Action' column
+      });
+    });
+  
+    it('Charterer component should be loadable',() => {
+      page.navigateTo('/Charterer');
+      browser.findElement(by.id('participantName'))
+      .then((participantName) => {
+        return participantName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('Charterer');
+      });
+    });
+
+    it('Charterer table should have 4 columns',() => {
+      page.navigateTo('/Charterer');
+      element.all(by.css('.thead-cols th')).then(function(arr) {
+        expect(arr.length).toEqual(4); // Addition of 1 for 'Action' column
+      });
+    });
+  
+    it('VoyageManager component should be loadable',() => {
+      page.navigateTo('/VoyageManager');
+      browser.findElement(by.id('participantName'))
+      .then((participantName) => {
+        return participantName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('VoyageManager');
+      });
+    });
+
+    it('VoyageManager table should have 4 columns',() => {
+      page.navigateTo('/VoyageManager');
       element.all(by.css('.thead-cols th')).then(function(arr) {
         expect(arr.length).toEqual(4); // Addition of 1 for 'Action' column
       });
@@ -92,14 +236,47 @@ describe('Starting tests for bond-marketplace-gui', function() {
   
 
   
-    it('AccountTransfer component should be loadable',() => {
-      page.navigateTo('/AccountTransfer');
+    it('Verification component should be loadable',() => {
+      page.navigateTo('/Verification');
       browser.findElement(by.id('transactionName'))
       .then((transactionName) => {
         return transactionName.getText();
       })
       .then((txt) => {
-        expect(txt).toBe('AccountTransfer');
+        expect(txt).toBe('Verification');
+      });
+    });
+  
+    it('UpdateETA component should be loadable',() => {
+      page.navigateTo('/UpdateETA');
+      browser.findElement(by.id('transactionName'))
+      .then((transactionName) => {
+        return transactionName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('UpdateETA');
+      });
+    });
+  
+    it('SetDischargeTimestamp component should be loadable',() => {
+      page.navigateTo('/SetDischargeTimestamp');
+      browser.findElement(by.id('transactionName'))
+      .then((transactionName) => {
+        return transactionName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('SetDischargeTimestamp');
+      });
+    });
+  
+    it('InitializeStuff component should be loadable',() => {
+      page.navigateTo('/InitializeStuff');
+      browser.findElement(by.id('transactionName'))
+      .then((transactionName) => {
+        return transactionName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('InitializeStuff');
       });
     });
   

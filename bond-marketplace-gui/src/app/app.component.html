@@ -14,7 +14,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <p class="network-name">bond-marketplace@0.0.1.bna</p>
+        <p class="network-name">bond-marketplace@0.0.59-deploy.0.bna</p>
         <p class="navbar-brand">bond-marketplace-gui</p>
       </div>
       <ul class="nav navbar-nav">
@@ -22,7 +22,11 @@
             <a class="dropdown-toggle" data-toggle="dropdown">Assets</a>
             <ul class="dropdown-menu scrollable-menu">
               
-              <li><a [routerLink]="['/Account']">Account</a></li>
+              <li><a [routerLink]="['/Nomination']">Nomination</a></li>
+              
+              <li><a [routerLink]="['/Discharge']">Discharge</a></li>
+              
+              <li><a [routerLink]="['/Loading']">Loading</a></li>
               
             </ul>
         </li>
@@ -30,7 +34,19 @@
           <a class="dropdown-toggle" data-toggle="dropdown">Participants</a>
           <ul class="dropdown-menu scrollable-menu">
             
-            <li><a [routerLink]="['/Customer']">Customer</a></li>
+            <li><a [routerLink]="['/Terminal']">Terminal</a></li>
+            
+            <li><a [routerLink]="['/Pilot']">Pilot</a></li>
+            
+            <li><a [routerLink]="['/Captain']">Captain</a></li>
+            
+            <li><a [routerLink]="['/TowageCompany']">TowageCompany</a></li>
+            
+            <li><a [routerLink]="['/ShippingCompany']">ShippingCompany</a></li>
+            
+            <li><a [routerLink]="['/Charterer']">Charterer</a></li>
+            
+            <li><a [routerLink]="['/VoyageManager']">VoyageManager</a></li>
             
           </ul>
       </li>
@@ -38,7 +54,15 @@
         <a class="dropdown-toggle" data-toggle="dropdown">Transactions</a>
         <ul class="dropdown-menu scrollable-menu">
           
-          <li><a [routerLink]="['/AccountTransfer']">AccountTransfer</a></li>
+          <li><a [routerLink]="['/Verification']">Verification</a></li>
+          
+          <li><a [routerLink]="['/UpdateETA']">UpdateETA</a></li>
+          
+          <li><a [routerLink]="['/SetDischargeTimestamp']">SetDischargeTimestamp</a></li>
+
+          <li><a [routerLink]="['/InitializeStuff']">InitializeStuff</a></li>
+          
+          <li><a [routerLink]="['/InitializeStuff']">InitializeStuff</a></li>
           
         </ul>
     </li>

@@ -17,24 +17,59 @@ import { Routes, RouterModule } from '@angular/router';
 // import { TransactionComponent } from './Transaction/Transaction.component'
 import { HomeComponent } from './home/home.component';
 
-import { AccountComponent } from './Account/Account.component';
+import { NominationComponent } from './Nomination/Nomination.component';
+import { DischargeComponent } from './Discharge/Discharge.component';
+import { LoadingComponent } from './Loading/Loading.component';
 
 
-  import { CustomerComponent } from './Customer/Customer.component';
+  import { TerminalComponent } from './Terminal/Terminal.component';
+  import { PilotComponent } from './Pilot/Pilot.component';
+  import { CaptainComponent } from './Captain/Captain.component';
+  import { TowageCompanyComponent } from './TowageCompany/TowageCompany.component';
+  import { ShippingCompanyComponent } from './ShippingCompany/ShippingCompany.component';
+  import { ChartererComponent } from './Charterer/Charterer.component';
+  import { VoyageManagerComponent } from './VoyageManager/VoyageManager.component';
 
 
-  import { AccountTransferComponent } from './AccountTransfer/AccountTransfer.component';  
+  import { VerificationComponent } from './Verification/Verification.component';
+  import { UpdateETAComponent } from './UpdateETA/UpdateETA.component';
+  import { SetDischargeTimestampComponent } from './SetDischargeTimestamp/SetDischargeTimestamp.component';  
+  import { InitializeStuffComponent } from './InitializeStuff/InitializeStuff.component';  
 const routes: Routes = [
      //{ path: 'transaction', component: TransactionComponent },
     {path: '', component: HomeComponent},
 		
-		{ path: 'Account', component: AccountComponent},
+		{ path: 'Nomination', component: NominationComponent},
+    
+		{ path: 'Discharge', component: DischargeComponent},
+    
+		{ path: 'Loading', component: LoadingComponent},
     
     
-      { path: 'Customer', component: CustomerComponent},
+      { path: 'Terminal', component: TerminalComponent},
+      
+      { path: 'Pilot', component: PilotComponent},
+      
+      { path: 'Captain', component: CaptainComponent},
+      
+      { path: 'TowageCompany', component: TowageCompanyComponent},
+      
+      { path: 'ShippingCompany', component: ShippingCompanyComponent},
+      
+      { path: 'Charterer', component: ChartererComponent},
+      
+      { path: 'VoyageManager', component: VoyageManagerComponent},
       
       
-        { path: 'AccountTransfer', component: AccountTransferComponent},
+        { path: 'Verification', component: VerificationComponent},
+        
+        { path: 'UpdateETA', component: UpdateETAComponent},
+        
+        { path: 'SetDischargeTimestamp', component: SetDischargeTimestampComponent},
+
+        { path: 'InitializeStuff', component: InitializeStuffComponent},
+        
+        { path: 'InitializeStuff', component: InitializeStuffComponent},
         
 		{path: '**', redirectTo:''}
 
