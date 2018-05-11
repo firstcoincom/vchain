@@ -139,6 +139,18 @@ transaction SetDischargeConnectTimestamp {
   --> Discharge discharge
 }
 
+transaction SetDischargeDisconnectTimestamp {
+  --> Discharge discharge
+}
+
+transaction SetLoadingNORTemperedTimestamp {
+  --> Discharge discharge
+}
+
+transaction SetLoadingDocumentsOnBoardTimestamp {
+  --> Discharge discharge
+}
+
 transaction InitializeStuff {
 }
 
@@ -146,6 +158,37 @@ transaction FinalizeNomination {
   --> Nomination nomination
 }
 
+transaction CreateNomination {
+  o String nominationId
+  o String vesselName
+  o String IMONumber
+  o String voyageNumber
+  --> Terminal departure
+  --> Terminal destination
+  o DateTime ETA
+  o CargoItem[] cargo
+  o Operation operationType
+  o Double nominatedQuantity
+  o Double wscFlat
+  o Double wscPercent
+  o Double overageRate
+  o Double freightCommission
+  o Double demurrageRate
+  o Double operationTime
+  o DateTime charterDate
+  o FreightOption option1
+  o FreightOption option2
+  o FreightOption option3
+  o Integer allowedLayTimeHours
+  --> Charterer charterer
+  --> VoyageManager voyageManager
+  --> ShippingCompany shippingCompany
+  o String chartererEmail
+  o String voyageManagerEmail
+  o String shippingCompanyEmail
+  o Double maxQuantity
+  o Double minQuantity
+}
 // events
 
 event EmailEvent {
