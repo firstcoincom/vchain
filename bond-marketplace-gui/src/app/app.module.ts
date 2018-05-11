@@ -22,28 +22,49 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 // import { TransactionComponent } from './Transaction/Transaction.component'
 
-import { AccountComponent } from './Account/Account.component';
+import { NominationComponent } from './Nomination/Nomination.component';
+import { DischargeComponent } from './Discharge/Discharge.component';
+import { LoadingComponent } from './Loading/Loading.component';
 
 
-  import { CustomerComponent } from './Customer/Customer.component';
+  import { TerminalComponent } from './Terminal/Terminal.component';
+  import { PilotComponent } from './Pilot/Pilot.component';
+  import { CaptainComponent } from './Captain/Captain.component';
+  import { TowageCompanyComponent } from './TowageCompany/TowageCompany.component';
+  import { ShippingCompanyComponent } from './ShippingCompany/ShippingCompany.component';
+  import { ChartererComponent } from './Charterer/Charterer.component';
+  import { VoyageManagerComponent } from './VoyageManager/VoyageManager.component';
 
 
-  import { AccountTransferComponent } from './AccountTransfer/AccountTransfer.component';
+  import { VerificationComponent } from './Verification/Verification.component';
+  import { UpdateETAComponent } from './UpdateETA/UpdateETA.component';
+  import { SetDischargeTimestampComponent } from './SetDischargeTimestamp/SetDischargeTimestamp.component';
+  import { InitializeStuffComponent } from './InitializeStuff/InitializeStuff.component';
 @NgModule({
   declarations: [
     AppComponent,
 		HomeComponent,
     // TransactionComponent,
+    NominationComponent,
+    DischargeComponent,
     
-    AccountComponent
+    LoadingComponent
     ,
 
-    
-      CustomerComponent
+    TerminalComponent,
+      PilotComponent,
+      CaptainComponent,
+      TowageCompanyComponent,
+      ShippingCompanyComponent,
+      ChartererComponent,
+      
+      VoyageManagerComponent
       ,
 
-    
-        AccountTransferComponent
+    VerificationComponent,
+        UpdateETAComponent,
+        SetDischargeTimestampComponent,
+        InitializeStuffComponent
         
   ],
   imports: [

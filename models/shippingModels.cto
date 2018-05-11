@@ -26,12 +26,13 @@ asset Nomination identified by nominationId {
   o FreightOption option2
   o FreightOption option3
   o Integer allowedLayTimeHours
-  --> Charterer charterer
-  --> VoyageManager voyageManager
-  --> ShippingCompany shippingCompany
-  o Double maxQuantity
-  o Double minQuantity
-  --> Participant madeBy
+  // represent this as references to participants?
+  o String chartererEmail optional
+  o String voyageManagerEmail optional
+  o String shippingCompanyEmail optional
+  o Double maxQuantity optional
+  o Double minQuantity optional
+  --> Participant madeBy optional
   o Boolean verified default = false
 }
 
@@ -43,6 +44,7 @@ concept FreightOption {
 concept CargoItem {
   o String name
   o String quantity
+  o CargoType cargoType
 }
 
 enum Operation {
@@ -137,48 +139,7 @@ transaction SetDischargeConnectTimestamp {
   --> Discharge discharge
 }
 
-transaction SetDischargeDisconnectTimestamp {
-  --> Discharge discharge
-}
-
-transaction SetLoadingNORTemperedTimestamp {
-  --> Loading loading
-}
-
-transaction SetLoadingDocumentsOnBoardTimestamp {
-  --> Loading loading
-}
-
-transaction CreateNomination {
-  o String nominationId
-  o String vesselName
-  o String IMONumber
-  o String voyageNumber
-  --> Terminal departure
-  --> Terminal destination
-  o DateTime ETA
-  o CargoItem[] cargo
-  o Operation operationType
-  o Double nominatedQuantity
-  o Double wscFlat
-  o Double wscPercent
-  o Double overageRate
-  o Double freightCommission
-  o Double demurrageRate
-  o Double operationTime
-  o DateTime charterDate
-  o FreightOption option1
-  o FreightOption option2
-  o FreightOption option3
-  o Integer allowedLayTimeHours
-  --> Charterer charterer
-  --> VoyageManager voyageManager
-  --> ShippingCompany shippingCompany
-  o String chartererEmail
-  o String voyageManagerEmail
-  o String shippingCompanyEmail
-  o Double maxQuantity
-  o Double minQuantity
+transaction InitializeStuff {
 }
 
 transaction TestTransaction {
