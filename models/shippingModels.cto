@@ -142,12 +142,6 @@ transaction SetDischargeConnectTimestamp {
 transaction InitializeStuff {
 }
 
-transaction TestTransaction {
-  o String address
-  o String subject
-  o String body
-}
-
 transaction FinalizeNomination {
   --> Nomination nomination
 }
