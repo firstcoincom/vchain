@@ -24,13 +24,16 @@ this.businessNetworkConnection.connect("admin@bond-marketplace")
                 return Promise.resolve();
             }
 
-            var mailList = event.chartererEmail + ","
-                + event.voyageManagerEmail + "," + event.shippingCompanyEmail;
+            var mailList = '';
+            event.emails.forEach(element =>
+            {
+                mailList += element + ',';
+            });
 
             // event received, time to send email
             var mailOptions = {
                 from: 'team6.eventmail@gmail.com',
-                cc: mailList,
+                to: mailList,
                 subject: 'Invoice for voyage '
                     + event.voyageNumber + ' is available',
                 text: ''
