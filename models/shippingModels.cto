@@ -1,16 +1,182 @@
 namespace firstcoin.shipping
 
-asset Discharge identified by dischargeId {
-  o String dischargeId
-  o DateTime hoseConnected
-  o DateTime hoseDisconnected
+/*
+ * Nomination models
+ */
+
+asset Nomination identified by nominationId {
+  o String nominationId
+  o String vesselName
+  o String IMONumber
+  o String voyageNumber
+  --> Terminal departure
+  --> Terminal destination
+  o DateTime ETA
+  o CargoItem[] cargo
+  o Operation operationType
+  o Double nominatedQuantity
+  o Double wscFlat
+  o Double wscPercent
+  o Double overageRate
+  o Double freightCommission
+  o Double demurrageRate
+  o Double operationTime
+  o DateTime charterDate
+  o FreightOption option1
+  o FreightOption option2
+  o FreightOption option3
+  o Integer allowedLayTimeHours
+  --> Charterer charterer
+  --> VoyageManager voyageManager
+  --> ShippingCompany shippingCompany
+  o Double maxQuantity
+  o Double minQuantity
+  --> Participant madeBy
+  o Boolean verified default = false
 }
 
-transaction SetDischargeTimestamp {
-  --> Discharge discharge
+concept FreightOption {
+  o Double rate
+  // what else does this represent?
 }
+
+concept CargoItem {
+  o String name
+  o String quantity
+}
+
+enum Operation {
+  o LOADING
+  o DISCHARGING
+}
+
+enum CargoType {
+  o CONTAINER_CARGO
+  o LIQUID_BULK
+  o DRY_BULK
+  o BREAK_BULK
+  o RORO
+}
+
+/*
+ * Discharge models
+ */
+
+asset Discharge identified by dischargeId {
+  o String dischargeId
+  --> Nomination nomination
+  o DateTime hoseConnected optional
+  o DateTime hoseDisconnected optional
+}
+
+/*
+ * Loading models
+ */
 
 asset Loading identified by loadingId {
   o String loadingId
+  --> Nomination nomination
+  o DateTime NORTendered optional
+  o DateTime documentsOnBoard optional
   o Double BLQuantity range=[0.0,]
+}
+
+/*
+ * Participants
+ */
+
+participant Terminal identified by terminalId {
+  o String terminalId
+}
+
+participant Pilot identified by pilotId {
+  o String pilotId
+}
+
+participant Captain identified by captainId {
+  o String captainId
+}
+
+participant TowageCompany identified by companyId {
+  o String companyId
+}
+
+participant ShippingCompany identified by companyId {
+  o String companyId
+  o String email
+}
+
+participant Charterer identified by chartererId {
+  o String chartererId
+  o String desc
+  o String email
+}
+
+participant VoyageManager identified by voyagerId {
+  o String voyagerId
+  o String desc
+  o String email
+}
+
+/*
+ * Transaction parameters
+ */
+
+transaction Verification {
+  --> Nomination nomination
+  o Boolean verified
+  --> Participant verifiedBy
+}
+
+transaction UpdateETA {
+  --> Nomination nomination
+  o DateTime newETA
+}
+
+transaction SetDischargeConnectTimestamp {
+  --> Discharge discharge
+}
+
+transaction SetDischargeDisconnectTimestamp {
+  --> Discharge discharge
+}
+
+transaction SetLoadingNORTemperedTimestamp {
+  --> Loading loading
+}
+
+transaction SetLoadingDocumentsOnBoardTimestamp {
+  --> Loading loading
+}
+
+transaction CreateNomination {
+  o String nominationId
+  o String vesselName
+  o String IMONumber
+  o String voyageNumber
+  --> Terminal departure
+  --> Terminal destination
+  o DateTime ETA
+  o CargoItem[] cargo
+  o Operation operationType
+  o Double nominatedQuantity
+  o Double wscFlat
+  o Double wscPercent
+  o Double overageRate
+  o Double freightCommission
+  o Double demurrageRate
+  o Double operationTime
+  o DateTime charterDate
+  o FreightOption option1
+  o FreightOption option2
+  o FreightOption option3
+  o Integer allowedLayTimeHours
+  --> Charterer charterer
+  --> VoyageManager voyageManager
+  --> ShippingCompany shippingCompany
+  o String chartererEmail
+  o String voyageManagerEmail
+  o String shippingCompanyEmail
+  o Double maxQuantity
+  o Double minQuantity
 }
