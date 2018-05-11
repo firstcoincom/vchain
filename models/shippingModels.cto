@@ -22,7 +22,6 @@ asset Nomination identified by nominationId {
   o Double demurrageRate
   o Double operationTime
   o DateTime charterDate
-  --> Charterer charterer
   o FreightOption option1
   o FreightOption option2
   o FreightOption option3
@@ -68,8 +67,8 @@ enum CargoType {
 asset Discharge identified by dischargeId {
   o String dischargeId
   --> Nomination nomination
-  o DateTime hoseConnected
-  o DateTime hoseDisconnected
+  o DateTime hoseConnected optional
+  o DateTime hoseDisconnected optional
 }
 
 /*
@@ -79,6 +78,8 @@ asset Discharge identified by dischargeId {
 asset Loading identified by loadingId {
   o String loadingId
   --> Nomination nomination
+  o DateTime NORTendered optional
+  o DateTime documentsOnBoard optional
   o Double BLQuantity range=[0.0,]
 }
 
@@ -104,6 +105,7 @@ participant TowageCompany identified by companyId {
 
 participant ShippingCompany identified by companyId {
   o String companyId
+  o String email
 }
 
 participant Charterer identified by chartererId {
@@ -133,7 +135,7 @@ transaction UpdateETA {
   o DateTime newETA
 }
 
-transaction SetDischargeTimestamp {
+transaction SetDischargeConnectTimestamp {
   --> Discharge discharge
 }
 
