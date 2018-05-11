@@ -182,9 +182,6 @@ transaction CreateNomination {
   --> Charterer charterer
   --> VoyageManager voyageManager
   --> ShippingCompany shippingCompany
-  o String chartererEmail
-  o String voyageManagerEmail
-  o String shippingCompanyEmail
   o Double maxQuantity
   o Double minQuantity
 }
