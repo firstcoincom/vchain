@@ -351,6 +351,65 @@ export class DischargeComponent implements OnInit {
     });
 
   }
+  setHoseConnect(id: any, nomination: string,disconnectHoseValue: string): Promise<any>{
+ 
+    this.asset = {
+      $class: "firstcoin.shipping.Discharge",
+      
+            "nomination": nomination,
+            "hoseConnected": Date.now(),
+            "hoseDisconnected": disconnectHoseValue
+    };
+    //debugger;   
+    return this.serviceDischarge.updateAsset(id,this.asset)
+    .toPromise()
+    .then(() => {
+      this.errorMessage = null;
+      window.location.reload();
+    })
+    .catch((error) => {
+            if(error == 'Server error'){
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      }
+            else if(error == '404 - Not Found'){
+        this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+      }
+      else{
+        this.errorMessage = error;
+      }
+    });
+    
+  }
+
+  setHoseDisconnect(id: any, nomination:string, connectedHoseState: string ): Promise<any>{
+ 
+    this.asset = {
+      $class: "firstcoin.shipping.Discharge",
+      
+            "nomination" : nomination,
+            "hoseConnected": connectedHoseState,
+            "hoseDisconnected": Date.now()
+
+    };
+    //debugger;   
+    return this.serviceDischarge.updateAsset(id,this.asset)
+    .toPromise()
+    .then(() => {
+      this.errorMessage = null;
+      window.location.reload();
+    })
+    .catch((error) => {
+            if(error == 'Server error'){
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      }
+            else if(error == '404 - Not Found'){
+        this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+      }
+      else{
+        this.errorMessage = error;
+      }
+  });
+}
 
   resetForm(): void{
     this.myForm.setValue({
