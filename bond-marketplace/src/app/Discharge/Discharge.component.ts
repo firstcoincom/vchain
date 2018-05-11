@@ -330,14 +330,14 @@ export class DischargeComponent implements OnInit {
 
   }
 
-  setHoseConnect(id: any, nomination: string,disconnecthoseState: string): Promise<any>{
+  setHoseConnect(id: any, nomination: string,disconnectHoseValue: string): Promise<any>{
 
     this.asset = {
       $class: "firstcoin.shipping.Discharge",
       
             "nomination": nomination,
             "hoseConnected": Date.now(),
-            "hoseDisconnected": disconnecthoseState
+            "hoseDisconnected": disconnectHoseValue
     };
     //debugger;   
     return this.serviceDischarge.updateAsset(id,this.asset)
@@ -361,12 +361,12 @@ export class DischargeComponent implements OnInit {
   }
 
 
-  setHoseDisconnect(id: any, value:string, connectedHoseState: string ): Promise<any>{
+  setHoseDisconnect(id: any, nomination:string, connectedHoseState: string ): Promise<any>{
 
     this.asset = {
       $class: "firstcoin.shipping.Discharge",
       
-            "nomination" : value,
+            "nomination" : nomination,
             "hoseConnected": connectedHoseState,
             "hoseDisconnected": Date.now()
 
