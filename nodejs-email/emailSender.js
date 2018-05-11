@@ -24,13 +24,14 @@ this.businessNetworkConnection.connect("admin@bond-marketplace")
                 return Promise.resolve();
             }
 
+            // create mail list string by appending given addresses
             var mailList = '';
             event.emails.forEach(element =>
             {
                 mailList += element + ',';
             });
 
-            // event received, time to send email
+            // create generic email for all addresses
             var mailOptions = {
                 from: 'team6.eventmail@gmail.com',
                 to: mailList,
