@@ -14,73 +14,52 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <p class="network-name">bond-marketplace@0.0.67.bna</p>
-        <p class="navbar-brand">shipping-blockchain</p>
+        <p class="network-name">bond-marketplace@0.0.1-deploy.0.bna</p>
+		<p class="navbar-brand">bond-marketplace-gui</p>
       </div>
-      <ul class="nav navbar-nav">
-				
-        <li class="dropdown active">
+      
+		<ul class="nav navbar-nav">
+
+		<!--Hompage-->
+		<li class="dropdown active">
             <a [routerLink]="['/home']">Home</a>
         </li>
 
-
-		<li class="dropdown active">
+		<!--Assets tab menu-->
+        <li class="dropdown active">
             <a class="dropdown-toggle" data-toggle="dropdown">Assets</a>
             <ul class="dropdown-menu scrollable-menu">
-              
               <li><a [routerLink]="['/Nomination']">Nomination</a></li>
-              
               <li><a [routerLink]="['/Discharge']">Discharge</a></li>
-              
               <li><a [routerLink]="['/Loading']">Loading</a></li>
-              
             </ul>
         </li>
-
+		<!--Participants tab menu-->
         <li class="dropdown active">
           <a class="dropdown-toggle" data-toggle="dropdown">Participants</a>
-          <ul class="dropdown-menu scrollable-menu" style="overflow: auto">
-            
-            <li><a [routerLink]="['/Terminal']">Terminal</a></li>
-            
+          <ul class="dropdown-menu scrollable-menu">
+            <li><a [routerLink]="['/Terminal']">Terminal</a></li>           
             <li><a [routerLink]="['/Pilot']">Pilot</a></li>
-            
             <li><a [routerLink]="['/Captain']">Captain</a></li>
-            
             <li><a [routerLink]="['/TowageCompany']">TowageCompany</a></li>
-            
             <li><a [routerLink]="['/ShippingCompany']">ShippingCompany</a></li>
-            
             <li><a [routerLink]="['/Charterer']">Charterer</a></li>
-            
             <li><a [routerLink]="['/VoyageManager']">VoyageManager</a></li>
-            
           </ul>
       </li>
+
+	  <!--Transaction tab menu-->
       <li class="dropdown active">
-        <a class="dropdown-toggle" data-toggle="dropdown">Transactions</a>
-        <ul class="dropdown-menu scrollable-menu" style="overflow: auto">
-          
-          <li><a [routerLink]="['/Verification']">Verification</a></li>
-          
-          <li><a [routerLink]="['/UpdateETA']">UpdateETA</a></li>
-          
-          <li><a [routerLink]="['/SetDischargeConnectTimestamp']">SetDischargeConnectTimestamp</a></li>
-          
-          <li><a [routerLink]="['/SetDischargeDisconnectTimestamp']">SetDischargeDisconnectTimestamp</a></li>
-          
-          <li><a [routerLink]="['/SetLoadingNORTemperedTimestamp']">SetLoadingNORTemperedTimestamp</a></li>
-          
-          <li><a [routerLink]="['/SetLoadingDocumentsOnBoardTimestamp']">SetLoadingDocumentsOnBoardTimestamp</a></li>
-          
-          <li><a [routerLink]="['/InitializeStuff']">InitializeStuff</a></li>
-          
-          <li><a [routerLink]="['/FinalizeNomination']">FinalizeNomination</a></li>
-          
-          <li><a [routerLink]="['/CreateNomination']">CreateNomination</a></li>
-          
-        </ul>
-    </li>
+      <a class="dropdown-toggle" data-toggle="dropdown">Transactions</a>
+		    <ul class="dropdown-menu scrollable-menu">
+		      <li><a [routerLink]="['/Verification']">Verification</a></li>
+		      <li><a [routerLink]="['/UpdateETA']">UpdateETA</a></li>
+		      <li><a [routerLink]="['/SetDischargeTimestamp']">SetDischargeTimestamp</a></li
+		      <li><a [routerLink]="['/InitializeStuff']">InitializeStuff</a></li>
+		      <li><a [routerLink]="['/InitializeStuff']">InitializeStuff</a></li>
+		    </ul>
+   	   </li>
+
       </ul>
     </div>
   </nav>

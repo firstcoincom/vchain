@@ -17,7 +17,7 @@
 		<p>Last modified: <b>May 8th, 2018</b></p>
 		<br />
 		<p>This is the Shipping Blockchain's home page.
-		<p>All <mark>Participants</mark> must create a <b><a [routerLink]="['/Nomination']">Nomination</a></b> and generate <b><a [routerLink]="['/Discharge']">Discharge</a></b> page under Assets in order to use the marketplace.</p>
+		<p>All <mark>Participants</mark> must create a <b><a href="http://localhost:4200/Nomination">Nomination</a></b> and generate <b><a href="http://localhost:4200/Discharge">Discharge</a></b> page under Assets in order to use the marketplace.</p>
 		<p><b>Nomination</b> - is where Voyage Managers enter the data from the text field. It is then email to their superior for validation purposes.</p>
 		<p><b>Discharge</b> - is where it keeps the reference ID from Nomination and records the timestamp of the Hose Connection and Hose Disconnection where the user can also Generate/Send Invoices to the according Participants.</p>
 		<p><b>Loading</b> - combines both the Nomination's and Discharge's numerical data and does function calculations which adds the additional pay to the grand total.</p>
