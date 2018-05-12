@@ -53,4 +53,6 @@ var transporter = nodemailer.createTransport({
             }
         });
     });
+
+    console.log('Now listening for business network events...');
 })();
