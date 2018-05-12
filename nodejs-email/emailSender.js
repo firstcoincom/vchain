@@ -13,46 +13,44 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-this.businessNetworkConnection.connect("admin@bond-marketplace")
-    .then(() =>
+// connects to business network and subscribes to events it emits
+(async (businessNetworkConnection) =>
+{
+    await businessNetworkConnection.connect("admin@bond-marketplace");
+
+    businessNetworkConnection.on("event", event =>
     {
-        this.businessNetworkConnection.on("event", event =>
+        if (event.$type !== 'EmailEvent')
         {
-            if (event.$type !== 'EmailEvent')
-            {
-                console.log("Unknown event received:\n" + event);
-                return Promise.resolve();
-            }
+            console.log("Unknown event received:\n" + event);
+            return Promise.resolve();
+        }
 
-            // create mail list string by appending given addresses
-            var mailList = '';
-            event.emails.forEach(element =>
-            {
-                mailList += element + ',';
-            });
-
-            // create generic email for all addresses
-            var mailOptions = {
-                from: 'team6.eventmail@gmail.com',
-                to: mailList,
-                subject: 'Invoice for voyage '
-                    + event.voyageNumber + ' is available',
-                text: ''
-            };
-
-            transporter.sendMail(mailOptions, function (error, info)
-            {
-                if (error)
-                {
-                    console.log(error);
-                } else
-                {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
+        // create mail list string by appending given addresses
+        var mailList = '';
+        event.emails.forEach(element =>
+        {
+            mailList += element + ',';
         });
-    })
-    .catch(function (error)
-    {
-        throw error;
+
+        // create generic email for all addresses
+        var mailOptions = {
+            from: 'team6.eventmail@gmail.com',
+            to: mailList,
+            subject: 'Invoice for voyage '
+                + event.voyageNumber + ' is available',
+            text: ''
+        };
+
+        transporter.sendMail(mailOptions, function (error, info)
+        {
+            if (error)
+            {
+                console.log(error);
+            } else
+            {
+                console.log('Email sent: ' + info.response);
+            }
+        });
     });
+})(this.businessNetworkConnection);
