@@ -3,7 +3,7 @@
 const BusinessNetworkConnection = require("composer-client").BusinessNetworkConnection;
 const nodemailer = require('nodemailer');
 
-this.businessNetworkConnection = new BusinessNetworkConnection();
+var businessNetworkConnection = new BusinessNetworkConnection();
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -14,7 +14,7 @@ var transporter = nodemailer.createTransport({
 });
 
 // connects to business network and subscribes to events it emits
-(async (businessNetworkConnection) =>
+(async () =>
 {
     await businessNetworkConnection.connect("admin@bond-marketplace");
 
@@ -53,4 +53,4 @@ var transporter = nodemailer.createTransport({
             }
         });
     });
-})(this.businessNetworkConnection);
+})();
