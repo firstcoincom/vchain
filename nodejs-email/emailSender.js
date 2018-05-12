@@ -23,7 +23,7 @@ var transporter = nodemailer.createTransport({
         if (event.$type !== 'EmailEvent')
         {
             console.log("Unknown event received:\n" + event);
-            return Promise.resolve();
+            return;
         }
 
         // create mail list string by appending given addresses
