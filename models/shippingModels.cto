@@ -143,11 +143,11 @@ transaction SetDischargeDisconnectTimestamp {
 }
 
 transaction SetLoadingNORTemperedTimestamp {
-  --> Discharge discharge
+  --> Loading loading
 }
 
 transaction SetLoadingDocumentsOnBoardTimestamp {
-  --> Discharge discharge
+  --> Loading loading
 }
 
 transaction InitializeStuff {
@@ -190,4 +190,8 @@ transaction CreateNomination {
 event EmailEvent {
   o String voyageNumber
   o String[] emails
+  o Double freightInvoice
+  o Double freightCommission
+  o Double loadDemurrage
+  o Double totalDemurrage
 }

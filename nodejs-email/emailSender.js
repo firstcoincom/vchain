@@ -3,13 +3,21 @@
 const BusinessNetworkConnection = require("composer-client").BusinessNetworkConnection;
 const nodemailer = require('nodemailer');
 
+var emailAddress = process.argv[2];
+var emailPassword = process.argv[3];
+if (emailAddress == null || emailPassword == null)
+{
+    console.log('Address and password for email required.');
+    process.exit(-1);
+}
+
 var businessNetworkConnection = new BusinessNetworkConnection();
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'team6.eventmail@gmail.com',
-        pass: 'DemurrageVolumesDisport'
+        user: emailAddress,
+        pass: emailPassword
     }
 });
 
@@ -26,11 +34,16 @@ var transporter = nodemailer.createTransport({
             return;
         }
 
+        var mailBody = 'Freight invoice: $' + event.freightInvoice
+            + '\nFreight commission: $' + event.freightCommission
+            + '\nLoad demurrage: $' + event.loadDemurrage
+            + '\nTotal demurrage: $' + event.totalDemurrage;
+
         // create mail list string by appending given addresses
         var mailList = '';
-        event.emails.forEach(element =>
+        event.emails.forEach(address =>
         {
-            mailList += element + ',';
+            mailList += address + ',';
         });
 
         // create generic email for all addresses
@@ -39,7 +52,7 @@ var transporter = nodemailer.createTransport({
             to: mailList,
             subject: 'Invoice for voyage '
                 + event.voyageNumber + ' is available',
-            text: ''
+            text: mailBody
         };
 
         transporter.sendMail(mailOptions, function (error, info)
