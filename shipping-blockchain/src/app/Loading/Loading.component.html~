@@ -69,6 +69,7 @@
 
 
 
+<!-------------------------- LOADING UPDATE BUTTTON TABLE ----------------------->
 
 <div class="modal fade" id="updateAssetModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
   <div class="modal-dialog" role="document">
@@ -120,7 +121,7 @@
 </div>
 
 
-
+<!--------------------------- LOADING TABLE DELETE BUTTON --------------------------->
 <div class="modal fade" id="deleteAssetModal" tabindex="-1" role="dialog" aria-labelledby="deleteAssetModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -143,7 +144,7 @@
 
 
 
-<!-- CREATE LOADING BUTTON -->
+<!------------------------- CREATE LOADING BUTTON -------------------------->
 <div class="container">
 	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
 		<strong>Error:</strong> {{errorMessage}}
