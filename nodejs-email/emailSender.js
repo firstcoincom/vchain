@@ -47,8 +47,7 @@ var transporter = nodemailer.createTransport({
             text: mailBody
         };
 
-        // create mail list string by appending given addresses
-        var mailList = '';
+        // send an email to each given address
         event.emails.forEach(address =>
         {
             mailOptions.to = address;
