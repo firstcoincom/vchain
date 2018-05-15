@@ -39,32 +39,33 @@ var transporter = nodemailer.createTransport({
             + '\nLoad demurrage: $' + event.loadDemurrage
             + '\nTotal demurrage: $' + event.totalDemurrage;
 
-        // create mail list string by appending given addresses
-        var mailList = '';
-        event.emails.forEach(address =>
-        {
-            mailList += address + ',';
-        });
-
         // create generic email for all addresses
-        var mailOptions = {
+        let mailOptions = {
             from: 'team6.eventmail@gmail.com',
-            to: mailList,
             subject: 'Invoice for voyage '
                 + event.voyageNumber + ' is available',
             text: mailBody
         };
 
-        transporter.sendMail(mailOptions, function (error, info)
+        // create mail list string by appending given addresses
+        var mailList = '';
+        event.emails.forEach(address =>
         {
-            if (error)
+            mailOptions.to = address;
+
+            transporter.sendMail(mailOptions, function (error, info)
             {
-                console.log(error);
-            } else
-            {
-                console.log('Email sent: ' + info.response);
-            }
+                if (error)
+                {
+                    console.log(error);
+                } else
+                {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
         });
+
+
     });
 
     console.log('Now listening for business network events...');
