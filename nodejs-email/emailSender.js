@@ -1,19 +1,20 @@
 'use strict';
-
+// imports
 const BusinessNetworkConnection = require("composer-client").BusinessNetworkConnection;
 const nodemailer = require('nodemailer');
 
-var emailAddress = process.argv[2];
-var emailPassword = process.argv[3];
+// get email info from parameters
+const emailAddress = process.argv[2];
+const emailPassword = process.argv[3];
 if (emailAddress == null || emailPassword == null)
 {
     console.log('Address and password for email required.');
     process.exit(-1);
 }
 
-var businessNetworkConnection = new BusinessNetworkConnection();
+const businessNetworkConnection = new BusinessNetworkConnection();
 
-var transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: emailAddress,
@@ -26,6 +27,10 @@ var transporter = nodemailer.createTransport({
 {
     await businessNetworkConnection.connect("admin@bond-marketplace");
 
+    let mailOptions = {
+        from: emailAddress
+    };
+
     businessNetworkConnection.on("event", event =>
     {
         if (event.$type !== 'EmailEvent')
@@ -34,18 +39,13 @@ var transporter = nodemailer.createTransport({
             return;
         }
 
-        var mailBody = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
+        // create generic email for all addresses
+        mailOptions.subject = 'Invoice for voyage '
+            + event.voyageNumber + ' is available';
+        mailOptions.text = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
             + '\nFreight commission: $' + parseFloat(event.freightCommission).toFixed(2)
             + '\nLoad demurrage: $' + parseFloat(event.loadDemurrage).toFixed(2)
             + '\nTotal demurrage: $' + parseFloat(event.totalDemurrage).toFixed(2);
-
-        // create generic email for all addresses
-        let mailOptions = {
-            from: 'team6.eventmail@gmail.com',
-            subject: 'Invoice for voyage '
-                + event.voyageNumber + ' is available',
-            text: mailBody
-        };
 
         // send an email to each given address
         event.emails.forEach(address =>
