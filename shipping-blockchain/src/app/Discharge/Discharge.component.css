@@ -17,6 +17,25 @@
     padding-right: 72px;
 }
 
+#generateButton{
+
+    background: #844AE4;
+    font-size: 14px;
+    border: 0px;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    letter-spacing: 0;
+    line-height: 20px;
+    height:40px;
+    width: 153px;
+    margin-top: 5%;
+    margin: 2%;
+    border-radius: 4px;
+    margin-top: 5%;
+    margin: 5%;
+    float: right;
+}
+
 .btn-primary {
     background: #844AE4;
     border-radius: 4px;
