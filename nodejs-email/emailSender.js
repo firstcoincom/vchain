@@ -34,10 +34,10 @@ var transporter = nodemailer.createTransport({
             return;
         }
 
-        var mailBody = 'Freight invoice: $' + event.freightInvoice
-            + '\nFreight commission: $' + event.freightCommission
-            + '\nLoad demurrage: $' + event.loadDemurrage
-            + '\nTotal demurrage: $' + event.totalDemurrage;
+        var mailBody = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
+            + '\nFreight commission: $' + parseFloat(event.freightCommission).toFixed(2)
+            + '\nLoad demurrage: $' + parseFloat(event.loadDemurrage).toFixed(2)
+            + '\nTotal demurrage: $' + parseFloat(event.totalDemurrage).toFixed(2);
 
         // create generic email for all addresses
         let mailOptions = {
