@@ -3,13 +3,21 @@
 const BusinessNetworkConnection = require("composer-client").BusinessNetworkConnection;
 const nodemailer = require('nodemailer');
 
+var emailAddress = process.argv[2];
+var emailPassword = process.argv[3];
+if (emailAddress == null || emailPassword == null)
+{
+    console.log('Address and password for email required.');
+    process.exit(-1);
+}
+
 var businessNetworkConnection = new BusinessNetworkConnection();
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'team6.eventmail@gmail.com',
-        pass: 'DemurrageVolumesDisport'
+        user: emailAddress,
+        pass: emailPassword
     }
 });
 
@@ -26,32 +34,37 @@ var transporter = nodemailer.createTransport({
             return;
         }
 
-        // create mail list string by appending given addresses
-        var mailList = '';
-        event.emails.forEach(element =>
-        {
-            mailList += element + ',';
-        });
+        var mailBody = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
+            + '\nFreight commission: $' + parseFloat(event.freightCommission).toFixed(2)
+            + '\nLoad demurrage: $' + parseFloat(event.loadDemurrage).toFixed(2)
+            + '\nTotal demurrage: $' + parseFloat(event.totalDemurrage).toFixed(2);
 
         // create generic email for all addresses
-        var mailOptions = {
+        let mailOptions = {
             from: 'team6.eventmail@gmail.com',
-            to: mailList,
             subject: 'Invoice for voyage '
                 + event.voyageNumber + ' is available',
-            text: ''
+            text: mailBody
         };
 
-        transporter.sendMail(mailOptions, function (error, info)
+        // send an email to each given address
+        event.emails.forEach(address =>
         {
-            if (error)
+            mailOptions.to = address;
+
+            transporter.sendMail(mailOptions, function (error, info)
             {
-                console.log(error);
-            } else
-            {
-                console.log('Email sent: ' + info.response);
-            }
+                if (error)
+                {
+                    console.log(error);
+                } else
+                {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
         });
+
+
     });
 
     console.log('Now listening for business network events...');
