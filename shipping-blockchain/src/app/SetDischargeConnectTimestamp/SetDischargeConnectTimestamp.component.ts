@@ -189,15 +189,7 @@ export class SetDischargeConnectTimestampComponent implements OnInit {
         
           
             "discharge":this.discharge.value,
-          
-        
-    
-        
-          
-        
-    
-        
-          
+
             "timestamp":this.timestamp.value
           
         
