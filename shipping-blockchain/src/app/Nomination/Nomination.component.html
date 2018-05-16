@@ -320,10 +320,18 @@
           
 
             
-              <div class="form-group text-left">
+              <!-- <div class="form-group text-left">
                 <label for="verified">verified</label>
                 
                   <input formControlName="verified" type="checkbox" class="form-control">
+                
+              </div> -->
+
+
+              <div class="form-group text-left">
+                <label for="captain">captainId</label>
+                
+                  <input formControlName="captain" type="text" class="form-control">
                 
               </div>
             
@@ -332,7 +340,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button (click)="addAsset(myForm);" type="submit" class="btn btn-success" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" data-dismiss="modal">Confirm</button>
+          <button (click)="addAsset(myForm);" type="submit" class="btn btn-success" value="Refresh Page"  data-dismiss="modal">Confirm</button>
 
         </div>
       </form>

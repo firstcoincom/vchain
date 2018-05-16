@@ -74,6 +74,12 @@ export class DataService<Type> {
           .catch(this.handleError);
     }
 
+    public queryNomination(ns: string, id: string): Observable<Type[]> {
+        return this.http.get(this.actionUrl + ns + id)
+        .map(this.extractData)
+        .catch(this.handleError);
+    }
+
     private handleError(error: any): Observable<string> {
         // In a real world app, we might use a remote logging infrastructure
         // We'd also dig deeper into the error to get a better message

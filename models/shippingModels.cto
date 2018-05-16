@@ -33,6 +33,7 @@ asset Nomination identified by nominationId {
   o Double minQuantity
   --> Participant madeBy
   o Boolean verified default = false
+  --> Captain captain
 }
 
 concept FreightOption {

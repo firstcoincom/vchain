@@ -40,6 +40,7 @@ import { LoadingComponent } from './Loading/Loading.component';
   import { InitializeStuffComponent } from './InitializeStuff/InitializeStuff.component';
   import { FinalizeNominationComponent } from './FinalizeNomination/FinalizeNomination.component';
   import { CreateNominationComponent } from './CreateNomination/CreateNomination.component';  
+  import { CaptainAppComponent } from './captain-app/captain-app.component';
 const routes: Routes = [
      //{ path: 'transaction', component: TransactionComponent },
     {path: '', component: HomeComponent},
@@ -83,6 +84,8 @@ const routes: Routes = [
         { path: 'FinalizeNomination', component: FinalizeNominationComponent},
         
         { path: 'CreateNomination', component: CreateNominationComponent},
+
+        { path: 'CaptainApp', component: CaptainAppComponent},
         
 		{path: '**', redirectTo:''}
 
