@@ -18,3 +18,10 @@ query SelectDischargeByNomination {
     SELECT firstcoin.shipping.Discharge
      WHERE (nomination == _$id)
 }
+
+query SelectNominationByCaptain{
+  description: "Select all nominations"
+  statement:
+    SELECT firstcoin.shipping.Nomination
+    WHERE (captain == _$id)
+}

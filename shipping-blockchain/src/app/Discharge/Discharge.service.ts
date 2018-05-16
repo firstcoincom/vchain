@@ -15,7 +15,7 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
-import { Discharge } from '../firstcoin.shipping';
+import { Discharge, SetDischargeConnectTimestamp } from '../firstcoin.shipping';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor
