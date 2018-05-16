@@ -16,11 +16,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { NominationService } from './Nomination.service';
 import 'rxjs/add/operator/toPromise';
+import { LoadingService } from '../Loading/Loading.service';
 @Component({
 	selector: 'app-Nomination',
 	templateUrl: './Nomination.component.html',
 	styleUrls: ['./Nomination.component.css'],
-  providers: [NominationService]
+  providers: [NominationService, LoadingService]
 })
 export class NominationComponent implements OnInit {
 
@@ -361,116 +362,34 @@ export class NominationComponent implements OnInit {
       let formObject = {
         
           
-            "nominationId":null,
-          
-        
-          
-            "vesselName":null,
-          
-        
-          
-            "IMONumber":null,
-          
-        
-          
-            "voyageNumber":null,
-          
-        
-          
-            "departure":null,
-          
-        
-          
-            "destination":null,
-          
-        
-          
-            "ETA":null,
-          
-        
-          
-            "cargo":null,
-          
-        
-          
-            "operationType":null,
-          
-        
-          
-            "nominatedQuantity":null,
-          
-        
-          
-            "wscFlat":null,
-          
-        
-          
-            "wscPercent":null,
-          
-        
-          
-            "overageRate":null,
-          
-        
-          
-            "freightCommission":null,
-          
-        
-          
-            "demurrageRate":null,
-          
-        
-          
-            "operationTime":null,
-          
-        
-          
-            "charterDate":null,
-          
-        
-          
-            "option1":null,
-          
-        
-          
-            "option2":null,
-          
-        
-          
-            "option3":null,
-          
-        
-          
-            "allowedLayTimeHours":null,
-          
-        
-          
-            "charterer":null,
-          
-        
-          
-            "voyageManager":null,
-          
-        
-          
-            "shippingCompany":null,
-          
-        
-          
-            "maxQuantity":null,
-          
-        
-          
-            "minQuantity":null,
-          
-        
-          
-            "madeBy":null,
-          
-        
-          
-            "verified":null 
-          
+          "nominationId":null,
+          "vesselName":null,
+          "IMONumber":null,
+          "voyageNumber":null,
+          "departure":null,
+          "destination":null,
+          "ETA":null,
+          "cargo":null,
+          "operationType":null,
+          "nominatedQuantity":null,
+          "wscFlat":null,
+          "wscPercent":null,
+          "overageRate":null,
+          "freightCommission":null,
+          "demurrageRate":null,
+          "operationTime":null,
+          "charterDate":null,
+          "option1":null,
+          "option2":null,
+          "option3":null,
+          "allowedLayTimeHours":null,
+          "charterer":null,
+          "voyageManager":null,
+          "shippingCompany":null,
+          "maxQuantity":null,
+          "minQuantity":null,
+          "madeBy":null,
+          "verified":null 
         
       };
 
@@ -724,117 +643,73 @@ export class NominationComponent implements OnInit {
       
         
           "nominationId":null,
-        
-      
-        
           "vesselName":null,
-        
-      
-        
           "IMONumber":null,
-        
-      
-        
           "voyageNumber":null,
-        
-      
-        
           "departure":null,
-        
-      
-        
           "destination":null,
-        
-      
-        
           "ETA":null,
-        
-      
-        
           "cargo":null,
-        
-      
-        
           "operationType":null,
-        
-      
-        
           "nominatedQuantity":null,
-        
-      
-        
           "wscFlat":null,
-        
-      
-        
           "wscPercent":null,
-        
-      
-        
           "overageRate":null,
-        
-      
-        
           "freightCommission":null,
-        
-      
-        
           "demurrageRate":null,
-        
-      
-        
           "operationTime":null,
-        
-      
-        
           "charterDate":null,
-        
-      
-        
           "option1":null,
-        
-      
-        
           "option2":null,
-        
-      
-        
           "option3":null,
-        
-      
-        
           "allowedLayTimeHours":null,
-        
-      
-        
           "charterer":null,
-        
-      
-        
           "voyageManager":null,
-        
-      
-        
           "shippingCompany":null,
-        
-      
-        
           "maxQuantity":null,
-        
-      
-        
           "minQuantity":null,
-        
-      
-        
           "madeBy":null,
-        
-      
-        
           "verified":null 
         
       
       });
   }
 
+addLoadingAsset (id: any): Promise<any> {
+   this.participant = {
+     $class: "firstcoin.shipping.Captain",
+     
+       
+         "captainId":this.captainId.value
+       
+     
+   };    this.myForm.setValue({
+     
+       
+         "captainId":null
+       
+     
+   });    return this.serviceCaptain.addParticipant(this.participant)
+   .toPromise()
+   .then(() => {
+            this.errorMessage = null;
+     this.myForm.setValue({
+     
+       
+         "captainId":null
+       
+     
+     });
+   })
+   .catch((error) => {
+       if(error == 'Server error'){
+           this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+       }
+       else{
+           this.errorMessage = error;
+       }
+   });
+ }
+
+	
 }

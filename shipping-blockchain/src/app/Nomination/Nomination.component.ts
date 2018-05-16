@@ -16,11 +16,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { NominationService } from './Nomination.service';
 import 'rxjs/add/operator/toPromise';
+import { LoadingService } from '../Loading/Loading.service';
 @Component({
 	selector: 'app-Nomination',
 	templateUrl: './Nomination.component.html',
 	styleUrls: ['./Nomination.component.css'],
-  providers: [NominationService]
+  providers: [NominationService, LoadingService]
 })
 export class NominationComponent implements OnInit {
 
@@ -674,4 +675,41 @@ export class NominationComponent implements OnInit {
       });
   }
 
+addLoadingAsset (id: any): Promise<any> {
+   var LoadingAsset = {
+     $class: "firstcoin.shipping.Loading",
+     
+       
+         "captainId":this.captainId.value
+       
+     
+   };    this.myForm.setValue({
+     
+       
+         "captainId":null
+       
+     
+   });    return this.serviceCaptain.addParticipant(this.participant)
+   .toPromise()
+   .then(() => {
+            this.errorMessage = null;
+     this.myForm.setValue({
+     
+       
+         "captainId":null
+       
+     
+     });
+   })
+   .catch((error) => {
+       if(error == 'Server error'){
+           this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+       }
+       else{
+           this.errorMessage = error;
+       }
+   });
+ }
+
+	
 }

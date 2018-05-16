@@ -364,11 +364,7 @@
           
             <div class="form-group text-left">
               <label for="nominatedQuantity">nominatedQuantity</label>
-              
-              
                 <input [ngModel]="nominatedQuantity" formControlName="nominatedQuantity" type="number" step='any' class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
@@ -656,6 +652,11 @@
 				         c1.7,0,3-1.3,3-3S64.5,10.3,62.9,10.3z M43.3,10.3H22.6V6h20.7L43.3,10.3L43.3,10.3z"/>
 				       </svg>
 				      </button>
+
+					 
+						<button [routerLink]="['/Loading']">Loading</button>
+					
+
                 </td>
           </tr>
         </tbody>
@@ -663,3 +664,5 @@
     </div>
   </div>
 </div>
+
+
