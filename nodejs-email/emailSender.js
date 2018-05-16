@@ -39,9 +39,9 @@ const transporter = nodemailer.createTransport({
             return;
         }
 
-        // create generic email for all addresses
+        // create general email for all addresses
         mailOptions.subject = 'Invoice for voyage '
-            + event.voyageNumber + ' is available';
+            + event.voyageNumber + '.';
         mailOptions.text = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
             + '\nFreight commission: $' + parseFloat(event.freightCommission).toFixed(2)
             + '\nLoad demurrage: $' + parseFloat(event.loadDemurrage).toFixed(2)
