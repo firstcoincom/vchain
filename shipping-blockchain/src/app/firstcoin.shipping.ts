@@ -32,6 +32,7 @@ import {Event} from './org.hyperledger.composer.system';
       minQuantity: number;
       madeBy: Participant;
       verified: boolean;
+      captain: Captain;
    }
    export class FreightOption {
       rate: number;

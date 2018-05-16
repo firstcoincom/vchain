@@ -142,6 +142,9 @@ export class NominationComponent implements OnInit {
   
       
           verified = new FormControl("", Validators.required);
+
+
+          captain = new FormControl("", Validators.required);
         
   
 
@@ -258,7 +261,10 @@ export class NominationComponent implements OnInit {
         
     
         
-          verified:this.verified
+          verified:this.verified,
+
+
+          captain:this.captain
         
     
     });
@@ -430,8 +436,10 @@ export class NominationComponent implements OnInit {
         
       
         
-          "verified":this.verified.value
+          "verified":false,
         
+
+          "captain":this.captain.value
       
     };
 
@@ -546,7 +554,10 @@ export class NominationComponent implements OnInit {
         
       
         
-          "verified":null
+          "verified":null,
+
+
+          "captain":null
         
       
     });
@@ -666,7 +677,10 @@ export class NominationComponent implements OnInit {
         
       
         
-          "verified":null 
+          "verified":null,
+
+
+          "captain":null
         
       
       });
@@ -682,7 +696,7 @@ export class NominationComponent implements OnInit {
   }
 
 
-   updateAsset(form: any): Promise<any> {
+  updateAsset(form: any): Promise<any> {
     this.asset = {
       $class: "firstcoin.shipping.Nomination",
       
@@ -848,7 +862,11 @@ export class NominationComponent implements OnInit {
     
         
           
-            "verified":this.verified.value
+            "verified":this.verified.value,
+
+
+
+            "captain":this.captain.value
           
         
     
@@ -1014,7 +1032,10 @@ export class NominationComponent implements OnInit {
           
         
           
-            "verified":null 
+            "verified":null ,
+
+
+            "captain":null
           
         
       };
@@ -1245,6 +1266,14 @@ export class NominationComponent implements OnInit {
         }else{
           formObject.verified = null;
         }
+
+        if(result.captain){
+          
+          formObject.captain = result.captain;
+        
+      }else{
+        formObject.captain = null;
+      }
       
 
       this.myForm.setValue(formObject);
@@ -1376,7 +1405,11 @@ export class NominationComponent implements OnInit {
         
       
         
-          "verified":null 
+          "verified":null,
+
+
+
+          "captain":null
         
       
       });

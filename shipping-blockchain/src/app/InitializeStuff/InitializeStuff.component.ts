@@ -12,10 +12,12 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, getModuleFactory } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { InitializeStuffService } from './InitializeStuff.service';
 import 'rxjs/add/operator/toPromise';
+import { Nomination } from '../firstcoin.shipping';
+import { NominationService } from '../Nomination/Nomination.service';
 @Component({
 	selector: 'app-InitializeStuff',
 	templateUrl: './InitializeStuff.component.html',
@@ -149,7 +151,8 @@ export class InitializeStuffComponent implements OnInit {
           "timestamp":null 
         
       
-      });
+      });     
+      
       window.location.reload();
     })
     .catch((error) => {
