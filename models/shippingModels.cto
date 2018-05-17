@@ -34,6 +34,8 @@ asset Nomination identified by nominationId {
   --> Participant madeBy
   o Boolean verified default = false
   --> Captain captain
+  o Boolean loadingDone default = false
+  o Boolean dischargeDone default = false
 }
 
 concept FreightOption {
@@ -185,6 +187,7 @@ transaction CreateNomination {
   --> ShippingCompany shippingCompany
   o Double maxQuantity
   o Double minQuantity
+  --> Captain captain
 }
 // events
 
