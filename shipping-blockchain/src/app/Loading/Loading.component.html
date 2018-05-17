@@ -244,14 +244,7 @@
             
                 <td class="asset-properties">{{asset.documentsOnBoard}}</td>
 
-                <td class="asset-properties">
-                    <button ng-click="asset.BLQuantity = asset.BLQuantity+1" type="button" class="btn btn-primary" >
-                        Increment
-                    </button>{{asset.BLQuantity}}
-                    <button ng-click="asset.BLQuantity = asset.BLQuantity - 1" type="button" class="btn btn-primary">
-                        Decrement
-                    </button>
-                  </td>
+                <td class="asset-properties">{{asset.BLQuantity}}</td>
 
             
             <td>
@@ -279,10 +272,10 @@
                 </svg>
                 </button>
                 <div>
-                    <button (click)="getForm(asset.loadingId);" type="button" class="btn btn-primary">
+                    <button (click)="addTransactionDocumentsOnBoard(asset.loadingId);" type="button" class="btn btn-primary">
                         Documents On Board
                     </button>
-                    <button (click)="getForm(asset.loadingId);" type="button" class="btn btn-primary">
+                    <button (click)="addTransactionNORTendered(asset.loadingId);" type="button" class="btn btn-primary">
                         NOR Tendered
                     </button>
                 </div>  
