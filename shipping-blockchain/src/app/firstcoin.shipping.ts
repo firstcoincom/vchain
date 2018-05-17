@@ -33,6 +33,8 @@ import {Event} from './org.hyperledger.composer.system';
       madeBy: Participant;
       verified: boolean;
       captain: Captain;
+      loadingDone: boolean;
+      dischargeDone: boolean;
    }
    export class FreightOption {
       rate: number;
@@ -145,6 +147,7 @@ import {Event} from './org.hyperledger.composer.system';
       shippingCompany: ShippingCompany;
       maxQuantity: number;
       minQuantity: number;
+      captain: Captain;
    }
    export class EmailEvent extends Event {
       voyageNumber: string;
