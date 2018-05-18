@@ -186,7 +186,10 @@ transaction CreateNomination {
   o Double maxQuantity
   o Double minQuantity
 }
-// events
+
+/*
+ * Events
+ */
 
 event EmailEvent {
   o String voyageNumber
