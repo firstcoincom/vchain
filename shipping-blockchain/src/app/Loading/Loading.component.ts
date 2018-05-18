@@ -16,11 +16,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { LoadingService } from './Loading.service';
 import 'rxjs/add/operator/toPromise';
+import { SetLoadingNORTemperedTimestampService } from '../SetLoadingNORTemperedTimestamp/SetLoadingNORTemperedTimestamp.service';
+import { SetLoadingDocumentsOnBoardTimestampService } from '../SetLoadingDocumentsOnBoardTimestamp/SetLoadingDocumentsOnBoardTimestamp.service';
 @Component({
 	selector: 'app-Loading',
 	templateUrl: './Loading.component.html',
 	styleUrls: ['./Loading.component.css'],
-  providers: [LoadingService]
+  providers: [LoadingService,SetLoadingNORTemperedTimestampService, SetLoadingDocumentsOnBoardTimestampService]
 })
 export class LoadingComponent implements OnInit {
 
@@ -54,10 +56,8 @@ export class LoadingComponent implements OnInit {
   
 
 
-  constructor(private serviceLoading:LoadingService, fb: FormBuilder) {
+  constructor(private serviceLoading:LoadingService, fb: FormBuilder, private serviceSetLoadingNorTenderedTimestamp:SetLoadingNORTemperedTimestampService, private serviceSetLoadingDocumentsOnBoardTimestampService: SetLoadingDocumentsOnBoardTimestampService){
     this.myForm = fb.group({
-    
-        
           loadingId:this.loadingId,
         
     
@@ -221,6 +221,7 @@ export class LoadingComponent implements OnInit {
     });
   }
 
+  
 
    updateAsset(form: any): Promise<any> {
     this.asset = {
@@ -389,6 +390,78 @@ export class LoadingComponent implements OnInit {
     });
 
   }
+
+
+  addTransactionNORTendered(id:string): Promise<any>{
+
+    var transaction = {    
+    $class: "firstcoin.shipping.SetLoadingNORTemperedTimestamp",
+      
+        
+    "loading":"resource:firstcoin.shipping.Loading#" + id ,
+  
+
+  
+    "transactionId":"",
+  
+
+  
+    "timestamp": Date.now(),
+  
+
+};
+return this.serviceSetLoadingNorTenderedTimestamp.addTransaction(transaction)
+.toPromise()
+.then(() => {
+  this.errorMessage = null;
+  window.location.reload();
+
+})
+.catch((error) => {
+    if(error == 'Server error'){
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+    }
+    else{
+        this.errorMessage = error;
+    }
+});
+}
+
+addTransactionDocumentsOnBoard(id:string): Promise<any>{
+
+  var transaction = {    
+  $class: "firstcoin.shipping.SetLoadingDocumentsOnBoardTimestamp",
+    
+      
+  "loading":"resource:firstcoin.shipping.Loading#" + id ,
+
+
+
+  "transactionId":"",
+
+
+
+  "timestamp": Date.now(),
+
+
+};
+return this.serviceSetLoadingDocumentsOnBoardTimestampService.addTransaction(transaction)
+.toPromise()
+.then(() => {
+this.errorMessage = null;
+window.location.reload();
+
+})
+.catch((error) => {
+  if(error == 'Server error'){
+      this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+  }
+  else{
+      this.errorMessage = error;
+  }
+});
+}
+
 
   resetForm(): void{
     this.myForm.setValue({
