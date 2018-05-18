@@ -15,12 +15,18 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { DischargeService } from './Discharge.service';
+import {SetDischargeConnectTimestamp, SetDischargeDisconnectTimestamp} from '../firstcoin.shipping';
+import {SetDischargeConnectTimestampService} from '../SetDischargeConnectTimestamp/SetDischargeConnectTimestamp.service';
 import 'rxjs/add/operator/toPromise';
+import { SetDischargeConnectTimestampComponent } from '../SetDischargeConnectTimestamp/SetDischargeConnectTimestamp.component';
+import { Transaction } from '../org.hyperledger.composer.system';
+import { DataService } from '../data.service';
+import { SetDischargeDisconnectTimestampService } from '../SetDischargeDisconnectTimestamp/SetDischargeDisconnectTimestamp.service';
 @Component({
 	selector: 'app-Discharge',
 	templateUrl: './Discharge.component.html',
 	styleUrls: ['./Discharge.component.css'],
-  providers: [DischargeService]
+  providers: [DischargeService,SetDischargeConnectTimestampService,SetDischargeDisconnectTimestampService]
 })
 export class DischargeComponent implements OnInit {
 
@@ -50,7 +56,7 @@ export class DischargeComponent implements OnInit {
   
 
 
-  constructor(private serviceDischarge:DischargeService, fb: FormBuilder) {
+  constructor(private serviceDischarge:DischargeService, fb: FormBuilder, private setTimeStampConnectDischargeService:SetDischargeConnectTimestampService,private setTimeStampDisconnectDischargeService:SetDischargeDisconnectTimestampService) {
     this.myForm = fb.group({
     
         
@@ -205,11 +211,6 @@ export class DischargeComponent implements OnInit {
    updateAsset(form: any): Promise<any> {
     this.asset = {
       $class: "firstcoin.shipping.Discharge",
-      
-        
-          
-        
-    
         
           
             "nomination":this.nomination.value,
@@ -272,6 +273,35 @@ export class DischargeComponent implements OnInit {
   setId(id: any): void{
     this.currentId = id;
   }
+
+
+  // refreshInstant(): Promise<any> {
+  //   let tempList = [];
+  //   this.currentId = this.nominationId.value;
+  //   console.log(this.nominationId.value);
+  //   return this.serviceNomination.getAsset(this.nominationId.value)
+  //   .toPromise()
+  //   .then((result) => {
+  //     tempList.push(result);
+  //     this.madeBy = result.madeBy;
+  //     this.allAssets = tempList;
+  //     if (!this.allAssets) {
+  //       this.errorMessage = “ASSET LIST EMPTY”;
+  //     }
+  //   })
+  //   .catch((error) => {
+  //       if(error == ‘Server error’){
+  //           this.errorMessage = “Could not connect to REST server. Please check your configuration details”;
+  //       }
+  //       else if(error == ‘404 - Not Found’){
+  //                this.errorMessage = “404 - Could not find API route. Please check your available APIs.”
+  //       }
+  //       else{
+  //           this.errorMessage = error;
+  //       }
+  //   });
+  // }
+
 
   getForm(id: any): Promise<any>{
 
@@ -351,64 +381,75 @@ export class DischargeComponent implements OnInit {
     });
 
   }
-  setHoseConnect(id: any, nomination: string,disconnectHoseValue: string): Promise<any>{
- 
-    this.asset = {
-      $class: "firstcoin.shipping.Discharge",
-      
-            "nomination": nomination,
-            "hoseConnected": Date.now(),
-            "hoseDisconnected": disconnectHoseValue
-    };
-    //debugger;   
-    return this.serviceDischarge.updateAsset(id,this.asset)
-    .toPromise()
-    .then(() => {
-      this.errorMessage = null;
-      window.location.reload();
-    })
-    .catch((error) => {
-            if(error == 'Server error'){
-        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-      }
-            else if(error == '404 - Not Found'){
-        this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-      }
-      else{
-        this.errorMessage = error;
-      }
-    });
-    
-  }
+  addTransactionConnectHoses(id:string): Promise<any>{
 
-  setHoseDisconnect(id: any, nomination:string, connectedHoseState: string ): Promise<any>{
- 
-    this.asset = {
-      $class: "firstcoin.shipping.Discharge",
+    var transaction = {    
+    $class: "firstcoin.shipping.SetDischargeConnectTimestamp",
       
-            "nomination" : nomination,
-            "hoseConnected": connectedHoseState,
-            "hoseDisconnected": Date.now()
+        
+    "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
+  
 
-    };
-    //debugger;   
-    return this.serviceDischarge.updateAsset(id,this.asset)
-    .toPromise()
-    .then(() => {
-      this.errorMessage = null;
-      window.location.reload();
-    })
-    .catch((error) => {
-            if(error == 'Server error'){
+  
+    "transactionId":"",
+  
+
+  
+    "timestamp": Date.now()
+  
+
+};
+return this.setTimeStampConnectDischargeService.addTransaction(transaction)
+.toPromise()
+.then(() => {
+  this.errorMessage = null;
+  window.location.reload();
+
+})
+.catch((error) => {
+    if(error == 'Server error'){
         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-      }
-            else if(error == '404 - Not Found'){
-        this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-      }
-      else{
+    }
+    else{
         this.errorMessage = error;
-      }
-  });
+    }
+});
+}
+
+
+  addTransactionDisconnectHoses(id:string): Promise<any>{
+
+    var transaction = {    
+    $class: "firstcoin.shipping.SetDischargeDisconnectTimestamp",
+      
+        
+    "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
+  
+
+  
+    "transactionId":"",
+  
+
+  
+    "timestamp": Date.now()
+  
+
+};
+return this.setTimeStampDisconnectDischargeService.addTransaction(transaction)
+.toPromise()
+.then(() => {
+  this.errorMessage = null;
+  window.location.reload();
+
+})
+.catch((error) => {
+    if(error == 'Server error'){
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+    }
+    else{
+        this.errorMessage = error;
+    }
+});
 }
 
   resetForm(): void{

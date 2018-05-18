@@ -6,7 +6,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an "AS IS" BASISf,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -21,16 +21,17 @@ import { LoadingService } from '../Loading/Loading.service';
 	selector: 'app-Nomination',
 	templateUrl: './Nomination.component.html',
 	styleUrls: ['./Nomination.component.css'],
-  providers: [NominationService, LoadingService]
+    providers: [NominationService,LoadingService]
 })
 export class NominationComponent implements OnInit {
 
   myForm: FormGroup;
+  Form2: FormGroup;
 
   private allAssets;
   private asset;
   private currentId;
-	private errorMessage;
+  private errorMessage;
 
           nominationId = new FormControl("", Validators.required);
           vesselName = new FormControl("", Validators.required);
@@ -60,8 +61,14 @@ export class NominationComponent implements OnInit {
           minQuantity = new FormControl("", Validators.required);
           madeBy = new FormControl("", Validators.required);
           verified = new FormControl("", Validators.required);
+          captain = new FormControl("", Validators.required);
+          loadingId = new FormControl("", Validators.required);
+          nomination = new FormControl("", Validators.required);
+          NORTendered = new FormControl("", Validators.required);
+          documentsOnBoard = new FormControl("", Validators.required);
+          BLQuantity = new FormControl("", Validators.required);
   
-  constructor(private serviceNomination:NominationService, fb: FormBuilder) {
+  constructor(private serviceNomination:NominationService, private serviceLoading:LoadingService, fb: FormBuilder) {
     this.myForm = fb.group({
     
         
@@ -92,9 +99,18 @@ export class NominationComponent implements OnInit {
           maxQuantity:this.maxQuantity,
           minQuantity:this.minQuantity,
           madeBy:this.madeBy,
-          verified:this.verified
-        
+          verified:this.verified,
+          captain:this.captain
+          
     
+    });
+
+    this.Form2 = fb.group({
+      loadingId:this.loadingId,
+      nomination:this.nomination,
+      NORTendered:this.NORTendered,
+      documentsOnBoard:this.documentsOnBoard,
+      BLQuantity:this.BLQuantity
     });
   };
 
@@ -183,8 +199,8 @@ export class NominationComponent implements OnInit {
           "maxQuantity":this.maxQuantity.value,
           "minQuantity":this.minQuantity.value,
           "madeBy":this.madeBy.value,
-          "verified":this.verified.value
-        
+          "verified":false,
+          "captain":this.captain.value
       
     };
 
@@ -217,8 +233,9 @@ export class NominationComponent implements OnInit {
           "shippingCompany":null,
           "maxQuantity":null,
           "minQuantity":null,
-          "madeBy":null,
-          "verified":null
+          "madeBy":null, 
+          "verified":null,
+          "captain":null
         
       
     });
@@ -257,7 +274,8 @@ export class NominationComponent implements OnInit {
           "maxQuantity":null,
           "minQuantity":null,
           "madeBy":null,
-          "verified":null 
+          "verified":null,
+          "captain":null
         
       
       });
@@ -273,7 +291,7 @@ export class NominationComponent implements OnInit {
   }
 
 
-   updateAsset(form: any): Promise<any> {
+  updateAsset(form: any): Promise<any> {
     this.asset = {
       $class: "firstcoin.shipping.Nomination",
       
@@ -304,7 +322,8 @@ export class NominationComponent implements OnInit {
             "maxQuantity":this.maxQuantity.value,
             "minQuantity":this.minQuantity.value,
             "madeBy":this.madeBy.value,
-            "verified":this.verified.value
+            "verified":this.verified.value,
+            "captain":this.captain.value
           
         
     
@@ -313,6 +332,7 @@ export class NominationComponent implements OnInit {
     return this.serviceNomination.updateAsset(form.get("nominationId").value,this.asset)
 		.toPromise()
 		.then(() => {
+      
 			this.errorMessage = null;
 		})
 		.catch((error) => {
@@ -362,34 +382,36 @@ export class NominationComponent implements OnInit {
       let formObject = {
         
           
-          "nominationId":null,
-          "vesselName":null,
-          "IMONumber":null,
-          "voyageNumber":null,
-          "departure":null,
-          "destination":null,
-          "ETA":null,
-          "cargo":null,
-          "operationType":null,
-          "nominatedQuantity":null,
-          "wscFlat":null,
-          "wscPercent":null,
-          "overageRate":null,
-          "freightCommission":null,
-          "demurrageRate":null,
-          "operationTime":null,
-          "charterDate":null,
-          "option1":null,
-          "option2":null,
-          "option3":null,
-          "allowedLayTimeHours":null,
-          "charterer":null,
-          "voyageManager":null,
-          "shippingCompany":null,
-          "maxQuantity":null,
-          "minQuantity":null,
-          "madeBy":null,
-          "verified":null 
+            "nominationId":null,
+            "vesselName":null,
+            "IMONumber":null,
+            "voyageNumber":null,
+            "departure":null,
+            "destination":null,
+            "ETA":null,
+            "cargo":null,
+            "operationType":null,
+            "nominatedQuantity":null,
+            "wscFlat":null,
+            "wscPercent":null,
+            "overageRate":null,
+            "freightCommission":null,
+            "demurrageRate":null,
+            "operationTime":null,
+            "charterDate":null,
+            "option1":null,
+            "option2":null,
+            "option3":null,
+            "allowedLayTimeHours":null,
+            "charterer":null,
+            "voyageManager":null,
+            "shippingCompany":null,
+            "maxQuantity":null,
+            "minQuantity":null,
+            "madeBy":null,
+            "verified":null ,
+            "captain":null,
+
         
       };
 
@@ -619,7 +641,14 @@ export class NominationComponent implements OnInit {
         }else{
           formObject.verified = null;
         }
-      
+
+        if(result.captain){
+          
+          formObject.captain = result.captain;
+        
+		    }else{
+		      formObject.captain = null;
+		    }
 
       this.myForm.setValue(formObject);
 
@@ -669,47 +698,129 @@ export class NominationComponent implements OnInit {
           "maxQuantity":null,
           "minQuantity":null,
           "madeBy":null,
-          "verified":null 
+          "verified":null,
+          "captain":null
         
-      
       });
   }
 
-addLoadingAsset (id: any): Promise<any> {
-   this.participant = {
-     $class: "firstcoin.shipping.Captain",
-     
-       
-         "captainId":this.captainId.value
-       
-     
-   };    this.myForm.setValue({
-     
-       
-         "captainId":null
-       
-     
-   });    return this.serviceCaptain.addParticipant(this.participant)
-   .toPromise()
-   .then(() => {
-            this.errorMessage = null;
-     this.myForm.setValue({
-     
-       
-         "captainId":null
-       
-     
-     });
-   })
-   .catch((error) => {
-       if(error == 'Server error'){
-           this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-       }
-       else{
-           this.errorMessage = error;
-       }
-   });
- }
+	addLoadingAsset (id: any): Promise<any> {
+			var random = Math.floor((Math.random() * 1000) + 1);
+			var loading = { 
+				$class: "firstcoin.shipping.Loading",
+				"loadingId": random,
+				"nomination": "resource:firstcoin.shipping.Nomination#" + id,
+				"NORTendered": null,
+				"documentOnBoard": null,
+				"BLQuantity": 95		
+			};
 
-	
+		return this.serviceLoading.addAsset(loading)
+		.toPromise()
+		.then((result) => {
+			console.log(id);
+		})
+		.catch((error) => {
+			if(error == 'Server error'){
+				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+			}
+			else {
+				this.errorMessage = error;
+			}
+		});
+	}
+
+  /* CHecks to see if BLQuantity was passed into console 
+	addBLQuantity (form: any): Promise<any> {
+    this.asset = {
+      $class: "firstcoin.shipping.Loading",
+          "loadingId":this.loadingId.value,
+          "nomination":this.nomination.value,
+          "NORTendered":this.NORTendered.value,
+          "documentsOnBoard":this.documentsOnBoard.value,
+          "BLQuantity":this.BLQuantity.value
+    };
+
+    return this.serviceNomination.addBLQuantity(this.asset)
+    .toPromise()
+    .then(() => {
+      this.errorMessage = null;
+    })
+    .catch((error) => {
+        if(error == 'Server error'){
+            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else{
+            this.errorMessage = error;
+        }
+    });
+  }*/
+
+    /* CHecks to see if BLQuantity was passed into console */
+	getNomIdForLoading (id : any): Promise<any> {
+     return this.serviceLoading.getAsset(id)
+    .toPromise()
+    .then((result) => {
+			this.errorMessage = null;
+      let formObject = {
+
+          "loadingId":null,
+       /* "nomination":"resource:firstcoin.shipping.Nomination#" + id, */
+        "nomination":null,
+          "NORTendered":null,
+          "documentsOnBoard":null,
+          "BLQuantity":null
+       };
+
+
+         if(result.loadingId){
+            formObject.loadingId = result.loadingId;
+         } else {
+		      formObject.loadingId = null;
+		   }
+
+
+if(result.nomination){
+            formObject.nomination = result.nomination;
+         } else {
+		      formObject.nomination = null;
+		   }
+
+if(result.NORTendered){
+            formObject.NORTendered = result.NORTendered;
+         } else {
+		      formObject.NORTendered = null;
+		   }
+
+if(result.documentsOnBoard){
+            formObject.documentsOnBoard = result.documentsOnBoard;
+         } else {
+		      formObject.documentsOnBoard = null;
+		   }
+
+if(result.BLQuantity){
+            formObject.BLQuantity = result.BLQuantity;
+         } else {
+		      formObject.BLQuantity = null;
+		   }
+debugger;
+
+      this.Form2.setValue(formObject);
+
+    })
+    .catch((error) => {
+        if(error == 'Server error'){
+            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else if(error == '404 - Not Found'){
+				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+        }
+        else{
+            this.errorMessage = error;
+        }
+    });
+
+  }
+
+
 }

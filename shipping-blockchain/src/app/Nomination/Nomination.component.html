@@ -10,8 +10,59 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
+
 -->
 
+<div class="modal fade" id="addBLQuantityModal" tabindex="-1" role="dialog" aria-labelledby="addBLQuantityModalLabel">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     
+	 <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       <h4 class="modal-title" id="addBLQuantityModalLabel">Initialize sample data</h4>
+   </div>
+
+     <form [formGroup]="Form2">
+        <div class="modal-body">
+
+          <div class="form-group text-left">
+            <label for="loadingId">loadingId</label>
+            <input formControlName="loadingId" type="text" class="form-control">
+          </div>  
+          <div class="form-group text-left">
+            <label for="nomination">nomination</label>
+            <input formControlName="nomination" type="text" class="form-control">
+          </div>    
+
+          <div class="form-group text-left">
+            <label for="NORTendered">NORTendered</label>
+            <input formControlName="NORTendered" type="text" class="form-control">
+          </div> 
+
+              <div class="form-group text-left">
+                <label for="documentsOnBoard">documentsOnBoard</label>
+                <input formControlName="documentsOnBoard" type="text" class="form-control">
+              </div>    
+
+              <div class="form-group text-left">
+                <label for="BLQuantity">BLQuantity</label>
+                <input formControlName="BLQuantity" type="text" class="form-control">
+              </div>  
+        </div>
+
+        <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button (click)="addBLQuantity(Form2);" type="submit" class="btn btn-success" data-dismiss="modal">Confirm</button>
+        </div>
+     
+     </form>
+
+   </div>
+ </div>
+</div>
+
+
+<!-- This block is the Create Nomination Button. Voyage Manager enters data into the textfield in a modal form -->
 <div class="modal fade" id="addAssetModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -209,18 +260,26 @@
               </div>
             
             
-              <div class="form-group text-left">
+              <!-- <div class="form-group text-left">
                 <label for="verified">verified</label>
                   <input formControlName="verified" type="checkbox" class="form-control">
+                
+              </div> -->
+
+
+              <div class="form-group text-left">
+                <label for="captain">captainId</label>
+                  <input formControlName="captain" type="text" class="form-control">
               </div>
            
 
         </div>
+
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button (click)="addAsset(myForm);" type="submit" class="btn btn-success" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" data-dismiss="modal">Confirm</button>
-
+          <button (click)="addAsset(myForm);" type="submit" class="btn btn-success" value="Refresh Page"  data-dismiss="modal">Confirm</button>
         </div>
+
       </form>
     </div>
   </div>
@@ -228,7 +287,7 @@
 
 
 
-
+<!-- Update Modal. Created when row data exist-->
 <div class="modal fade" id="updateAssetModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -243,85 +302,46 @@
           
             <div class="form-group text-left">
               <label for="nominationId">nominationId</label>
-              
-              
                 <input [ngModel]="nominationId" formControlName="nominationId" class="form-control" disabled="disabled">  
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="vesselName">vesselName</label>
-              
-              
                 <input [ngModel]="vesselName"formControlName="vesselName" type="text" class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="IMONumber">IMONumber</label>
-              
-              
                 <input [ngModel]="IMONumber"formControlName="IMONumber" type="text" class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="voyageNumber">voyageNumber</label>
-              
-              
                 <input [ngModel]="voyageNumber"formControlName="voyageNumber" type="text" class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="departure">departure</label>
-              
-              
-                
                   <textarea [ngModel]="departure" formControlName="departure" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="destination">destination</label>
-              
-              
-                
                   <textarea [ngModel]="destination" formControlName="destination" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="ETA">ETA</label>
-              
-              
                 <input [ngModel]="ETA"formControlName="ETA" type="text" class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="cargo">cargo</label>
-              
-              
-                
                   <textarea [ngModel]="cargo" formControlName="cargo" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="operationType">operationType</label>
-              
               
                 
                   <div class="row">
@@ -369,178 +389,92 @@
           
             <div class="form-group text-left">
               <label for="wscFlat">wscFlat</label>
-              
-              
                 <input [ngModel]="wscFlat" formControlName="wscFlat" type="number" step='any' class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="wscPercent">wscPercent</label>
-              
-              
                 <input [ngModel]="wscPercent" formControlName="wscPercent" type="number" step='any' class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="overageRate">overageRate</label>
-              
-              
                 <input [ngModel]="overageRate" formControlName="overageRate" type="number" step='any' class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="freightCommission">freightCommission</label>
-              
-              
                 <input [ngModel]="freightCommission" formControlName="freightCommission" type="number" step='any' class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="demurrageRate">demurrageRate</label>
-              
-              
                 <input [ngModel]="demurrageRate" formControlName="demurrageRate" type="number" step='any' class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="operationTime">operationTime</label>
-              
-              
                 <input [ngModel]="operationTime" formControlName="operationTime" type="number" step='any' class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="charterDate">charterDate</label>
-              
-              
                 <input [ngModel]="charterDate"formControlName="charterDate" type="text" class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="option1">option1</label>
-              
-              
-                
                   <textarea [ngModel]="option1" formControlName="option1" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="option2">option2</label>
-              
-              
-                
                   <textarea [ngModel]="option2" formControlName="option2" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="option3">option3</label>
-              
-              
-                
                   <textarea [ngModel]="option3" formControlName="option3" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="allowedLayTimeHours">allowedLayTimeHours</label>
-              
-              
                 <input [ngModel]="allowedLayTimeHours" formControlName="allowedLayTimeHours" type="number" class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="charterer">charterer</label>
-              
-              
-                
                   <textarea [ngModel]="charterer" formControlName="charterer" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="voyageManager">voyageManager</label>
-              
-              
-                
                   <textarea [ngModel]="voyageManager" formControlName="voyageManager" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="shippingCompany">shippingCompany</label>
-              
-              
-                
                   <textarea [ngModel]="shippingCompany" formControlName="shippingCompany" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="maxQuantity">maxQuantity</label>
-              
-              
                 <input [ngModel]="maxQuantity" formControlName="maxQuantity" type="number" step='any' class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="minQuantity">minQuantity</label>
-              
-              
                 <input [ngModel]="minQuantity" formControlName="minQuantity" type="number" step='any' class="form-control">
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="madeBy">madeBy</label>
-              
-              
-                
                   <textarea [ngModel]="madeBy" formControlName="madeBy" class="form-control" rows="3"></textarea>
-                
-              
-
             </div>
           
             <div class="form-group text-left">
               <label for="verified">verified</label>
-              
-              
                 <input [ngModel]="verified" formControlName="verified" type="checkbox" class="form-control">
-              
-
             </div>
           
 
@@ -556,7 +490,7 @@
 </div>
 
 
-
+<!-- Delete Modal. Deletes the selected row -->
 <div class="modal fade" id="deleteAssetModal" tabindex="-1" role="dialog" aria-labelledby="deleteAssetModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -576,12 +510,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
 
 
 
@@ -652,12 +580,15 @@
 				         c1.7,0,3-1.3,3-3S64.5,10.3,62.9,10.3z M43.3,10.3H22.6V6h20.7L43.3,10.3L43.3,10.3z"/>
 				       </svg>
 				      </button>
+					  
+			      	 <button (click)="addLoadingAsset(asset.nominationId);">LoadingAsset</button>
 
-					 
-						<button (click)="addLoadingAsset.nominationId);">Loading</button>
-					
+					<button (click)="getForm(asset.nominationId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#addBLQuantityModal">
+							Loading Modal
+						</button>
+				
 
-                </td>
+               </td>
           </tr>
         </tbody>
       </table>
