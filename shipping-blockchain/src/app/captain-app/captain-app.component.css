@@ -11,18 +11,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-.container {
+ .container {
     width: 100%;
     padding-left: 72px;
     padding-right: 72px;
 }
 
-#backbutton{
-
-    line-height: 20px;
-    float:left;
-    width: 160px;
-}
 .btn-primary {
     background: #844AE4;
     border-radius: 4px;
@@ -32,10 +26,9 @@
     letter-spacing: 0;
     line-height: 10px;
     height: 40px;
-    width: 153px;
+    width: 200px;
     float: right;
     margin-top: 5%;
-    margin: 5%;
 }
 
 .table > thead > tr > th {

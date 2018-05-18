@@ -45,6 +45,7 @@ import { LoadingComponent } from './Loading/Loading.component';
   import { InitializeStuffComponent } from './InitializeStuff/InitializeStuff.component';
   import { FinalizeNominationComponent } from './FinalizeNomination/FinalizeNomination.component';
   import { CreateNominationComponent } from './CreateNomination/CreateNomination.component';
+import { CaptainAppComponent } from './captain-app/captain-app.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +76,9 @@ import { LoadingComponent } from './Loading/Loading.component';
         InitializeStuffComponent,
         FinalizeNominationComponent,
         
-        CreateNominationComponent
+        CreateNominationComponent,
+        
+        CaptainAppComponent
         
   ],
   imports: [

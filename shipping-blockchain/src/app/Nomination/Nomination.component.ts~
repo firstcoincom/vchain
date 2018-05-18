@@ -712,7 +712,7 @@ export class NominationComponent implements OnInit {
 				"nomination": "resource:firstcoin.shipping.Nomination#" + id,
 				"NORTendered": null,
 				"documentOnBoard": null,
-				"BLQuantity": 0
+				"BLQuantity": 95		
 			};
 
 		return this.serviceLoading.addAsset(loading)

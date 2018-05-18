@@ -192,7 +192,15 @@
                 <td class="asset-properties">{{asset.nomination}}</td>
                 <td class="asset-properties">{{asset.NORTendered}}</td>
                 <td class="asset-properties">{{asset.documentsOnBoard}}</td>
-                <td class="asset-properties">{{asset.BLQuantity}}</td>
+
+                <td class="asset-properties">
+                    <button ng-click="asset.BLQuantity = asset.BLQuantity+1" type="button" class="btn btn-primary" >
+                        Increment
+                    </button>{{asset.BLQuantity}}
+                    <button ng-click="asset.BLQuantity = asset.BLQuantity - 1" type="button" class="btn btn-primary">
+                        Decrement
+                    </button>
+                  </td>
 
             
             <td>
@@ -220,15 +228,12 @@
                 </svg>
                 </button>
                 <div>
-                    <button (click)="addTransactionDocumentsOnBoard(asset.loadingId);" type="button" class="btn btn-primary">
+                    <button (click)="getForm(asset.loadingId);" type="button" class="btn btn-primary">
                         Documents On Board
                     </button>
-                    <button (click)="addTransactionNORTendered(asset.loadingId);" type="button" class="btn btn-primary">
+                    <button (click)="getForm(asset.loadingId);" type="button" class="btn btn-primary">
                         NOR Tendered
                     </button>
-
-
-
                 </div>  
             </td>
           </tr>
@@ -236,9 +241,4 @@
       </table>
     </div>
   </div>
-
-  <button [routerLink]="['/Nomination']"  id = "backbutton"  type="button" class="btn btn-primary">
-    ← Back to Nominations 
- </button>
 </div>
-

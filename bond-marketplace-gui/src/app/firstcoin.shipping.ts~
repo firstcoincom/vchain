@@ -21,20 +21,18 @@ import {Event} from './org.hyperledger.composer.system';
       demurrageRate: number;
       operationTime: number;
       charterDate: Date;
+      charterer: Charterer;
       option1: FreightOption;
       option2: FreightOption;
       option3: FreightOption;
       allowedLayTimeHours: number;
-      charterer: Charterer;
-      voyageManager: VoyageManager;
-      shippingCompany: ShippingCompany;
+      chartererEmail: string;
+      voyageManagerEmail: string;
+      shippingCompanyEmail: string;
       maxQuantity: number;
       minQuantity: number;
       madeBy: Participant;
       verified: boolean;
-      captain: Captain;
-      loadingDone: boolean;
-      dischargeDone: boolean;
    }
    export class FreightOption {
       rate: number;
@@ -64,8 +62,6 @@ import {Event} from './org.hyperledger.composer.system';
    export class Loading extends Asset {
       loadingId: string;
       nomination: Nomination;
-      NORTendered: Date;
-      documentsOnBoard: Date;
       BLQuantity: number;
    }
    export class Terminal extends Participant {
@@ -82,7 +78,6 @@ import {Event} from './org.hyperledger.composer.system';
    }
    export class ShippingCompany extends Participant {
       companyId: string;
-      email: string;
    }
    export class Charterer extends Participant {
       chartererId: string;
@@ -103,54 +98,10 @@ import {Event} from './org.hyperledger.composer.system';
       nomination: Nomination;
       newETA: Date;
    }
-   export class SetDischargeConnectTimestamp extends Transaction {
-      discharge: Discharge;
-   }
-   export class SetDischargeDisconnectTimestamp extends Transaction {
-      discharge: Discharge;
-   }
-   export class SetLoadingNORTemperedTimestamp extends Transaction {
-      discharge: Discharge;
-   }
-   export class SetLoadingDocumentsOnBoardTimestamp extends Transaction {
+   export class SetDischargeTimestamp extends Transaction {
       discharge: Discharge;
    }
    export class InitializeStuff extends Transaction {
-   }
-   export class FinalizeNomination extends Transaction {
-      nomination: Nomination;
-   }
-   export class CreateNomination extends Transaction {
-      nominationId: string;
-      vesselName: string;
-      IMONumber: string;
-      voyageNumber: string;
-      departure: Terminal;
-      destination: Terminal;
-      ETA: Date;
-      cargo: CargoItem[];
-      operationType: Operation;
-      nominatedQuantity: number;
-      wscFlat: number;
-      wscPercent: number;
-      overageRate: number;
-      freightCommission: number;
-      demurrageRate: number;
-      operationTime: number;
-      charterDate: Date;
-      option1: FreightOption;
-      option2: FreightOption;
-      option3: FreightOption;
-      allowedLayTimeHours: number;
-      charterer: Charterer;
-      voyageManager: VoyageManager;
-      shippingCompany: ShippingCompany;
-      maxQuantity: number;
-      minQuantity: number;
-      captain: Captain;
-   }
-   export class EmailEvent extends Event {
-      voyageNumber: string;
-      emails: string[];
+
    }
 // }

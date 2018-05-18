@@ -33,6 +33,9 @@ asset Nomination identified by nominationId {
   o Double minQuantity
   --> Participant madeBy
   o Boolean verified default = false
+  --> Captain captain
+  o Boolean loadingDone default = false
+  o Boolean dischargeDone default = false
 }
 
 concept FreightOption {
@@ -142,12 +145,12 @@ transaction SetDischargeDisconnectTimestamp {
   --> Discharge discharge
 }
 
-transaction SetLoadingNORTemperedTimestamp {
-  --> Discharge discharge
+transaction SetLoadingNORTenderedTimestamp {
+  --> Loading loading
 }
 
 transaction SetLoadingDocumentsOnBoardTimestamp {
-  --> Discharge discharge
+  --> Loading loading
 }
 
 transaction InitializeStuff {
@@ -184,10 +187,18 @@ transaction CreateNomination {
   --> ShippingCompany shippingCompany
   o Double maxQuantity
   o Double minQuantity
+  --> Captain captain
 }
-// events
+
+/*
+ * Events
+ */
 
 event EmailEvent {
   o String voyageNumber
   o String[] emails
+  o Double freightInvoice
+  o Double freightCommission
+  o Double loadDemurrage
+  o Double totalDemurrage
 }

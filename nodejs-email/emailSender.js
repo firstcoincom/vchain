@@ -1,15 +1,24 @@
 'use strict';
-
+// imports
 const BusinessNetworkConnection = require("composer-client").BusinessNetworkConnection;
 const nodemailer = require('nodemailer');
 
-var businessNetworkConnection = new BusinessNetworkConnection();
+// get email info from parameters
+const emailAddress = process.argv[2];
+const emailPassword = process.argv[3];
+if (emailAddress == null || emailPassword == null)
+{
+    console.log('Address and password for email required.');
+    process.exit(-1);
+}
 
-var transporter = nodemailer.createTransport({
+const businessNetworkConnection = new BusinessNetworkConnection();
+
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'team6.eventmail@gmail.com',
-        pass: 'DemurrageVolumesDisport'
+        user: emailAddress,
+        pass: emailPassword
     }
 });
 
@@ -17,6 +26,10 @@ var transporter = nodemailer.createTransport({
 (async () =>
 {
     await businessNetworkConnection.connect("admin@bond-marketplace");
+
+    let mailOptions = {
+        from: emailAddress
+    };
 
     businessNetworkConnection.on("event", event =>
     {
@@ -26,32 +39,32 @@ var transporter = nodemailer.createTransport({
             return;
         }
 
-        // create mail list string by appending given addresses
-        var mailList = '';
-        event.emails.forEach(element =>
+        // create general email for all addresses
+        mailOptions.subject = 'Invoice for voyage '
+            + event.voyageNumber + '.';
+        mailOptions.text = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
+            + '\nFreight commission: $' + parseFloat(event.freightCommission).toFixed(2)
+            + '\nLoad demurrage: $' + parseFloat(event.loadDemurrage).toFixed(2)
+            + '\nTotal demurrage: $' + parseFloat(event.totalDemurrage).toFixed(2);
+
+        // send an email to each given address
+        event.emails.forEach(address =>
         {
-            mailList += element + ',';
+            mailOptions.to = address;
+
+            transporter.sendMail(mailOptions, function (error, info)
+            {
+                if (error)
+                {
+                    console.log(error);
+                } else
+                {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
         });
 
-        // create generic email for all addresses
-        var mailOptions = {
-            from: 'team6.eventmail@gmail.com',
-            to: mailList,
-            subject: 'Invoice for voyage '
-                + event.voyageNumber + ' is available',
-            text: ''
-        };
 
-        transporter.sendMail(mailOptions, function (error, info)
-        {
-            if (error)
-            {
-                console.log(error);
-            } else
-            {
-                console.log('Email sent: ' + info.response);
-            }
-        });
     });
 
     console.log('Now listening for business network events...');
