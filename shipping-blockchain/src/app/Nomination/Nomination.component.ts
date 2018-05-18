@@ -712,7 +712,7 @@ export class NominationComponent implements OnInit {
 				"nomination": "resource:firstcoin.shipping.Nomination#" + id,
 				"NORTendered": null,
 				"documentOnBoard": null,
-				"BLQuantity": 95		
+				"BLQuantity": 0
 			};
 
 		return this.serviceLoading.addAsset(loading)
@@ -758,6 +758,7 @@ export class NominationComponent implements OnInit {
 
     /* CHecks to see if BLQuantity was passed into console */
 	getNomIdForLoading (id : any): Promise<any> {
+ console.log("hi");
      return this.serviceLoading.getAsset(id)
     .toPromise()
     .then((result) => {
@@ -772,9 +773,10 @@ export class NominationComponent implements OnInit {
           "BLQuantity":null
        };
 
-
+	   console.log("hi");
          if(result.loadingId){
             formObject.loadingId = result.loadingId;
+			console.log("loadingId");
          } else {
 		      formObject.loadingId = null;
 		   }
@@ -782,24 +784,28 @@ export class NominationComponent implements OnInit {
 
 if(result.nomination){
             formObject.nomination = result.nomination;
+			console.log("nomination");
          } else {
 		      formObject.nomination = null;
 		   }
 
 if(result.NORTendered){
             formObject.NORTendered = result.NORTendered;
+						console.log("NORTendered");
          } else {
 		      formObject.NORTendered = null;
 		   }
 
 if(result.documentsOnBoard){
             formObject.documentsOnBoard = result.documentsOnBoard;
+			console.log("documentsOnBoard");
          } else {
 		      formObject.documentsOnBoard = null;
 		   }
 
 if(result.BLQuantity){
             formObject.BLQuantity = result.BLQuantity;
+			console.log("BLQuantity");
          } else {
 		      formObject.BLQuantity = null;
 		   }

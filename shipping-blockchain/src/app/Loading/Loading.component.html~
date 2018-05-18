@@ -168,7 +168,7 @@
   <br>
 
 
-<!----------------------- LOADING TABLE --------------------------->
+<!----------------------- LOADING TABLE ---------------------------->
   <div class="row">
     <div class="col-md-12">
       <table class="table table-responsive">
@@ -192,9 +192,6 @@
                 <td class="asset-properties">{{asset.nomination}}</td>
                 <td class="asset-properties">{{asset.NORTendered}}</td>
                 <td class="asset-properties">{{asset.documentsOnBoard}}</td>
-<<<<<<< HEAD
-                <td class="asset-properties">{{asset.BLQuantity}}</td>
-=======
 
                 <td class="asset-properties">
                     <button ng-click="asset.BLQuantity = asset.BLQuantity+1" type="button" class="btn btn-primary" >
@@ -205,7 +202,6 @@
                     </button>
                   </td>
 
->>>>>>> a388bfe368b67c87e2268bd86c79bf7c1e1da167
             
             <td>
                 <button (click)="getForm(asset.loadingId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#updateAssetModal">

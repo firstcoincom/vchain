@@ -52,7 +52,7 @@
 
         <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button (click)="addBLQuantity(Form2);" type="submit" class="btn btn-success" data-dismiss="modal">Confirm</button>
+              <button (click)="addLoadingAsset(asset.nominationId);" type="submit" class="btn btn-success" data-dismiss="modal">Confirm</button>
         </div>
      
      </form>
@@ -581,11 +581,9 @@
 				       </svg>
 				      </button>
 					  
-			      	 <button (click)="addLoadingAsset(asset.nominationId);">LoadingAsset</button>
-
-					<button (click)="getForm(asset.nominationId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#addBLQuantityModal">
-							Loading Modal
-						</button>
+			      	 <button (click)="addLoadingAsset(asset.nominationId);" [routerLink]="['/Loading']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">
+						Loading
+					</button>
 				
 
                </td>
