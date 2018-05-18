@@ -36,6 +36,13 @@
     float: right;
 }
 
+#backbutton{
+
+    line-height: 20px;
+    float:left;
+    width: 160px;
+}
+
 .btn-primary {
     background: #844AE4;
     border-radius: 4px;
