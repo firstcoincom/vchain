@@ -16,6 +16,7 @@ import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
 import { Nomination } from '../firstcoin.shipping';
+import { Loading } from '../firstcoin.shipping';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor
@@ -28,7 +29,7 @@ export class NominationService {
 
 
 
-    constructor(private dataService: DataService<Nomination>) {
+    constructor(private dataService: DataService<Nomination>, private dataService2: DataService<Loading>) {
     };
 
     public getAll(): Observable<Nomination[]> {
@@ -49,6 +50,10 @@ export class NominationService {
 
     public deleteAsset(id: any): Observable<Nomination> {
       return this.dataService.delete(this.NAMESPACE, id);
+    }
+
+    public addBLQuantity(itemToAdd: any): Observable<Loading> {
+      return this.dataService2.add(this.LOADING, itemToAdd);
     }
 
 }

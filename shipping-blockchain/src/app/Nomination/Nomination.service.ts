@@ -17,6 +17,7 @@ import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
 import { Nomination } from '../firstcoin.shipping';
 import { Loading } from '../firstcoin.shipping';
+import { Discharge } from '../firstcoin.shipping';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor

@@ -14,47 +14,42 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { DischargeService } from './Discharge.service';
-import {SetDischargeConnectTimestamp, SetDischargeDisconnectTimestamp} from '../firstcoin.shipping';
-import {SetDischargeConnectTimestampService} from '../SetDischargeConnectTimestamp/SetDischargeConnectTimestamp.service';
+import { LoadingService } from './Loading.service';
 import 'rxjs/add/operator/toPromise';
-import { SetDischargeConnectTimestampComponent } from '../SetDischargeConnectTimestamp/SetDischargeConnectTimestamp.component';
-import { Transaction } from '../org.hyperledger.composer.system';
-import { DataService } from '../data.service';
-import { SetDischargeDisconnectTimestampService } from '../SetDischargeDisconnectTimestamp/SetDischargeDisconnectTimestamp.service';
+import { SetLoadingNORTemperedTimestampService } from '../SetLoadingNORTemperedTimestamp/SetLoadingNORTemperedTimestamp.service';
+import { SetLoadingDocumentsOnBoardTimestampService } from '../SetLoadingDocumentsOnBoardTimestamp/SetLoadingDocumentsOnBoardTimestamp.service';
 @Component({
-	selector: 'app-Discharge',
-	templateUrl: './Discharge.component.html',
-	styleUrls: ['./Discharge.component.css'],
-  providers: [DischargeService,SetDischargeConnectTimestampService,SetDischargeDisconnectTimestampService]
+	selector: 'app-Loading',
+	templateUrl: './Loading.component.html',
+	styleUrls: ['./Loading.component.css'],
+  providers: [LoadingService,SetLoadingNORTemperedTimestampService, SetLoadingDocumentsOnBoardTimestampService]
 })
-export class DischargeComponent implements OnInit {
+export class LoadingComponent implements OnInit {
 
   myForm: FormGroup;
 
   private allAssets;
   private asset;
   private currentId;
-	private errorMessage;
+  private errorMessage;
 
-  
       
-          dischargeId = new FormControl("", Validators.required);
+          loadingId = new FormControl("", Validators.required);
           nomination = new FormControl("", Validators.required);
-          hoseConnected = new FormControl("", Validators.required);
-          hoseDisconnected = new FormControl("", Validators.required);
-        
+          NORTendered = new FormControl("", Validators.required);
+          documentsOnBoard = new FormControl("", Validators.required);
+          BLQuantity = new FormControl("", Validators.required);
   
 
 
-  constructor(private serviceDischarge:DischargeService, fb: FormBuilder, private setTimeStampConnectDischargeService:SetDischargeConnectTimestampService,private setTimeStampDisconnectDischargeService:SetDischargeDisconnectTimestampService) {
+  constructor(private serviceLoading:LoadingService, fb: FormBuilder, private serviceSetLoadingNorTenderedTimestamp:SetLoadingNORTemperedTimestampService, private serviceSetLoadingDocumentsOnBoardTimestampService: SetLoadingDocumentsOnBoardTimestampService){
     this.myForm = fb.group({
-    
-        
-          dischargeId:this.dischargeId,
+
+          loadingId:this.loadingId,
           nomination:this.nomination,
-          hoseConnected:this.hoseConnected,
-          hoseDisconnected:this.hoseDisconnected
+          NORTendered:this.NORTendered,
+          documentsOnBoard:this.documentsOnBoard,
+          BLQuantity:this.BLQuantity
         
     
     });
@@ -66,7 +61,7 @@ export class DischargeComponent implements OnInit {
 
   loadAll(): Promise<any> {
     let tempList = [];
-    return this.serviceDischarge.getAll()
+    return this.serviceLoading.getAll()
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
@@ -115,13 +110,14 @@ export class DischargeComponent implements OnInit {
 
   addAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.Discharge",
+      $class: "firstcoin.shipping.Loading",
       
         
-          "dischargeId":this.dischargeId.value,
+          "loadingId":this.loadingId.value,
           "nomination":this.nomination.value,
-          "hoseConnected":this.hoseConnected.value,
-          "hoseDisconnected":this.hoseDisconnected.value
+          "NORTendered":this.NORTendered.value,
+          "documentsOnBoard":this.documentsOnBoard.value,
+          "BLQuantity":this.BLQuantity.value
         
       
     };
@@ -129,25 +125,27 @@ export class DischargeComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "dischargeId":null,
+          "loadingId":null,
           "nomination":null,
-          "hoseConnected":null,
-          "hoseDisconnected":null
+          "NORTendered":null,
+          "documentsOnBoard":null,
+          "BLQuantity":null
         
       
     });
 
-    return this.serviceDischarge.addAsset(this.asset)
+    return this.serviceLoading.addAsset(this.asset)
     .toPromise()
     .then(() => {
 			this.errorMessage = null;
       this.myForm.setValue({
       
         
-          "dischargeId":null,
+          "loadingId":null,
           "nomination":null,
-          "hoseConnected":null,
-          "hoseDisconnected":null 
+          "NORTendered":null,
+          "documentsOnBoard":null,
+          "BLQuantity":null 
         
       
       });
@@ -162,20 +160,23 @@ export class DischargeComponent implements OnInit {
     });
   }
 
+  
 
    updateAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.Discharge",
+      $class: "firstcoin.shipping.Loading",
+      
         
-          
             "nomination":this.nomination.value,
-            "hoseConnected":this.hoseConnected.value,
-            "hoseDisconnected":this.hoseDisconnected.value
+            "NORTendered":this.NORTendered.value,
+            "documentsOnBoard":this.documentsOnBoard.value,
+            "BLQuantity":this.BLQuantity.value
+          
         
     
     };
 
-    return this.serviceDischarge.updateAsset(form.get("dischargeId").value,this.asset)
+    return this.serviceLoading.updateAsset(form.get("loadingId").value,this.asset)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -196,7 +197,7 @@ export class DischargeComponent implements OnInit {
 
   deleteAsset(): Promise<any> {
 
-    return this.serviceDischarge.deleteAsset(this.currentId)
+    return this.serviceLoading.deleteAsset(this.currentId)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -218,57 +219,19 @@ export class DischargeComponent implements OnInit {
     this.currentId = id;
   }
 
-
-  // refreshInstant(): Promise<any> {
-  //   let tempList = [];
-  //   this.currentId = this.nominationId.value;
-  //   console.log(this.nominationId.value);
-  //   return this.serviceNomination.getAsset(this.nominationId.value)
-  //   .toPromise()
-  //   .then((result) => {
-  //     tempList.push(result);
-  //     this.madeBy = result.madeBy;
-  //     this.allAssets = tempList;
-  //     if (!this.allAssets) {
-  //       this.errorMessage = “ASSET LIST EMPTY”;
-  //     }
-  //   })
-  //   .catch((error) => {
-  //       if(error == ‘Server error’){
-  //           this.errorMessage = “Could not connect to REST server. Please check your configuration details”;
-  //       }
-  //       else if(error == ‘404 - Not Found’){
-  //                this.errorMessage = “404 - Could not find API route. Please check your available APIs.”
-  //       }
-  //       else{
-  //           this.errorMessage = error;
-  //       }
-  //   });
-  // }
-
-
   getForm(id: any): Promise<any>{
 
-    return this.serviceDischarge.getAsset(id)
+    return this.serviceLoading.getAsset(id)
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
       let formObject = {
         
           
-            "dischargeId":null,
-          
-        
-          
             "nomination":null,
-          
-        
-          
-            "hoseConnected":null,
-          
-        
-          
-            "hoseDisconnected":null 
+            "NORTendered":null,
+            "documentsOnBoard":null,
+            "BLQuantity":null 
           
         
       };
@@ -276,12 +239,12 @@ export class DischargeComponent implements OnInit {
 
 
       
-        if(result.dischargeId){
+        if(result.loadingId){
           
-            formObject.dischargeId = result.dischargeId;
+            formObject.loadingId = result.loadingId;
           
         }else{
-          formObject.dischargeId = null;
+          formObject.loadingId = null;
         }
       
         if(result.nomination){
@@ -292,20 +255,28 @@ export class DischargeComponent implements OnInit {
           formObject.nomination = null;
         }
       
-        if(result.hoseConnected){
+        if(result.NORTendered){
           
-            formObject.hoseConnected = result.hoseConnected;
+            formObject.NORTendered = result.NORTendered;
           
         }else{
-          formObject.hoseConnected = null;
+          formObject.NORTendered = null;
         }
       
-        if(result.hoseDisconnected){
+        if(result.documentsOnBoard){
           
-            formObject.hoseDisconnected = result.hoseDisconnected;
+            formObject.documentsOnBoard = result.documentsOnBoard;
           
         }else{
-          formObject.hoseDisconnected = null;
+          formObject.documentsOnBoard = null;
+        }
+      
+        if(result.BLQuantity){
+          
+            formObject.BLQuantity = result.BLQuantity;
+          
+        }else{
+          formObject.BLQuantity = null;
         }
       
 
@@ -325,25 +296,21 @@ export class DischargeComponent implements OnInit {
     });
 
   }
-  addTransactionConnectHoses(id:string): Promise<any>{
+
+
+  addTransactionNORTendered(id:string): Promise<any>{
 
     var transaction = {    
-    $class: "firstcoin.shipping.SetDischargeConnectTimestamp",
+    $class: "firstcoin.shipping.SetLoadingNORTemperedTimestamp",
       
         
-    "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
-  
-
-  
+    "loading":"resource:firstcoin.shipping.Loading#" + id ,
     "transactionId":"",
-  
-
-  
-    "timestamp": Date.now()
+    "timestamp": Date.now(),
   
 
 };
-return this.setTimeStampConnectDischargeService.addTransaction(transaction)
+return this.serviceSetLoadingNorTenderedTimestamp.addTransaction(transaction)
 .toPromise()
 .then(() => {
   this.errorMessage = null;
@@ -360,59 +327,45 @@ return this.setTimeStampConnectDischargeService.addTransaction(transaction)
 });
 }
 
+addTransactionDocumentsOnBoard(id:string): Promise<any>{
 
-  addTransactionDisconnectHoses(id:string): Promise<any>{
-
-    var transaction = {    
-    $class: "firstcoin.shipping.SetDischargeDisconnectTimestamp",
+  var transaction = {    
+  $class: "firstcoin.shipping.SetLoadingDocumentsOnBoardTimestamp",
+    
       
-        
-    "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
-  
+  "loading":"resource:firstcoin.shipping.Loading#" + id ,
+  "transactionId":"",
+  "timestamp": Date.now(),
 
-  
-    "transactionId":"",
-  
-
-  
-    "timestamp": Date.now()
-  
 
 };
-return this.setTimeStampDisconnectDischargeService.addTransaction(transaction)
+return this.serviceSetLoadingDocumentsOnBoardTimestampService.addTransaction(transaction)
 .toPromise()
 .then(() => {
-  this.errorMessage = null;
-  window.location.reload();
+this.errorMessage = null;
+window.location.reload();
 
 })
 .catch((error) => {
-    if(error == 'Server error'){
-        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-    }
-    else{
-        this.errorMessage = error;
-    }
+  if(error == 'Server error'){
+      this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+  }
+  else{
+      this.errorMessage = error;
+  }
 });
 }
+
 
   resetForm(): void{
     this.myForm.setValue({
       
         
-          "dischargeId":null,
-        
-      
-        
+          "loadingId":null,
           "nomination":null,
-        
-      
-        
-          "hoseConnected":null,
-        
-      
-        
-          "hoseDisconnected":null 
+          "NORTendered":null,
+          "documentsOnBoard":null,
+          "BLQuantity":null 
         
       
       });

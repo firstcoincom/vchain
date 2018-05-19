@@ -31,49 +31,24 @@ export class LoadingComponent implements OnInit {
   private allAssets;
   private asset;
   private currentId;
-	private errorMessage;
+  private errorMessage;
 
-  
       
           loadingId = new FormControl("", Validators.required);
-        
-  
-      
           nomination = new FormControl("", Validators.required);
-        
-  
-      
           NORTendered = new FormControl("", Validators.required);
-        
-  
-      
           documentsOnBoard = new FormControl("", Validators.required);
-        
-  
-      
           BLQuantity = new FormControl("", Validators.required);
-        
   
 
 
   constructor(private serviceLoading:LoadingService, fb: FormBuilder, private serviceSetLoadingNorTenderedTimestamp:SetLoadingNORTemperedTimestampService, private serviceSetLoadingDocumentsOnBoardTimestampService: SetLoadingDocumentsOnBoardTimestampService){
     this.myForm = fb.group({
+
           loadingId:this.loadingId,
-        
-    
-        
           nomination:this.nomination,
-        
-    
-        
           NORTendered:this.NORTendered,
-        
-    
-        
           documentsOnBoard:this.documentsOnBoard,
-        
-    
-        
           BLQuantity:this.BLQuantity
         
     
@@ -139,21 +114,9 @@ export class LoadingComponent implements OnInit {
       
         
           "loadingId":this.loadingId.value,
-        
-      
-        
           "nomination":this.nomination.value,
-        
-      
-        
           "NORTendered":this.NORTendered.value,
-        
-      
-        
           "documentsOnBoard":this.documentsOnBoard.value,
-        
-      
-        
           "BLQuantity":this.BLQuantity.value
         
       
@@ -163,21 +126,9 @@ export class LoadingComponent implements OnInit {
       
         
           "loadingId":null,
-        
-      
-        
           "nomination":null,
-        
-      
-        
           "NORTendered":null,
-        
-      
-        
           "documentsOnBoard":null,
-        
-      
-        
           "BLQuantity":null
         
       
@@ -191,21 +142,9 @@ export class LoadingComponent implements OnInit {
       
         
           "loadingId":null,
-        
-      
-        
           "nomination":null,
-        
-      
-        
           "NORTendered":null,
-        
-      
-        
           "documentsOnBoard":null,
-        
-      
-        
           "BLQuantity":null 
         
       
@@ -228,29 +167,9 @@ export class LoadingComponent implements OnInit {
       $class: "firstcoin.shipping.Loading",
       
         
-          
-        
-    
-        
-          
             "nomination":this.nomination.value,
-          
-        
-    
-        
-          
             "NORTendered":this.NORTendered.value,
-          
-        
-    
-        
-          
             "documentsOnBoard":this.documentsOnBoard.value,
-          
-        
-    
-        
-          
             "BLQuantity":this.BLQuantity.value
           
         
@@ -308,23 +227,10 @@ export class LoadingComponent implements OnInit {
 			this.errorMessage = null;
       let formObject = {
         
-          
             "loadingId":null,
-          
-        
-          
             "nomination":null,
-          
-        
-          
             "NORTendered":null,
-          
-        
-          
             "documentsOnBoard":null,
-          
-        
-          
             "BLQuantity":null 
           
         
@@ -399,13 +305,7 @@ export class LoadingComponent implements OnInit {
       
         
     "loading":"resource:firstcoin.shipping.Loading#" + id ,
-  
-
-  
     "transactionId":"",
-  
-
-  
     "timestamp": Date.now(),
   
 
@@ -434,13 +334,7 @@ addTransactionDocumentsOnBoard(id:string): Promise<any>{
     
       
   "loading":"resource:firstcoin.shipping.Loading#" + id ,
-
-
-
   "transactionId":"",
-
-
-
   "timestamp": Date.now(),
 
 
@@ -468,21 +362,9 @@ window.location.reload();
       
         
           "loadingId":null,
-        
-      
-        
           "nomination":null,
-        
-      
-        
           "NORTendered":null,
-        
-      
-        
           "documentsOnBoard":null,
-        
-      
-        
           "BLQuantity":null 
         
       
