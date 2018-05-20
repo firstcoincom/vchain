@@ -580,10 +580,13 @@
 				         c1.7,0,3-1.3,3-3S64.5,10.3,62.9,10.3z M43.3,10.3H22.6V6h20.7L43.3,10.3L43.3,10.3z"/>
 				       </svg>
 				      </button>
-					  
-			      	 <button (click)="addLoadingAsset(asset.nominationId);" [routerLink]="['/Loading']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">
-						Loading
-					</button>
+            
+              <button [disabled]="asset.loadingDone" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary" [routerLink]="['/Loading']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">
+                Loading
+              </button>
+              <button [disabled]="!asset.loadingDone || asset.dischargeDone" (click)="addDischargingAsset(asset.nominationId);" type="button" class="btn btn-primary" [routerLink]="['/Discharge']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">
+						    Discharging
+					    </button>
 				
 
                </td>

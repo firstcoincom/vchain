@@ -17,11 +17,12 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { NominationService } from './Nomination.service';
 import 'rxjs/add/operator/toPromise';
 import { LoadingService } from '../Loading/Loading.service';
+import { DischargeService } from '../Discharge/Discharge.service';
 @Component({
 	selector: 'app-Nomination',
 	templateUrl: './Nomination.component.html',
 	styleUrls: ['./Nomination.component.css'],
-    providers: [NominationService,LoadingService]
+    providers: [NominationService,LoadingService, DischargeService]
 })
 export class NominationComponent implements OnInit {
 
@@ -68,7 +69,7 @@ export class NominationComponent implements OnInit {
           documentsOnBoard = new FormControl("", Validators.required);
           BLQuantity = new FormControl("", Validators.required);
   
-  constructor(private serviceNomination:NominationService, private serviceLoading:LoadingService, fb: FormBuilder) {
+  constructor(private serviceNomination:NominationService, private serviceLoading:LoadingService, private serviceDischarging:DischargeService, fb: FormBuilder) {
     this.myForm = fb.group({
     
         
@@ -704,21 +705,21 @@ export class NominationComponent implements OnInit {
       });
   }
 
-	addLoadingAsset (id: any): Promise<any> {
-			var random = Math.floor((Math.random() * 1000) + 1);
-			var loading = { 
-				$class: "firstcoin.shipping.Loading",
-				"loadingId": random,
-				"nomination": "resource:firstcoin.shipping.Nomination#" + id,
-				"NORTendered": null,
-				"documentOnBoard": null,
-				"BLQuantity": 0
-			};
+	addLoadingAsset(id: any): Promise<any> {
+    var random = Math.floor((Math.random() * 1000) + 1);
+    var loading = { 
+      $class: "firstcoin.shipping.Loading",
+      "loadingId": random,
+      "nomination": "resource:firstcoin.shipping.Nomination#" + id,
+      "NORTendered": null,
+      "documentOnBoard": null,
+      "BLQuantity": 0
+    };
 
 		return this.serviceLoading.addAsset(loading)
 		.toPromise()
 		.then((result) => {
-			console.log(id);
+      console.log(id);
 		})
 		.catch((error) => {
 			if(error == 'Server error'){
@@ -728,7 +729,33 @@ export class NominationComponent implements OnInit {
 				this.errorMessage = error;
 			}
 		});
-	}
+  }
+  
+  addDischargingAsset(id: any): Promise<any> {
+    console.log(id);
+    var random = Math.floor((Math.random() * 1000) + 1);
+    var discharge = { 
+      $class: "firstcoin.shipping.Discharge",
+      "dischargeId": random,
+      "nomination": "resource:firstcoin.shipping.Nomination#" + id,
+      "hoseConnected": null,
+      "hoseDisonnected": null
+    };
+
+		return this.serviceDischarging.addAsset(discharge)
+		.toPromise()
+		.then((result) => {
+			console.log("SUCCESS");
+		})
+		.catch((error) => {
+			if(error == 'Server error'){
+				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+			}
+			else {
+				this.errorMessage = error;
+			}
+		});
+  }
 
   /* CHecks to see if BLQuantity was passed into console 
 	addBLQuantity (form: any): Promise<any> {
@@ -758,8 +785,8 @@ export class NominationComponent implements OnInit {
 
     /* CHecks to see if BLQuantity was passed into console */
 	getNomIdForLoading (id : any): Promise<any> {
- console.log("hi");
-     return this.serviceLoading.getAsset(id)
+    console.log("hi");
+    return this.serviceLoading.getAsset(id)
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
@@ -773,46 +800,43 @@ export class NominationComponent implements OnInit {
           "BLQuantity":null
        };
 
-	   console.log("hi");
-         if(result.loadingId){
-            formObject.loadingId = result.loadingId;
-			console.log("loadingId");
-         } else {
-		      formObject.loadingId = null;
-		   }
+	    console.log("hi");
+      if(result.loadingId){
+        formObject.loadingId = result.loadingId;
+        console.log("loadingId");
+      } else {
+        formObject.loadingId = null;
+      }
 
+      if(result.nomination){
+        formObject.nomination = result.nomination;
+        console.log("nomination");
+      } else {
+        formObject.nomination = null;
+      }
 
-if(result.nomination){
-            formObject.nomination = result.nomination;
-			console.log("nomination");
-         } else {
-		      formObject.nomination = null;
-		   }
+      if(result.NORTendered){
+        formObject.NORTendered = result.NORTendered;
+        console.log("NORTendered");
+      } else {
+        formObject.NORTendered = null;
+      }
 
-if(result.NORTendered){
-            formObject.NORTendered = result.NORTendered;
-						console.log("NORTendered");
-         } else {
-		      formObject.NORTendered = null;
-		   }
+      if(result.documentsOnBoard){
+        formObject.documentsOnBoard = result.documentsOnBoard;
+        console.log("documentsOnBoard");
+      } else {
+        formObject.documentsOnBoard = null;
+      }
 
-if(result.documentsOnBoard){
-            formObject.documentsOnBoard = result.documentsOnBoard;
-			console.log("documentsOnBoard");
-         } else {
-		      formObject.documentsOnBoard = null;
-		   }
-
-if(result.BLQuantity){
-            formObject.BLQuantity = result.BLQuantity;
-			console.log("BLQuantity");
-         } else {
-		      formObject.BLQuantity = null;
-		   }
+      if(result.BLQuantity){
+        formObject.BLQuantity = result.BLQuantity;
+        console.log("BLQuantity");
+      } else {
+        formObject.BLQuantity = null;
+      }
       debugger;
-
       this.Form2.setValue(formObject);
-
     })
     .catch((error) => {
         if(error == 'Server error'){
@@ -825,7 +849,6 @@ if(result.BLQuantity){
             this.errorMessage = error;
         }
     });
-
   }
 
 

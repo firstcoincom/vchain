@@ -25,8 +25,7 @@ export class NominationService {
 
 	
 		private NAMESPACE: string = 'firstcoin.shipping.Nomination';
-		private LOADING: string   = 'firstcoin.shipping.Loading';
-
+    private LOADING: string   = 'firstcoin.shipping.Loading';
 
 
     constructor(private dataService: DataService<Nomination>, private dataService2: DataService<Loading>) {
@@ -55,5 +54,4 @@ export class NominationService {
     public addBLQuantity(itemToAdd: any): Observable<Loading> {
       return this.dataService2.add(this.LOADING, itemToAdd);
     }
-
 }

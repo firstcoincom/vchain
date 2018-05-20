@@ -15,7 +15,7 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
-import { Loading } from '../firstcoin.shipping';
+import { Loading, SetLoadingNORTemperedTimestamp, SetLoadingDocumentsOnBoardTimestamp, Nomination } from '../firstcoin.shipping';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor
@@ -24,11 +24,14 @@ export class LoadingService {
 
 	
 		private NAMESPACE: string = 'firstcoin.shipping.Loading';
-	
+    private QUERYNAMESPACE: string = 'queries/SelectLoadingByNomination?id=';
 
+    private nomId;
 
-
-    constructor(private dataService: DataService<Loading>) {
+    constructor(private dataService: DataService<Loading>, 
+      private dataService2: DataService<SetLoadingNORTemperedTimestamp>, 
+      private dataService3: DataService<SetLoadingDocumentsOnBoardTimestamp>,
+      private dataService4: DataService<Nomination>) {
     };
 
     public getAll(): Observable<Loading[]> {
@@ -43,12 +46,28 @@ export class LoadingService {
       return this.dataService.add(this.NAMESPACE, itemToAdd);
     }
 
+    public addAsset2(itemToAdd: any, id: any): Observable<Loading> {
+      return this.dataService.add(this.NAMESPACE, itemToAdd);
+    }
+
     public updateAsset(id: any, itemToUpdate: any): Observable<Loading> {
       return this.dataService.update(this.NAMESPACE, id, itemToUpdate);
     }
 
     public deleteAsset(id: any): Observable<Loading> {
       return this.dataService.delete(this.NAMESPACE, id);
+    }
+
+    public setId(id: any) {
+      console.log("setId(" + id + ")");
+      this.nomId = id;
+      this.queryNominations();
+    }
+
+    public queryNominations(): Observable<Nomination[]> {
+      console.log("nomId: " + this.nomId);
+      let nomIdString = "resource:firstcoin.shipping.Nomination%23" + this.nomId;
+      return this.dataService4.queryNomination(this.QUERYNAMESPACE, nomIdString);
     }
 
 }
