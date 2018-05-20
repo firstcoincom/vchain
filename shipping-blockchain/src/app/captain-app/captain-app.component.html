@@ -1,32 +1,6 @@
 <!-- <p>
   captain-app works!
 </p> -->
-<div class="modal fade" id="updateNominationModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="addAssetModalLabel">Enter Captain Id</h4>
-      </div>
-      <form [formGroup]="myForm">
-        <div class="modal-body">
-              <div class="form-group text-left">
-                <label for="captainId">Captain Id</label>
-                
-                  <input formControlName="captainId" type="text" class="form-control">
-                
-              </div>
- 
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button (click)="loadAll(myForm);" type="submit" class="btn btn-success" data-dismiss="modal">Confirm</button>
-
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel">
   <div class="modal-dialog" role="document">
@@ -48,25 +22,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="verifiedModal" tabindex="-1" role="dialog" aria-labelledby="verifiedModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="confirmModalLabel">Verfied!</h4>
-      </div>
-      <form [formGroup]="myForm">
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer">
-          <button (click)="addTransaction();" type="submit" class="btn btn-success" data-dismiss="modal">Continue!</button>
-
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 <div class="container">
   <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
     <strong>Error:</strong> {{errorMessage}}
@@ -75,11 +30,6 @@
   <div class="row">
     <div class="col-md-9">
         <h1 class="asset-title" id='assetName'>Captain's App</h1>
-    </div>
-    <div class="col-md-3">
-      <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateNominationModal">
-      Enter Captain Id
-    </button>
     </div>
   </div>
   <br>
@@ -126,4 +76,7 @@
       </table>
     </div>
   </div>
+  <button [routerLink]="['/Nomination']"  id = "backbutton"  type="button" class="btn btn-primary">
+    ← Back to Nominations 
+  </button>
 </div>
