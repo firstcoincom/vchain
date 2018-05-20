@@ -11,6 +11,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+
+
+<!-------------------------------- ADD NEW LOADING MODAL ---------------------------->
 <div class="modal fade" id="addLoadingModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -69,7 +72,7 @@
 
 
 
-<!-------------------------- LOADING UPDATE BUTTTON TABLE ----------------------->
+<!-------------------------- UPDATE BUTTTON MODAL ----------------------->
 
 <div class="modal fade" id="updateLoadingModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
   <div class="modal-dialog" role="document">
@@ -121,7 +124,7 @@
 </div>
 
 
-<!--------------------------- LOADING TABLE DELETE BUTTON --------------------------->
+<!--------------------------- DELETE BUTTON MODAL --------------------------->
 <div class="modal fade" id="deleteLoadingModal" tabindex="-1" role="dialog" aria-labelledby="deleteAssetModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -168,7 +171,7 @@
   <br>
 
 
-<!----------------------- LOADING TABLE ---------------------------->
+<!----------------------- LOADING PAGE COLUMN TABLE ---------------------------->
   <div class="row">
     <div class="col-md-12">
       <table class="table table-responsive">
