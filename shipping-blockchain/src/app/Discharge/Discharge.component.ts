@@ -40,17 +40,8 @@ export class DischargeComponent implements OnInit {
   
       
           dischargeId = new FormControl("", Validators.required);
-        
-  
-      
           nomination = new FormControl("", Validators.required);
-        
-  
-      
           hoseConnected = new FormControl("", Validators.required);
-        
-  
-      
           hoseDisconnected = new FormControl("", Validators.required);
         
   
@@ -61,17 +52,8 @@ export class DischargeComponent implements OnInit {
     
         
           dischargeId:this.dischargeId,
-        
-    
-        
           nomination:this.nomination,
-        
-    
-        
           hoseConnected:this.hoseConnected,
-        
-    
-        
           hoseDisconnected:this.hoseDisconnected
         
     
@@ -137,17 +119,8 @@ export class DischargeComponent implements OnInit {
       
         
           "dischargeId":this.dischargeId.value,
-        
-      
-        
           "nomination":this.nomination.value,
-        
-      
-        
           "hoseConnected":this.hoseConnected.value,
-        
-      
-        
           "hoseDisconnected":this.hoseDisconnected.value
         
       
@@ -157,17 +130,8 @@ export class DischargeComponent implements OnInit {
       
         
           "dischargeId":null,
-        
-      
-        
           "nomination":null,
-        
-      
-        
           "hoseConnected":null,
-        
-      
-        
           "hoseDisconnected":null
         
       
@@ -181,17 +145,8 @@ export class DischargeComponent implements OnInit {
       
         
           "dischargeId":null,
-        
-      
-        
           "nomination":null,
-        
-      
-        
           "hoseConnected":null,
-        
-      
-        
           "hoseDisconnected":null 
         
       
@@ -214,19 +169,8 @@ export class DischargeComponent implements OnInit {
         
           
             "nomination":this.nomination.value,
-          
-        
-    
-        
-          
             "hoseConnected":this.hoseConnected.value,
-          
-        
-    
-        
-          
             "hoseDisconnected":this.hoseDisconnected.value
-          
         
     
     };
@@ -313,17 +257,8 @@ export class DischargeComponent implements OnInit {
         
           
             "dischargeId":null,
-          
-        
-          
             "nomination":null,
-          
-        
-          
             "hoseConnected":null,
-          
-        
-          
             "hoseDisconnected":null 
           
         
@@ -388,13 +323,7 @@ export class DischargeComponent implements OnInit {
       
         
     "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
-  
-
-  
     "transactionId":"",
-  
-
-  
     "timestamp": Date.now()
   
 
@@ -424,13 +353,7 @@ return this.setTimeStampConnectDischargeService.addTransaction(transaction)
       
         
     "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
-  
-
-  
     "transactionId":"",
-  
-
-  
     "timestamp": Date.now()
   
 
@@ -457,17 +380,8 @@ return this.setTimeStampDisconnectDischargeService.addTransaction(transaction)
       
         
           "dischargeId":null,
-        
-      
-        
           "nomination":null,
-        
-      
-        
           "hoseConnected":null,
-        
-      
-        
           "hoseDisconnected":null 
         
       

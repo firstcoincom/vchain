@@ -227,7 +227,7 @@ export class LoadingComponent implements OnInit {
 			this.errorMessage = null;
       let formObject = {
         
-            "loadingId":null,
+          
             "nomination":null,
             "NORTendered":null,
             "documentsOnBoard":null,
