@@ -257,17 +257,8 @@ export class DischargeComponent implements OnInit {
         
           
             "dischargeId":null,
-          
-        
-          
             "nomination":null,
-          
-        
-          
             "hoseConnected":null,
-          
-        
-          
             "hoseDisconnected":null 
           
         
@@ -332,13 +323,7 @@ export class DischargeComponent implements OnInit {
       
         
     "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
-  
-
-  
     "transactionId":"",
-  
-
-  
     "timestamp": Date.now()
   
 
@@ -368,13 +353,7 @@ return this.setTimeStampConnectDischargeService.addTransaction(transaction)
       
         
     "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
-  
-
-  
     "transactionId":"",
-  
-
-  
     "timestamp": Date.now()
   
 
@@ -401,17 +380,8 @@ return this.setTimeStampDisconnectDischargeService.addTransaction(transaction)
       
         
           "dischargeId":null,
-        
-      
-        
           "nomination":null,
-        
-      
-        
           "hoseConnected":null,
-        
-      
-        
           "hoseDisconnected":null 
         
       
