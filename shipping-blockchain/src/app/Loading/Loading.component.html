@@ -69,7 +69,6 @@
 
 
 
-<!-------------------------- LOADING UPDATE BUTTTON TABLE ----------------------->
 
 <div class="modal fade" id="updateLoadingModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
   <div class="modal-dialog" role="document">
@@ -121,7 +120,40 @@
 </div>
 
 
-<!--------------------------- LOADING TABLE DELETE BUTTON --------------------------->
+<div class="modal fade" id="setB/LModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="updateAssetModalLabel">Set B/L BLQuantity</h4>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+          
+
+          <div class="form-group text-left">
+            <label for="loadingId">loadingId</label>
+              <input [ngModel]="loadingId" formControlName="loadingId" class="form-control" disabled="disabled">  
+          </div>
+
+            <div class="form-group text-left">
+              <label for="BLQuantity">BLQuantity</label>
+                <input [ngModel]="BLQuantity" formControlName="BLQuantity" type="number" step='any' class="form-control">
+            </div>
+          
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button (click)="updateAsset(myForm)" type="submit" class="btn btn-success" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" data-dismiss="modal">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="modal fade" id="deleteLoadingModal" tabindex="-1" role="dialog" aria-labelledby="deleteAssetModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -226,7 +258,10 @@
                     <button (click)="addTransactionNORTendered(asset.loadingId);" type="button" class="btn btn-primary">
                         NOR Tendered
                     </button>
-
+                    <button type="button" class="btn btn-primary">
+                        Set B/L BLQuantity
+                          
+                    </button>
 
 
                 </div>  

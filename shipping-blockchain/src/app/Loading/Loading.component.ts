@@ -223,7 +223,60 @@ export class LoadingComponent implements OnInit {
 
   
 
-   updateAsset(form: any): Promise<any> {
+  //  updateAsset(form: any): Promise<any> {
+  //   this.asset = {
+  //     $class: "firstcoin.shipping.Loading",
+      
+        
+          
+        
+    
+        
+          
+  //           "nomination":this.nomination.value,
+          
+        
+    
+        
+          
+  //           "NORTendered":this.NORTendered.value,
+          
+        
+    
+        
+          
+  //           "documentsOnBoard":this.documentsOnBoard.value,
+          
+        
+    
+        
+          
+  //           "BLQuantity":this.BLQuantity.value
+          
+        
+    
+  //   };
+
+  //   return this.serviceLoading.updateAsset(form.get("loadingId").value,this.asset)
+	// 	.toPromise()
+	// 	.then(() => {
+	// 		this.errorMessage = null;
+	// 	})
+	// 	.catch((error) => {
+  //           if(error == 'Server error'){
+	// 			this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+	// 		}
+  //           else if(error == '404 - Not Found'){
+	// 			this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+	// 		}
+	// 		else{
+	// 			this.errorMessage = error;
+	// 		}
+  //   });
+  // }
+
+
+updateAsset(form: any): Promise<any> {
     this.asset = {
       $class: "firstcoin.shipping.Loading",
       
@@ -274,6 +327,7 @@ export class LoadingComponent implements OnInit {
 			}
     });
   }
+
 
 
   deleteAsset(): Promise<any> {
