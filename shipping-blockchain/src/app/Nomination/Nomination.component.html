@@ -581,7 +581,8 @@
 				       </svg>
 				      </button>
             
-              <button [disabled]="asset.loadingDone" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary" [routerLink]="['/Loading']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">
+              <!-- <button [disabled]="asset.loadingDone" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary" [routerLink]="['/Loading']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);"> -->
+              <button [disabled]="asset.loadingDone" (click)="routeHere(asset.nominationId);" type="button" class="btn btn-primary">
                 Loading
               </button>
               <button [disabled]="!asset.loadingDone || asset.dischargeDone" (click)="addDischargingAsset(asset.nominationId);" type="button" class="btn btn-primary" [routerLink]="['/Discharge']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">

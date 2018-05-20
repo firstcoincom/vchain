@@ -19,6 +19,7 @@ import 'rxjs/add/operator/toPromise';
 import { SetLoadingNORTemperedTimestampService } from '../SetLoadingNORTemperedTimestamp/SetLoadingNORTemperedTimestamp.service';
 import { SetLoadingDocumentsOnBoardTimestampService } from '../SetLoadingDocumentsOnBoardTimestamp/SetLoadingDocumentsOnBoardTimestamp.service';
 import { NominationService } from '../Nomination/Nomination.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
 	selector: 'app-Loading',
 	templateUrl: './Loading.component.html',
@@ -35,7 +36,7 @@ export class LoadingComponent implements OnInit {
   private errorMessage;
   private nominationObj;
   private nomId;
-
+  private nomdId2;
   
       
           loadingId = new FormControl("", Validators.required);
@@ -63,7 +64,8 @@ export class LoadingComponent implements OnInit {
     private serviceNorTimestamp:SetLoadingNORTemperedTimestampService, 
     private serviceSetLoadingDocumentsOnBoardTimestampService: SetLoadingDocumentsOnBoardTimestampService, 
     private serviceNomination: NominationService,
-    fb: FormBuilder) {
+    fb: FormBuilder,
+    private route:ActivatedRoute) {
     this.myForm = fb.group({
           loadingId:this.loadingId,
         
@@ -85,11 +87,16 @@ export class LoadingComponent implements OnInit {
         
     
     });
+
+    this.route.queryParams.subscribe(params => {
+      this.nomdId2 = params["nomIdPass"];
+    });
   };
 
   ngOnInit(): void {
-    // this.loadAll();
-    this.loadSelected();
+    this.loadAll();
+    console.log("NOMID BRO: " + this.nomdId2);
+    // this.loadSelected();
   }
 
   loadAll(): Promise<any> {

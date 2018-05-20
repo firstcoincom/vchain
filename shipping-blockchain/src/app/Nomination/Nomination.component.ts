@@ -12,6 +12,7 @@
  * limitations under the License.
  */
 
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { NominationService } from './Nomination.service';
@@ -69,7 +70,12 @@ export class NominationComponent implements OnInit {
           documentsOnBoard = new FormControl("", Validators.required);
           BLQuantity = new FormControl("", Validators.required);
   
-  constructor(private serviceNomination:NominationService, private serviceLoading:LoadingService, private serviceDischarging:DischargeService, fb: FormBuilder) {
+  constructor(private serviceNomination:NominationService, 
+    private serviceLoading:LoadingService, 
+    private serviceDischarging:DischargeService, 
+    fb: FormBuilder,
+    private router:Router,
+    private route:ActivatedRoute) {
     this.myForm = fb.group({
     
         
@@ -716,6 +722,8 @@ export class NominationComponent implements OnInit {
       "BLQuantity": 0
     };
 
+    // let nomIdPass = id;
+
 		return this.serviceLoading.addAsset(loading)
 		.toPromise()
 		.then((result) => {
@@ -729,6 +737,16 @@ export class NominationComponent implements OnInit {
 				this.errorMessage = error;
 			}
 		});
+  }
+
+  routeHere(id: any): void {
+    let nomIdPass = id;
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "nomIdPass": id
+      }
+  };
+    this.router.navigate(['/Loading'], navigationExtras);
   }
   
   addDischargingAsset(id: any): Promise<any> {
