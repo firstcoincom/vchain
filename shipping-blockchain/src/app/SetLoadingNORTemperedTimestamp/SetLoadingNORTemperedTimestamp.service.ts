@@ -23,7 +23,7 @@ import 'rxjs/Rx';
 export class SetLoadingNORTemperedTimestampService {
 
 	
-		private NAMESPACE: string = 'firstcoin.shipping.SetLoadingNORTemperedTimestamp';
+		private NAMESPACE: string = 'firstcoin.shipping.SetLoadingNORTenderedTimestamp';
 	
 
 

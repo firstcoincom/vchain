@@ -512,9 +512,6 @@
 </div>
 
 
-
-
-
 <div class="container">
 	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
 		<strong>Error:</strong> {{errorMessage}}
@@ -580,17 +577,18 @@
 				         c1.7,0,3-1.3,3-3S64.5,10.3,62.9,10.3z M43.3,10.3H22.6V6h20.7L43.3,10.3L43.3,10.3z"/>
 				       </svg>
 				      </button>
-					  
-			      	 <button (click)="addLoadingAsset(asset.nominationId);" [routerLink]="['/Loading']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">
-						Loading
-					</button>
-
-					<button (click)="addDischargeAsset(asset.nominationId);" [routerLink]="['/Discharge']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">
-						Discharge
-					</button>					
-				
-
-               </td>
+            
+              <button [disabled]="asset.verified" (click)="captainVerify(asset.nominationId);" type="button" class="btn btn-primary">
+                Captain's App
+              </button>
+              <button [disabled]="asset.loadingDone || !asset.verified" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary">
+              <!-- <button [disabled]="asset.loadingDone" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary"> -->
+                Loading
+              </button>
+              <button [disabled]="!asset.loadingDone || asset.dischargeDone" (click)="addDischargingAsset(asset.nominationId);" type="button" class="btn btn-primary">
+						    Discharging
+					    </button>
+            </td>
           </tr>
         </tbody>
       </table>

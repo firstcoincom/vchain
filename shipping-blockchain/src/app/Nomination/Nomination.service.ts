@@ -26,8 +26,8 @@ export class NominationService {
 
 	
 		private NAMESPACE: string = 'firstcoin.shipping.Nomination';
-		private LOADING: string   = 'firstcoin.shipping.Loading';
-
+    private LOADING: string   = 'firstcoin.shipping.Loading';
+    private QUERYNAMESPACE: string = 'queries/SelectNomination?id=';
 
 
     constructor(private dataService: DataService<Nomination>, private dataService2: DataService<Loading>) {
@@ -57,4 +57,7 @@ export class NominationService {
       return this.dataService2.add(this.LOADING, itemToAdd);
     }
 
+    public selectNomination(id: any): Observable<Nomination[]> {
+      return this.dataService.queryNomination(this.QUERYNAMESPACE, id);
+    }
 }

@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { VerificationService } from '../Verification/Verification.service';
 import { Verification } from '../firstcoin.shipping';
 import { Transaction } from '../org.hyperledger.composer.system';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-captain-app',
   templateUrl: './captain-app.component.html',
@@ -19,13 +20,18 @@ export class CaptainAppComponent implements OnInit {
   private nominationIdString;
   private madeBy;
   private errorMessage;
+  private capId;
+
   captainId = new FormControl("", Validators.required);
   vesselName = new FormControl("", Validators.required);
   IMONumber = new FormControl("", Validators.required);
   voyageNumber = new FormControl("", Validators.required);
   verified = new FormControl("", Validators.required);
 
-  constructor(private serviceNomination:CaptainAppService, private serviceVerification:VerificationService, fb: FormBuilder) {  
+  constructor(private serviceNomination:CaptainAppService, 
+    private serviceVerification:VerificationService, 
+    fb: FormBuilder,
+    private route:ActivatedRoute) {  
     this.myForm = fb.group({
       captainId:this.captainId, 
       vesselName:this.vesselName,
@@ -33,42 +39,44 @@ export class CaptainAppComponent implements OnInit {
       voyageNumber:this.voyageNumber,
       verified:this.verified
     });
+
+    this.route.queryParams.subscribe(params => {
+      this.capId = params["capIdPass"];
+    });
   };
 
   ngOnInit() {
-    this.resetForm();
+    this.loadSelected(this.capId);
   }
 
   /**
-   * Function to load all nominations based on captain's id
+   * Function to load all loading assets associated with a specific nomination asset
+   * @param id nominationId
    */
-  loadAll(form: any): Promise<any> {
+  loadSelected(id: any): Promise<any> {
     let tempList = [];
-    this.captainIdString = this.captainId.value;
-    let capString = "resource:firstcoin.shipping.Captain%23CAP-" + this.captainIdString;
-    console.log(capString); 
-    return this.serviceNomination.queryNominations(capString)
+    let capIdString = "resource:firstcoin.shipping.Captain%23" + id;
+    console.log(capIdString);
+    return this.serviceNomination.queryNominations(capIdString)
     .toPromise()
     .then((result) => {
-      console.log(result);
+      console.log("loaded");
       result.forEach(asset => {
-          tempList.push(asset);
+        tempList.push(asset);
       });
       this.allAssets = tempList;
-      if (!this.allAssets) {
-        this.errorMessage = "ASSET LIST EMPTY";
-      }
+      // window.location.reload();
     })
     .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-        }
-        else{
-            this.errorMessage = error;
-        }
+      if(error == 'Server error'){
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      }
+      else if(error == '404 - Not Found'){
+        this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+      }
+      else{
+        this.errorMessage = error;
+      }
     });
   }
 

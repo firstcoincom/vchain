@@ -15,7 +15,7 @@
 import { Injectable } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
-import { Discharge, SetDischargeConnectTimestamp } from '../firstcoin.shipping';
+import { Discharge, SetDischargeConnectTimestamp, Nomination } from '../firstcoin.shipping';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor
@@ -23,12 +23,14 @@ import 'rxjs/Rx';
 export class DischargeService {
 
 	
-		private NAMESPACE: string = 'firstcoin.shipping.Discharge';
+    private NAMESPACE: string = 'firstcoin.shipping.Discharge';
+    private QUERYNAMESPACE: string = 'queries/SelectDischargeByNomination?id=';
 	
 
 
 
-    constructor(private dataService: DataService<Discharge>) {
+    constructor(private dataService: DataService<Discharge>,
+      private dataService2: DataService<Nomination>) {
     };
 
     public getAll(): Observable<Discharge[]> {
@@ -49,6 +51,11 @@ export class DischargeService {
 
     public deleteAsset(id: any): Observable<Discharge> {
       return this.dataService.delete(this.NAMESPACE, id);
+    }
+
+    public queryNominations(id: any): Observable<Nomination[]> {
+      let nomIdString = "resource:firstcoin.shipping.Nomination%23" + id;
+      return this.dataService2.queryNomination(this.QUERYNAMESPACE, nomIdString);
     }
 
 }

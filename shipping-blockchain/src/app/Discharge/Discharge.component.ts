@@ -22,11 +22,13 @@ import { SetDischargeConnectTimestampComponent } from '../SetDischargeConnectTim
 import { Transaction } from '../org.hyperledger.composer.system';
 import { DataService } from '../data.service';
 import { SetDischargeDisconnectTimestampService } from '../SetDischargeDisconnectTimestamp/SetDischargeDisconnectTimestamp.service';
+import { NominationService } from '../Nomination/Nomination.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
 	selector: 'app-Discharge',
 	templateUrl: './Discharge.component.html',
 	styleUrls: ['./Discharge.component.css'],
-  providers: [DischargeService,SetDischargeConnectTimestampService,SetDischargeDisconnectTimestampService]
+  providers: [DischargeService,SetDischargeConnectTimestampService,SetDischargeDisconnectTimestampService, NominationService]
 })
 export class DischargeComponent implements OnInit {
 
@@ -35,19 +37,24 @@ export class DischargeComponent implements OnInit {
   private allAssets;
   private asset;
   private currentId;
-	private errorMessage;
-
-  
-      
-          dischargeId = new FormControl("", Validators.required);
-          nomination = new FormControl("", Validators.required);
-          hoseConnected = new FormControl("", Validators.required);
-          hoseDisconnected = new FormControl("", Validators.required);
+  private errorMessage;
+  private nominationObj;
+  private nomId;    
+  private nomId2;
+  dischargeId = new FormControl("", Validators.required);
+  nomination = new FormControl("", Validators.required);
+  hoseConnected = new FormControl("", Validators.required);
+  hoseDisconnected = new FormControl("", Validators.required);
         
   
 
 
-  constructor(private serviceDischarge:DischargeService, fb: FormBuilder, private setTimeStampConnectDischargeService:SetDischargeConnectTimestampService,private setTimeStampDisconnectDischargeService:SetDischargeDisconnectTimestampService) {
+  constructor(private serviceDischarge:DischargeService, 
+    private setTimeStampConnectDischargeService:SetDischargeConnectTimestampService, 
+    private setTimeStampDisconnectDischargeService:SetDischargeDisconnectTimestampService, 
+    private serviceNomination:NominationService,
+    fb: FormBuilder,
+    private route:ActivatedRoute) {
     this.myForm = fb.group({
     
         
@@ -58,33 +65,66 @@ export class DischargeComponent implements OnInit {
         
     
     });
+
+    this.route.queryParams.subscribe(params => {
+      this.nomId2 = params["nomIdPass"];
+    });
   };
 
   ngOnInit(): void {
-    this.loadAll();
+    // this.loadAll();
+    this.loadSelected(this.nomId2);
   }
 
-  loadAll(): Promise<any> {
+  // loadAll(): Promise<any> {
+  //   let tempList = [];
+  //   return this.serviceDischarge.getAll()
+  //   .toPromise()
+  //   .then((result) => {
+	// 		this.errorMessage = null;
+  //     result.forEach(asset => {
+  //       tempList.push(asset);
+  //     });
+  //     this.allAssets = tempList;
+  //   })
+  //   .catch((error) => {
+  //       if(error == 'Server error'){
+  //           this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+  //       }
+  //       else if(error == '404 - Not Found'){
+	// 			this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+  //       }
+  //       else{
+  //           this.errorMessage = error;
+  //       }
+  //   });
+  // }
+
+  /**
+   * Function to load all loading assets associated with a specific nomination asset
+   * @param id nominationId
+   */
+  loadSelected(id: any): Promise<any> {
     let tempList = [];
-    return this.serviceDischarge.getAll()
+    return this.serviceDischarge.queryNominations(id)
     .toPromise()
     .then((result) => {
-			this.errorMessage = null;
+      console.log("loaded");
       result.forEach(asset => {
         tempList.push(asset);
       });
       this.allAssets = tempList;
     })
     .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else if(error == '404 - Not Found'){
-				this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-        }
-        else{
-            this.errorMessage = error;
-        }
+      if(error == 'Server error'){
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      }
+      else if(error == '404 - Not Found'){
+        this.errorMessage = "404 - Could not find API route. Please check your available APIs."
+      }
+      else{
+        this.errorMessage = error;
+      }
     });
   }
 
@@ -163,7 +203,7 @@ export class DischargeComponent implements OnInit {
   }
 
 
-   updateAsset(form: any): Promise<any> {
+  updateAsset(form: any): Promise<any> {
     this.asset = {
       $class: "firstcoin.shipping.Discharge",
         
@@ -192,7 +232,6 @@ export class DischargeComponent implements OnInit {
 			}
     });
   }
-
 
   deleteAsset(): Promise<any> {
 
@@ -316,35 +355,30 @@ export class DischargeComponent implements OnInit {
     });
 
   }
+
   addTransactionConnectHoses(id:string): Promise<any>{
-
     var transaction = {    
-    $class: "firstcoin.shipping.SetDischargeConnectTimestamp",
-      
-        
-    "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
-    "transactionId":"",
-    "timestamp": Date.now()
-  
-
-};
-return this.setTimeStampConnectDischargeService.addTransaction(transaction)
-.toPromise()
-.then(() => {
-  this.errorMessage = null;
-  window.location.reload();
-
-})
-.catch((error) => {
-    if(error == 'Server error'){
-        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-    }
-    else{
-        this.errorMessage = error;
-    }
-});
-}
-
+      $class: "firstcoin.shipping.SetDischargeConnectTimestamp",
+      "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
+      "transactionId":"",
+      "timestamp": Date.now()  
+    };
+    return this.setTimeStampConnectDischargeService.addTransaction(transaction)
+    .toPromise()
+    .then((result) => {
+      this.errorMessage = null;
+      this.checkDischarging(id);
+      // window.location.reload();
+    })
+    .catch((error) => {
+      if(error == 'Server error'){
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      }
+      else{
+          this.errorMessage = error;
+      }
+    });
+  }
 
   addTransactionDisconnectHoses(id:string): Promise<any>{
 
@@ -357,23 +391,131 @@ return this.setTimeStampConnectDischargeService.addTransaction(transaction)
     "timestamp": Date.now()
   
 
-};
-return this.setTimeStampDisconnectDischargeService.addTransaction(transaction)
-.toPromise()
-.then(() => {
-  this.errorMessage = null;
-  window.location.reload();
+    };
+    return this.setTimeStampDisconnectDischargeService.addTransaction(transaction)
+    .toPromise()
+    .then((result) => {
+      this.errorMessage = null;
+      this.checkDischarging(id);
+      // window.location.reload();
+    })
+    .catch((error) => {
+        if(error == 'Server error'){
+            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else{
+            this.errorMessage = error;
+        }
+    });
+  }
 
-})
-.catch((error) => {
-    if(error == 'Server error'){
+  /**
+   * Function to check whether both NORtendered and DOConboard are completed for a specific loading asset
+   * Also sets the nominationObj which is used in getNominationAsset()
+   * @param id loadingId
+   */
+  checkDischarging(id: any): Promise<any> {
+    console.log("checkLoading(" + id+ ")");
+    return this.serviceDischarge.getAsset(id)
+    .toPromise()
+    .then((result) => {
+      if (!result.hoseConnected || !result.hoseDisconnected) {
+        console.log("hoseConnected or hoseDisconnected empty");
+        window.location.reload();
+      } else {
+        console.log("VALID TO UPDATE NOM");
+        this.nominationObj = result.nomination;
+        this.getNominationAsset();
+      }
+    })
+    .catch((error) => {
+      if (error == 'Server error') {
         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-    }
-    else{
+      } else {
         this.errorMessage = error;
-    }
-});
-}
+      }
+      window.location.reload();
+    });
+  }
+
+  /**
+   * Function to get nomination asset associated with discharge asset
+   */
+  getNominationAsset(): Promise<any> {
+    this.nomId = this.nominationObj.split("#");
+
+    return this.serviceNomination.getAsset(this.nomId[1])
+    .toPromise()
+    .then((result) => {
+      this.updateNominationAsset(result);
+      // window.location.reload();
+    })
+    .catch((error) => {
+      if (error == 'Server error') {
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      } else {
+        this.errorMessage = error;
+      }
+      window.location.reload();
+    });
+  }
+
+  /**
+   * Function to update loadingDone to true in nomination object
+   * @param obj nominationObj
+   */
+  updateNominationAsset(obj: any): Promise<any> {
+    // console.log(obj);
+     var asset  = {
+      $class: "firstcoin.shipping.Nomination",  
+      "vesselName":obj.vesselName,
+      "IMONumber":obj.IMONumber,
+      "voyageNumber":obj.voyageNumber,
+      "departure":obj.departure,
+      "destination":obj.destination,
+      "ETA":obj.ETA,
+      "cargo":obj.cargo,
+      "operationType":obj.operationType,
+      "nominatedQuantity":obj.nominatedQuantity,
+      "wscFlat":obj.wscFlat,
+      "wscPercent":obj.wscPercent,
+      "overageRate":obj.overageRate,
+      "freightCommission":obj.freightCommission,
+      "demurrageRate":obj.demurrageRate,
+      "operationTime":obj.operationTime,
+      "charterDate":obj.charterDate,
+      "option1":obj.option1,
+      "option2":obj.option2,
+      "option3":obj.option3,
+      "allowedLayTimeHours":obj.allowedLayTimeHours,
+      "charterer":obj.charterer,
+      "voyageManager":obj.voyageManager,
+      "shippingCompany":obj.shippingCompany,
+      "maxQuantity":obj.maxQuantity,
+      "minQuantity":obj.minQuantity,
+      "madeBy":obj.madeBy,
+      "verified":obj.verified,
+      "captain":obj.captain,
+      "loadingDone":obj.loadingDone,
+      "dischargeDone": true
+    };
+    console.log(asset);
+    return this.serviceNomination.updateAsset(this.nomId[1], asset)
+    .toPromise()
+    .then((result) => {
+      console.log("UPDATE SUCCESS");
+      console.log(result);
+      window.location.reload();
+    })
+    .catch((error) => {
+      if (error == 'Server error') {
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      } else {
+        this.errorMessage = error;
+      }
+      window.location.reload();
+    });
+  }
 
   resetForm(): void{
     this.myForm.setValue({

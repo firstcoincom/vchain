@@ -12,6 +12,7 @@
  * limitations under the License.
  */
 
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { NominationService } from './Nomination.service';
@@ -22,7 +23,7 @@ import { DischargeService } from '../Discharge/Discharge.service';
 	selector: 'app-Nomination',
 	templateUrl: './Nomination.component.html',
 	styleUrls: ['./Nomination.component.css'],
-    providers: [NominationService,LoadingService,DischargeService]
+  providers: [NominationService,LoadingService,DischargeService]
 })
 export class NominationComponent implements OnInit {
 
@@ -69,10 +70,13 @@ export class NominationComponent implements OnInit {
           documentsOnBoard = new FormControl("", Validators.required);
           BLQuantity = new FormControl("", Validators.required);
   
-  constructor(private serviceNomination:NominationService, private serviceLoading:LoadingService, private serviceDischarge:DischargeService, fb: FormBuilder) {
+  constructor(private serviceNomination:NominationService, 
+    private serviceLoading:LoadingService, 
+    private serviceDischarging:DischargeService, 
+    fb: FormBuilder,
+    private router:Router,
+    private route:ActivatedRoute) {
     this.myForm = fb.group({
-    
-        
           nominationId:this.nominationId,
           vesselName:this.vesselName,
           IMONumber:this.IMONumber,
@@ -705,25 +709,24 @@ export class NominationComponent implements OnInit {
       });
   }
 
+  /* Click on Loading button and it will auto generate data to Loading page from Nomination page */
+	addLoadingAsset(id: any): Promise<any> {
+    var random = Math.floor((Math.random() * 1000) + 1);
+    var loading = { 
+      $class: "firstcoin.shipping.Loading",
+      "loadingId": random,
+      "nomination": "resource:firstcoin.shipping.Nomination#" + id,
+      "NORTendered": null,
+      "documentOnBoard": null,
+      "BLQuantity": 0
+    };
 
-
-	/* Click on Loading button and it will auto generate data to Loading page from Nomination page */
-	addLoadingAsset (id: any): Promise<any> 
-    {
-			var random = Math.floor((Math.random() * 1000) + 1);
-			var loading = { 
-				$class: "firstcoin.shipping.Loading",
-				"loadingId": random,
-				"nomination": "resource:firstcoin.shipping.Nomination#" + id,
-				"NORTendered": null,
-				"documentOnBoard": null,
-				"BLQuantity": 0
-			};
+    // let nomIdPass = id;
 
 		return this.serviceLoading.addAsset(loading)
 		.toPromise()
 		.then((result) => {
-			console.log(id);
+      this.routeLoading(id);
 		})
 		.catch((error) => {
 			if(error == 'Server error'){
@@ -733,27 +736,23 @@ export class NominationComponent implements OnInit {
 				this.errorMessage = error;
 			}
 		});
-	}
+  }
+  
+  /* Click on Discharge button and it will auto generate data to Discharge page from Nomination page */
+  addDischargingAsset(id: any): Promise<any> {
+    var random = Math.floor((Math.random() * 1000) + 1);
+    var discharge = { 
+      $class: "firstcoin.shipping.Discharge",
+      "dischargeId": random,
+      "nomination": "resource:firstcoin.shipping.Nomination#" + id,
+      "hoseConnected": null,
+      "hoseDisonnected": null
+    };
 
-
-
-	/* Click on Discharge button and it will auto generate data to Discharge page from Nomination page */
-	addDischargeAsset (id: any): Promise<any>
-    {
-			var random = Math.floor((Math.random() * 1000) + 1);
-			var discharge = { 
-				$class: "firstcoin.shipping.Discharge",
-				"dischargeId": random,
-				"nomination": "resource:firstcoin.shipping.Nomination#" + id,
-				"hoseConnected": null,
-				"hoseDisconnected": null,
-
-			};
-
-		return this.serviceDischarge.addAsset(discharge)
+		return this.serviceDischarging.addAsset(discharge)
 		.toPromise()
 		.then((result) => {
-			console.log(id);
+			this.routeDischarging(id);
 		})
 		.catch((error) => {
 			if(error == 'Server error'){
@@ -763,8 +762,73 @@ export class NominationComponent implements OnInit {
 				this.errorMessage = error;
 			}
 		});
-	}
+  }
 
+  /**
+   * Function to pass the nominationId to loading page
+   * @param id nominationId
+   */
+  routeLoading(id: any): void {
+    let nomIdPass = id;
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "nomIdPass": id
+      }
+    };
+    this.router.navigate(['/Loading'], navigationExtras);
+  }
+
+  /**
+   * Function to pass the nominationId to discharging page
+   * @param id nominationId
+   */
+  routeDischarging(id: any): void {
+    let nomIdPass = id;
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "nomIdPass": id
+      }
+    };
+    this.router.navigate(['/Discharge'], navigationExtras);
+  }
+
+  /**
+   * Function that uses the nominationId to grab the captain associated with that nomination
+   * @param id nominationId
+   */
+  captainVerify(id: any): Promise<any> {
+    console.log("nominationid: " + id);
+    return this.serviceNomination.selectNomination(id)
+    .toPromise()
+    .then((result) => {
+      let capId = result[0].captain;
+      this.routeCaptain(capId);
+    })
+    .catch((error) => {
+      if(error == 'Server error'){
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      }
+      else{
+          this.errorMessage = error;
+      }
+    });
+  }
+
+  /**
+   * Function to pass the captainId to captainapp page
+   * @param id captainId
+   */
+  routeCaptain(id: any): void {
+    let capIdString = id.split("#");
+    let capIdNum = capIdString[1];
+    console.log(capIdNum);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          "capIdPass": capIdNum
+      }
+    };
+    this.router.navigate(['/CaptainApp'], navigationExtras);
+  }
 
   /* CHecks to see if BLQuantity was passed into console 
 	addBLQuantity (form: any): Promise<any> {
@@ -794,8 +858,8 @@ export class NominationComponent implements OnInit {
 
     /* Checks to see if BLQuantity was passed into console */
 	getNomIdForLoading (id : any): Promise<any> {
- console.log("hi");
-     return this.serviceLoading.getAsset(id)
+    console.log("hi");
+    return this.serviceLoading.getAsset(id)
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
@@ -809,46 +873,43 @@ export class NominationComponent implements OnInit {
           "BLQuantity":null
        };
 
-	   console.log("hi");
-         if(result.loadingId){
-            formObject.loadingId = result.loadingId;
-			console.log("loadingId");
-         } else {
-		      formObject.loadingId = null;
-		   }
+	    console.log("hi");
+      if(result.loadingId){
+        formObject.loadingId = result.loadingId;
+        console.log("loadingId");
+      } else {
+        formObject.loadingId = null;
+      }
 
+      if(result.nomination){
+        formObject.nomination = result.nomination;
+        console.log("nomination");
+      } else {
+        formObject.nomination = null;
+      }
 
-if(result.nomination){
-            formObject.nomination = result.nomination;
-			console.log("nomination");
-         } else {
-		      formObject.nomination = null;
-		   }
+      if(result.NORTendered){
+        formObject.NORTendered = result.NORTendered;
+        console.log("NORTendered");
+      } else {
+        formObject.NORTendered = null;
+      }
 
-if(result.NORTendered){
-            formObject.NORTendered = result.NORTendered;
-						console.log("NORTendered");
-         } else {
-		      formObject.NORTendered = null;
-		   }
+      if(result.documentsOnBoard){
+        formObject.documentsOnBoard = result.documentsOnBoard;
+        console.log("documentsOnBoard");
+      } else {
+        formObject.documentsOnBoard = null;
+      }
 
-if(result.documentsOnBoard){
-            formObject.documentsOnBoard = result.documentsOnBoard;
-			console.log("documentsOnBoard");
-         } else {
-		      formObject.documentsOnBoard = null;
-		   }
-
-if(result.BLQuantity){
-            formObject.BLQuantity = result.BLQuantity;
-			console.log("BLQuantity");
-         } else {
-		      formObject.BLQuantity = null;
-		   }
+      if(result.BLQuantity){
+        formObject.BLQuantity = result.BLQuantity;
+        console.log("BLQuantity");
+      } else {
+        formObject.BLQuantity = null;
+      }
       debugger;
-
       this.Form2.setValue(formObject);
-
     })
     .catch((error) => {
         if(error == 'Server error'){
@@ -861,7 +922,6 @@ if(result.BLQuantity){
             this.errorMessage = error;
         }
     });
-
   }
 
 
