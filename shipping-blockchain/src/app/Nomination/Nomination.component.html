@@ -578,16 +578,18 @@
 				       </svg>
 				      </button>
             
-              <button [disabled]="asset.verified" (click)="captainVerify(asset.nominationId);" type="button" class="btn btn-primary">
-                Captain's App
-              </button>
-              <button [disabled]="asset.loadingDone || !asset.verified" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary">
-              <!-- <button [disabled]="asset.loadingDone" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary"> -->
-                Loading
+              <button [disabled]="!asset.dischargeDone" (click)="generateInvoices(asset.nominationId);" type="button" class="btn btn-primary">
+                Generate and Email Invoices
               </button>
               <button [disabled]="!asset.loadingDone || asset.dischargeDone" (click)="addDischargingAsset(asset.nominationId);" type="button" class="btn btn-primary">
-						    Discharging
-					    </button>
+                Discharging
+              </button>
+              <button [disabled]="asset.loadingDone || !asset.verified" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary">
+                Loading
+              </button>
+              <button [disabled]="asset.verified" (click)="captainVerify(asset.nominationId);" type="button" class="btn btn-primary">
+                Captain's App
+              </button>              
             </td>
           </tr>
         </tbody>
