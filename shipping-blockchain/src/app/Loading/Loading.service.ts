@@ -26,8 +26,6 @@ export class LoadingService {
 		private NAMESPACE: string = 'firstcoin.shipping.Loading';
     private QUERYNAMESPACE: string = 'queries/SelectLoadingByNomination?id=';
 
-    private nomId;
-
     constructor(private dataService: DataService<Loading>, 
       private dataService2: DataService<SetLoadingNORTemperedTimestamp>, 
       private dataService3: DataService<SetLoadingDocumentsOnBoardTimestamp>,
@@ -58,15 +56,8 @@ export class LoadingService {
       return this.dataService.delete(this.NAMESPACE, id);
     }
 
-    public setId(id: any) {
-      console.log("setId(" + id + ")");
-      this.nomId = id;
-      this.queryNominations();
-    }
-
-    public queryNominations(): Observable<Nomination[]> {
-      console.log("nomId: " + this.nomId);
-      let nomIdString = "resource:firstcoin.shipping.Nomination%23" + this.nomId;
+    public queryNominations(id: any): Observable<Nomination[]> {
+      let nomIdString = "resource:firstcoin.shipping.Nomination%23" + id;
       return this.dataService4.queryNomination(this.QUERYNAMESPACE, nomIdString);
     }
 

@@ -17,6 +17,7 @@ import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
 import { Nomination } from '../firstcoin.shipping';
 import { Loading } from '../firstcoin.shipping';
+import { Discharge } from '../firstcoin.shipping';
 import 'rxjs/Rx';
 
 // Can be injected into a constructor
@@ -26,6 +27,7 @@ export class NominationService {
 	
 		private NAMESPACE: string = 'firstcoin.shipping.Nomination';
     private LOADING: string   = 'firstcoin.shipping.Loading';
+    private QUERYNAMESPACE: string = 'queries/SelectNomination?id=';
 
 
     constructor(private dataService: DataService<Nomination>, private dataService2: DataService<Loading>) {
@@ -53,5 +55,9 @@ export class NominationService {
 
     public addBLQuantity(itemToAdd: any): Observable<Loading> {
       return this.dataService2.add(this.LOADING, itemToAdd);
+    }
+
+    public selectNomination(id: any): Observable<Nomination[]> {
+      return this.dataService.queryNomination(this.QUERYNAMESPACE, id);
     }
 }
