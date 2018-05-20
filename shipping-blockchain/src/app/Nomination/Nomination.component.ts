@@ -19,11 +19,12 @@ import { NominationService } from './Nomination.service';
 import 'rxjs/add/operator/toPromise';
 import { LoadingService } from '../Loading/Loading.service';
 import { DischargeService } from '../Discharge/Discharge.service';
+import { FinalizeNominationService } from '../FinalizeNomination/FinalizeNomination.service';
 @Component({
 	selector: 'app-Nomination',
 	templateUrl: './Nomination.component.html',
 	styleUrls: ['./Nomination.component.css'],
-  providers: [NominationService,LoadingService,DischargeService]
+  providers: [NominationService,LoadingService,DischargeService,FinalizeNominationService]
 })
 export class NominationComponent implements OnInit {
 
@@ -72,7 +73,8 @@ export class NominationComponent implements OnInit {
   
   constructor(private serviceNomination:NominationService, 
     private serviceLoading:LoadingService, 
-    private serviceDischarging:DischargeService, 
+    private serviceDischarging:DischargeService,
+    private serviceFinalize:FinalizeNominationService,
     fb: FormBuilder,
     private router:Router,
     private route:ActivatedRoute) {
@@ -828,6 +830,34 @@ export class NominationComponent implements OnInit {
       }
     };
     this.router.navigate(['/CaptainApp'], navigationExtras);
+  }
+
+  /**
+   * 
+   * @param id nominationId
+   */
+  generateInvoices(id: any): Promise<any> {
+    let nomIdString = "resource:firstcoin.shipping.Nomination#" + id;
+    var transaction = {
+      $class: "firstcoin.shipping.FinalizeNomination",
+        "nomination":nomIdString,
+        "transactionId":"",
+        "timestamp":Date.now()
+    };
+    console.log(transaction);
+    return this.serviceFinalize.addTransaction(transaction)
+    .toPromise()
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      if(error == 'Server error'){
+          this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      }
+      else{
+          this.errorMessage = error;
+      }
+  });
   }
 
   /* CHecks to see if BLQuantity was passed into console 

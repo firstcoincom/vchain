@@ -13,7 +13,7 @@
 -->
 
 
-<!------------------- CREATE DISCHARGE ASSET MODAL ---------------->
+<!-- CREATE DISCHARGE ASSET MODAL -->
 
 <div class="modal fade" id="addDischargeModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel">
   <div class="modal-dialog" role="document">
@@ -51,7 +51,7 @@
 
 
 
-<!------------------ DISCHARGE UPDATE MODAL FORM ------------------>
+<!-- DISCHARGE UPDATE MODAL FORM -->
 
 <div class="modal fade" id="updateDischargeModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
   <div class="modal-dialog" role="document">
@@ -98,7 +98,7 @@
 </div>
 
 
-<!------------------------- DISCHARGE DELETE MODAL FORM -------------------------------->
+<!-- DISCHARGE DELETE MODAL FORM -->
 <div class="modal fade" id="deleteDischargeModal" tabindex="-1" role="dialog" aria-labelledby="deleteAssetModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -121,7 +121,7 @@
 
 
 
-<!--------------- CREATE DISCHARGE BUTTON ------------------->
+<!-- CREATE DISCHARGE BUTTON -->
 <div class="container">
 	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
 		<strong>Error:</strong> {{errorMessage}}
@@ -144,7 +144,7 @@
   </div>
   <br>
 
-<!---------------- DISCHARGE TABLE ---------------------->
+<!-- DISCHARGE TABLE -->
   <div class="row">
     <div class="col-md-12">
       <table class="table table-responsive">
@@ -168,7 +168,7 @@
             
             <td>
 
-					 <!----- Update Discharge Button ----->
+					 <!-- Update Discharge Button -->
 					 <button (click)="getForm(asset.dischargeId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#updateDischargeModal">
 		                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 		                width="12.8px" height="12.8px" viewBox="0 0 30.7 30.7" style="enable-background:new 0 0 30.7 30.7;" xml:space="preserve">
@@ -183,7 +183,7 @@
 		            </button>
 
 					
-					<!----- Delete Discharge Button ----->
+					<!-- Delete Discharge Button -->
 		            <button (click)="setId(asset.dischargeId);" type="button" class="btn btn-delete" data-toggle="modal" data-target="#deleteDischargeModal">
 		                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 		                width="13.8px" height="16px" viewBox="0 0 65.9 76.2" style="enable-background:new 0 0 65.9 76.2;" xml:space="preserve">
@@ -195,7 +195,7 @@
 		            </svg>
 		            </button>
 		            
-					<!----- Connect & Disconnect Hoses Button ----->
+					<!-- Connect & Disconnect Hoses Button -->
 					<div>
 						<button (click)="addTransactionDisconnectHoses(asset.dischargeId,asset.nomination, asset.hoseConnected)" type="button" class="btn btn-primary">
 						  Disconnect Hoses
@@ -211,12 +211,6 @@
       </table>
     </div>
   </div>
-
-  
-    <button id="generateButton" type="button">
-        Generate and Email Invoices
-    </button>
-
     <button [routerLink]="['/Nomination']"  id = "backbutton"  type="button" class="btn btn-primary">
       ← Back to Nominations
    </button>
