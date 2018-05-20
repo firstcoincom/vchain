@@ -119,13 +119,14 @@
   </div>
 </div>
 
+<!--Set B/l Quanity-->
 
-<div class="modal fade" id="setB/LModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
+<div class="modal fade" id="setB-LModal" tabindex="-1" role="dialog" aria-labelledby="updateQuantityModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="updateAssetModalLabel">Set B/L BLQuantity</h4>
+        <h4 class="modal-title" id="updateQuantityModalLabel">Set B/L BLQuantity</h4>
       </div>
       <form [formGroup]="myForm">
         <div class="modal-body">
@@ -133,13 +134,29 @@
 
           <div class="form-group text-left">
             <label for="loadingId">loadingId</label>
-              <input [ngModel]="loadingId" formControlName="loadingId" class="form-control" disabled="disabled">  
+              <input type="hidden" [ngModel]="loadingId" formControlName="loadingId" class="form-control" disabled="disabled">  
           </div>
-
-            <div class="form-group text-left">
-              <label for="BLQuantity">BLQuantity</label>
-                <input [ngModel]="BLQuantity" formControlName="BLQuantity" type="number" step='any' class="form-control">
-            </div>
+        
+          <div class="form-group text-left">
+            <label for="nomination">nomination</label>
+                <textarea type="hidden" [ngModel]="nomination" formControlName="nomination" class="form-control" rows="3"></textarea>
+          </div>
+        
+          <div class="form-group text-left">
+            <label for="NORTendered">NORTendered</label>
+              <input type="hidden" [ngModel]="NORTendered"formControlName="NORTendered" type="text" class="form-control">
+          </div>
+        
+          <div class="form-group text-left">
+            <label for="documentsOnBoard">documentsOnBoard</label>
+              <input type="hidden" [ngModel]="documentsOnBoard"formControlName="documentsOnBoard" type="text" class="form-control">
+          </div>
+        
+          <div class="form-group text-left">
+            <label for="BLQuantity">BLQuantity</label>
+              <input [ngModel]="BLQuantity" formControlName="BLQuantity" type="number" step='any' class="form-control">
+          </div>
+        
           
         </div>
 
@@ -258,7 +275,7 @@
                     <button (click)="addTransactionNORTendered(asset.loadingId);" type="button" class="btn btn-primary">
                         NOR Tendered
                     </button>
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#setB-LModal">
                         Set B/L BLQuantity
                           
                     </button>
@@ -266,14 +283,20 @@
 
                 </div>  
             </td>
+            <button [routerLink]="['/Nomination']"  id = "backbutton"  type="button" class="btn btn-primary">
+              ← Back to Nominations 
+          </button>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <button [routerLink]="['/Nomination']"  id = "backbutton"  type="button" class="btn btn-primary">
-    ← Back to Nominations 
- </button>
+
+    <button [routerLink]="['/Nomination']"  id = "backbutton"  type="button" class="btn btn-primary">
+      ← Back to Nominations 
+  </button>
+
+
 </div>
 

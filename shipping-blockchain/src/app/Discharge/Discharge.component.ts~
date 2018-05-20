@@ -14,42 +14,47 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { LoadingService } from './Loading.service';
+import { DischargeService } from './Discharge.service';
+import {SetDischargeConnectTimestamp, SetDischargeDisconnectTimestamp} from '../firstcoin.shipping';
+import {SetDischargeConnectTimestampService} from '../SetDischargeConnectTimestamp/SetDischargeConnectTimestamp.service';
 import 'rxjs/add/operator/toPromise';
-import { SetLoadingNORTemperedTimestampService } from '../SetLoadingNORTemperedTimestamp/SetLoadingNORTemperedTimestamp.service';
-import { SetLoadingDocumentsOnBoardTimestampService } from '../SetLoadingDocumentsOnBoardTimestamp/SetLoadingDocumentsOnBoardTimestamp.service';
+import { SetDischargeConnectTimestampComponent } from '../SetDischargeConnectTimestamp/SetDischargeConnectTimestamp.component';
+import { Transaction } from '../org.hyperledger.composer.system';
+import { DataService } from '../data.service';
+import { SetDischargeDisconnectTimestampService } from '../SetDischargeDisconnectTimestamp/SetDischargeDisconnectTimestamp.service';
 @Component({
-	selector: 'app-Loading',
-	templateUrl: './Loading.component.html',
-	styleUrls: ['./Loading.component.css'],
-  providers: [LoadingService,SetLoadingNORTemperedTimestampService, SetLoadingDocumentsOnBoardTimestampService]
+	selector: 'app-Discharge',
+	templateUrl: './Discharge.component.html',
+	styleUrls: ['./Discharge.component.css'],
+  providers: [DischargeService,SetDischargeConnectTimestampService,SetDischargeDisconnectTimestampService]
 })
-export class LoadingComponent implements OnInit {
+export class DischargeComponent implements OnInit {
 
   myForm: FormGroup;
 
   private allAssets;
   private asset;
   private currentId;
-  private errorMessage;
+	private errorMessage;
 
+  
       
-          loadingId = new FormControl("", Validators.required);
+          dischargeId = new FormControl("", Validators.required);
           nomination = new FormControl("", Validators.required);
-          NORTendered = new FormControl("", Validators.required);
-          documentsOnBoard = new FormControl("", Validators.required);
-          BLQuantity = new FormControl("", Validators.required);
+          hoseConnected = new FormControl("", Validators.required);
+          hoseDisconnected = new FormControl("", Validators.required);
+        
   
 
 
-  constructor(private serviceLoading:LoadingService, fb: FormBuilder, private serviceSetLoadingNorTenderedTimestamp:SetLoadingNORTemperedTimestampService, private serviceSetLoadingDocumentsOnBoardTimestampService: SetLoadingDocumentsOnBoardTimestampService){
+  constructor(private serviceDischarge:DischargeService, fb: FormBuilder, private setTimeStampConnectDischargeService:SetDischargeConnectTimestampService,private setTimeStampDisconnectDischargeService:SetDischargeDisconnectTimestampService) {
     this.myForm = fb.group({
-
-          loadingId:this.loadingId,
+    
+        
+          dischargeId:this.dischargeId,
           nomination:this.nomination,
-          NORTendered:this.NORTendered,
-          documentsOnBoard:this.documentsOnBoard,
-          BLQuantity:this.BLQuantity
+          hoseConnected:this.hoseConnected,
+          hoseDisconnected:this.hoseDisconnected
         
     
     });
@@ -61,7 +66,7 @@ export class LoadingComponent implements OnInit {
 
   loadAll(): Promise<any> {
     let tempList = [];
-    return this.serviceLoading.getAll()
+    return this.serviceDischarge.getAll()
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
@@ -110,14 +115,13 @@ export class LoadingComponent implements OnInit {
 
   addAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.Loading",
+      $class: "firstcoin.shipping.Discharge",
       
         
-          "loadingId":this.loadingId.value,
+          "dischargeId":this.dischargeId.value,
           "nomination":this.nomination.value,
-          "NORTendered":this.NORTendered.value,
-          "documentsOnBoard":this.documentsOnBoard.value,
-          "BLQuantity":this.BLQuantity.value
+          "hoseConnected":this.hoseConnected.value,
+          "hoseDisconnected":this.hoseDisconnected.value
         
       
     };
@@ -125,27 +129,25 @@ export class LoadingComponent implements OnInit {
     this.myForm.setValue({
       
         
-          "loadingId":null,
+          "dischargeId":null,
           "nomination":null,
-          "NORTendered":null,
-          "documentsOnBoard":null,
-          "BLQuantity":null
+          "hoseConnected":null,
+          "hoseDisconnected":null
         
       
     });
 
-    return this.serviceLoading.addAsset(this.asset)
+    return this.serviceDischarge.addAsset(this.asset)
     .toPromise()
     .then(() => {
 			this.errorMessage = null;
       this.myForm.setValue({
       
         
-          "loadingId":null,
+          "dischargeId":null,
           "nomination":null,
-          "NORTendered":null,
-          "documentsOnBoard":null,
-          "BLQuantity":null 
+          "hoseConnected":null,
+          "hoseDisconnected":null 
         
       
       });
@@ -160,76 +162,20 @@ export class LoadingComponent implements OnInit {
     });
   }
 
-  
 
-  //  updateAsset(form: any): Promise<any> {
-  //   this.asset = {
-  //     $class: "firstcoin.shipping.Loading",
-      
-        
-          
-        
-    
-        
-          
-  //           "nomination":this.nomination.value,
-          
-        
-    
-        
-          
-  //           "NORTendered":this.NORTendered.value,
-          
-        
-    
-        
-          
-  //           "documentsOnBoard":this.documentsOnBoard.value,
-          
-        
-    
-        
-          
-  //           "BLQuantity":this.BLQuantity.value
-          
-        
-    
-  //   };
-
-  //   return this.serviceLoading.updateAsset(form.get("loadingId").value,this.asset)
-	// 	.toPromise()
-	// 	.then(() => {
-	// 		this.errorMessage = null;
-	// 	})
-	// 	.catch((error) => {
-  //           if(error == 'Server error'){
-	// 			this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-	// 		}
-  //           else if(error == '404 - Not Found'){
-	// 			this.errorMessage = "404 - Could not find API route. Please check your available APIs."
-	// 		}
-	// 		else{
-	// 			this.errorMessage = error;
-	// 		}
-  //   });
-  // }
-
-
-updateAsset(form: any): Promise<any> {
+   updateAsset(form: any): Promise<any> {
     this.asset = {
-      $class: "firstcoin.shipping.Loading",
-      
+      $class: "firstcoin.shipping.Discharge",
         
-            "nomination":this.nomination.value,
-            "NORTendered":this.NORTendered.value,
-            "documentsOnBoard":this.documentsOnBoard.value,
-            "BLQuantity":this.BLQuantity.value
           
+            "nomination":this.nomination.value,
+            "hoseConnected":this.hoseConnected.value,
+            "hoseDisconnected":this.hoseDisconnected.value
         
     
     };
 
-    return this.serviceLoading.updateAsset(form.get("loadingId").value,this.asset)
+    return this.serviceDischarge.updateAsset(form.get("dischargeId").value,this.asset)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -248,10 +194,9 @@ updateAsset(form: any): Promise<any> {
   }
 
 
-
   deleteAsset(): Promise<any> {
 
-    return this.serviceLoading.deleteAsset(this.currentId)
+    return this.serviceDischarge.deleteAsset(this.currentId)
 		.toPromise()
 		.then(() => {
 			this.errorMessage = null;
@@ -273,19 +218,57 @@ updateAsset(form: any): Promise<any> {
     this.currentId = id;
   }
 
+
+  // refreshInstant(): Promise<any> {
+  //   let tempList = [];
+  //   this.currentId = this.nominationId.value;
+  //   console.log(this.nominationId.value);
+  //   return this.serviceNomination.getAsset(this.nominationId.value)
+  //   .toPromise()
+  //   .then((result) => {
+  //     tempList.push(result);
+  //     this.madeBy = result.madeBy;
+  //     this.allAssets = tempList;
+  //     if (!this.allAssets) {
+  //       this.errorMessage = “ASSET LIST EMPTY”;
+  //     }
+  //   })
+  //   .catch((error) => {
+  //       if(error == ‘Server error’){
+  //           this.errorMessage = “Could not connect to REST server. Please check your configuration details”;
+  //       }
+  //       else if(error == ‘404 - Not Found’){
+  //                this.errorMessage = “404 - Could not find API route. Please check your available APIs.”
+  //       }
+  //       else{
+  //           this.errorMessage = error;
+  //       }
+  //   });
+  // }
+
+
   getForm(id: any): Promise<any>{
 
-    return this.serviceLoading.getAsset(id)
+    return this.serviceDischarge.getAsset(id)
     .toPromise()
     .then((result) => {
 			this.errorMessage = null;
       let formObject = {
         
-            "loadingId":null,
+          
+            "dischargeId":null,
+          
+        
+          
             "nomination":null,
-            "NORTendered":null,
-            "documentsOnBoard":null,
-            "BLQuantity":null 
+          
+        
+          
+            "hoseConnected":null,
+          
+        
+          
+            "hoseDisconnected":null 
           
         
       };
@@ -293,12 +276,12 @@ updateAsset(form: any): Promise<any> {
 
 
       
-        if(result.loadingId){
+        if(result.dischargeId){
           
-            formObject.loadingId = result.loadingId;
+            formObject.dischargeId = result.dischargeId;
           
         }else{
-          formObject.loadingId = null;
+          formObject.dischargeId = null;
         }
       
         if(result.nomination){
@@ -309,28 +292,20 @@ updateAsset(form: any): Promise<any> {
           formObject.nomination = null;
         }
       
-        if(result.NORTendered){
+        if(result.hoseConnected){
           
-            formObject.NORTendered = result.NORTendered;
+            formObject.hoseConnected = result.hoseConnected;
           
         }else{
-          formObject.NORTendered = null;
+          formObject.hoseConnected = null;
         }
       
-        if(result.documentsOnBoard){
+        if(result.hoseDisconnected){
           
-            formObject.documentsOnBoard = result.documentsOnBoard;
-          
-        }else{
-          formObject.documentsOnBoard = null;
-        }
-      
-        if(result.BLQuantity){
-          
-            formObject.BLQuantity = result.BLQuantity;
+            formObject.hoseDisconnected = result.hoseDisconnected;
           
         }else{
-          formObject.BLQuantity = null;
+          formObject.hoseDisconnected = null;
         }
       
 
@@ -350,21 +325,25 @@ updateAsset(form: any): Promise<any> {
     });
 
   }
-
-
-  addTransactionNORTendered(id:string): Promise<any>{
+  addTransactionConnectHoses(id:string): Promise<any>{
 
     var transaction = {    
-    $class: "firstcoin.shipping.SetLoadingNORTemperedTimestamp",
+    $class: "firstcoin.shipping.SetDischargeConnectTimestamp",
       
         
-    "loading":"resource:firstcoin.shipping.Loading#" + id ,
+    "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
+  
+
+  
     "transactionId":"",
-    "timestamp": Date.now(),
+  
+
+  
+    "timestamp": Date.now()
   
 
 };
-return this.serviceSetLoadingNorTenderedTimestamp.addTransaction(transaction)
+return this.setTimeStampConnectDischargeService.addTransaction(transaction)
 .toPromise()
 .then(() => {
   this.errorMessage = null;
@@ -381,45 +360,59 @@ return this.serviceSetLoadingNorTenderedTimestamp.addTransaction(transaction)
 });
 }
 
-addTransactionDocumentsOnBoard(id:string): Promise<any>{
 
-  var transaction = {    
-  $class: "firstcoin.shipping.SetLoadingDocumentsOnBoardTimestamp",
-    
+  addTransactionDisconnectHoses(id:string): Promise<any>{
+
+    var transaction = {    
+    $class: "firstcoin.shipping.SetDischargeDisconnectTimestamp",
       
-  "loading":"resource:firstcoin.shipping.Loading#" + id ,
-  "transactionId":"",
-  "timestamp": Date.now(),
+        
+    "discharge":"resource:firstcoin.shipping.Discharge#" + id ,
+  
 
+  
+    "transactionId":"",
+  
+
+  
+    "timestamp": Date.now()
+  
 
 };
-return this.serviceSetLoadingDocumentsOnBoardTimestampService.addTransaction(transaction)
+return this.setTimeStampDisconnectDischargeService.addTransaction(transaction)
 .toPromise()
 .then(() => {
-this.errorMessage = null;
-window.location.reload();
+  this.errorMessage = null;
+  window.location.reload();
 
 })
 .catch((error) => {
-  if(error == 'Server error'){
-      this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-  }
-  else{
-      this.errorMessage = error;
-  }
+    if(error == 'Server error'){
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+    }
+    else{
+        this.errorMessage = error;
+    }
 });
 }
-
 
   resetForm(): void{
     this.myForm.setValue({
       
         
-          "loadingId":null,
+          "dischargeId":null,
+        
+      
+        
           "nomination":null,
-          "NORTendered":null,
-          "documentsOnBoard":null,
-          "BLQuantity":null 
+        
+      
+        
+          "hoseConnected":null,
+        
+      
+        
+          "hoseDisconnected":null 
         
       
       });

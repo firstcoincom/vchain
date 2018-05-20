@@ -581,11 +581,9 @@
 				       </svg>
 				      </button>
 					  
-			      	 <button (click)="addLoadingAsset(asset.nominationId);" [routerLink]="['/Loading']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">LoadingAsset</button>
-
-					<button (click)="getForm(asset.nominationId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#addBLQuantityModal">
-							Loading Modal
-						</button>
+			      	 <button (click)="addLoadingAsset(asset.nominationId);" [routerLink]="['/Loading']" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 1);">
+						Loading
+					</button>
 				
 
                </td>
