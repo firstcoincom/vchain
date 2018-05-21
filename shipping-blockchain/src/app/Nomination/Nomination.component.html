@@ -117,12 +117,30 @@
                   <input formControlName="ETA" type="datetime-local" class="form-control">
               </div>
             
-            
+              <!-- <div class="form-group text-left">
+                  <label for="voyageNumber">Cargo</label>
+                    <input formControlName="cargo" type="text" class="form-control" placeholder="{name,quantity,type},{name,quantity,type}">
+                </div> -->
               <div class="form-group text-left">
-                <label for="cargo">cargo</label>
-                    <textarea formControlName="cargo" class="form-control" rows="3"></textarea>
+                <label for="cargo">Cargo Name</label>
+                    <textarea formControlName="cargoName" class="form-control" rows="3"></textarea>
               </div>
-            
+
+              <div class="form-group text-left">
+                <label for="cargo">Cargo Quantity</label>
+                  <textarea formControlName="cargoQuantity" class="form-control" rows="3"></textarea>
+              </div>
+
+              <div class="form-group text-left">
+                <label for="cargo">Cargo Type</label>
+                <select formControlName="cargoType" class="form-control">
+                  <option value="CONTAINER_CARGO" selected="selected">Cargo</option>
+                  <option value="LIQUID_BULK">Liquid Bulk</option>
+                  <option value="DRY_BULK">Dry Bulk</option>
+                  <option value="BREAK_BULK">Break Bulk</option>
+                  <option value="RORO">Roll on Roll off</option>
+                </select>
+              </div>           
           
               <label for="operationType">operationType</label>
               <div class="checkbox">
@@ -335,10 +353,7 @@
                 <input [ngModel]="ETA" formControlName="ETA" type="text" class="form-control">
             </div>
           
-            <div class="form-group text-left">
-              <label for="cargo">cargo</label>
-                  <textarea [ngModel]="cargo" formControlName="cargo" class="form-control" rows="3"></textarea>
-            </div>
+            
           
             <div class="form-group text-left">
               <label for="operationType">operationType</label>
