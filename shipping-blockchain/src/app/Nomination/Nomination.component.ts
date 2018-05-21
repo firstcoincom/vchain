@@ -188,12 +188,12 @@ export class NominationComponent implements OnInit {
     var freightOption3 = {$class: "firstcoin.shipping.FreightOption",
           "rate":this.option3.value
     }
-    var cargoItem = {
-      $class: "firstcoin.shipping.FreightOption",
+    var cargoItem = [{
+      $class: "firstcoin.shipping.CargoItem",
       "name":this.cargoName.value,
       "quantity":this.cargoQuantity.value,
-      "type":this.cargoType.value
-    }
+      "cargoType":this.cargoType.value
+    }];
 
     this.asset = {
       $class: "firstcoin.shipping.Nomination",
