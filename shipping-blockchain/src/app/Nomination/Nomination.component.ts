@@ -43,7 +43,9 @@ export class NominationComponent implements OnInit {
           departure = new FormControl("", Validators.required);
           destination = new FormControl("", Validators.required);
           ETA = new FormControl("", Validators.required);
-          cargo = new FormControl("", Validators.required);
+          cargoName = new FormControl("", Validators.required);
+          cargoQuantity = new FormControl("", Validators.required);
+          cargoType = new FormControl("", Validators.required);
           operationType = new FormControl("", Validators.required);
           nominatedQuantity = new FormControl("", Validators.required);
           wscFlat = new FormControl("", Validators.required);
@@ -86,7 +88,9 @@ export class NominationComponent implements OnInit {
           departure:this.departure,
           destination:this.destination,
           ETA:this.ETA,
-          cargo:this.cargo,
+          cargoName:this.cargoName,
+          cargoQuantity:this.cargoQuantity,
+          cargoType:this.cargoType,
           operationType:this.operationType,
           nominatedQuantity:this.nominatedQuantity,
           wscFlat:this.wscFlat,
@@ -184,6 +188,13 @@ export class NominationComponent implements OnInit {
     var freightOption3 = {$class: "firstcoin.shipping.FreightOption",
           "rate":this.option3.value
     }
+    var cargoItem = {
+      $class: "firstcoin.shipping.FreightOption",
+      "name":this.cargoName.value,
+      "quantity":this.cargoQuantity.value,
+      "type":this.cargoType.value
+    }
+
     this.asset = {
       $class: "firstcoin.shipping.Nomination",
       
@@ -196,7 +207,7 @@ export class NominationComponent implements OnInit {
           "departure":this.departure.value,
           "destination":this.destination.value,
           "ETA":this.ETA.value,
-          "cargo":this.cargo.value,
+          "cargo": cargoItem,
           "operationType":this.operationType.value,
           "nominatedQuantity":this.nominatedQuantity.value,
           "wscFlat":this.wscFlat.value,
@@ -231,7 +242,9 @@ export class NominationComponent implements OnInit {
           "departure":null,
           "destination":null,
           "ETA":null,
-          "cargo":null,
+          "cargoName":null,
+          "cargoQuantity":null,
+          "cargoType":null,
           "operationType":null,
           "nominatedQuantity":null,
           "wscFlat":null,
@@ -271,7 +284,9 @@ export class NominationComponent implements OnInit {
           "departure":null,
           "destination":null,
           "ETA":null,
-          "cargo":null,
+          "cargoName":null,
+          "cargoQuantity":null,
+          "cargoType":null,
           "operationType":null,
           "nominatedQuantity":null,
           "wscFlat":null,
@@ -307,7 +322,6 @@ export class NominationComponent implements OnInit {
     });
   }
 
-
   updateAsset(form: any): Promise<any> {
     var freightOption1 = {$class: "firstcoin.shipping.FreightOption",
     "rate":this.option1.value
@@ -318,6 +332,13 @@ export class NominationComponent implements OnInit {
     var freightOption3 = {$class: "firstcoin.shipping.FreightOption",
         "rate":this.option3.value
     }
+    var cargoItem = [ {
+      $class: "firstcoin.shipping.CargoItem",
+      "name":this.cargoName.value,
+      "quantity":this.cargoQuantity.value,
+      "cargoType": this.cargoType.value
+    }];
+
     this.asset = {
       
       $class: "firstcoin.shipping.Nomination",
@@ -329,7 +350,7 @@ export class NominationComponent implements OnInit {
             "departure":this.departure.value,
             "destination":this.destination.value,
             "ETA":this.ETA.value,
-            "cargo":this.cargo.value,
+            "cargo":cargoItem,
             "operationType":this.operationType.value,
             "nominatedQuantity":this.nominatedQuantity.value,
             "wscFlat":this.wscFlat.value,
@@ -696,7 +717,6 @@ export class NominationComponent implements OnInit {
 
   resetForm(): void{
     this.myForm.setValue({
-      
         
           "nominationId":null,
           "vesselName":null,
@@ -705,7 +725,9 @@ export class NominationComponent implements OnInit {
           "departure":null,
           "destination":null,
           "ETA":null,
-          "cargo":null,
+          "cargoName":null,
+          "cargoQuantity":null,
+          "cargoType":null,
           "operationType":null,
           "nominatedQuantity":null,
           "wscFlat":null,
@@ -877,7 +899,7 @@ export class NominationComponent implements OnInit {
       else{
           this.errorMessage = error;
       }
-  });
+    });
   }
 
   /* CHecks to see if BLQuantity was passed into console 
