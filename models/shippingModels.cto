@@ -26,14 +26,14 @@ asset Nomination identified by nominationId {
   o FreightOption option2
   o FreightOption option3
   o Integer allowedLayTimeHours
-  --> Charterer charterer optional
-  --> VoyageManager voyageManager optional
-  --> ShippingCompany shippingCompany optional
+  --> Charterer charterer
+  --> VoyageManager voyageManager
+  --> ShippingCompany shippingCompany
   o Double maxQuantity
   o Double minQuantity
   --> Participant madeBy optional
   o Boolean verified default = false
-  --> Captain captain optional
+  --> Captain captain
   o Boolean loadingDone default = false
   o Boolean dischargeDone default = false
 }
