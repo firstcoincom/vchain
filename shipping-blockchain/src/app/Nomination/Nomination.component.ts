@@ -175,8 +175,18 @@ export class NominationComponent implements OnInit {
   }
 
   addAsset(form: any): Promise<any> {
+    var freightOption1 = {$class: "firstcoin.shipping.FreightOption",
+          "rate":this.option1.value
+    }
+    var freightOption2 = {$class: "firstcoin.shipping.FreightOption",
+          "rate":this.option2.value
+    }
+    var freightOption3 = {$class: "firstcoin.shipping.FreightOption",
+          "rate":this.option3.value
+    }
     this.asset = {
       $class: "firstcoin.shipping.Nomination",
+      
       
         
           "nominationId":this.nominationId.value,
@@ -196,9 +206,9 @@ export class NominationComponent implements OnInit {
           "demurrageRate":this.demurrageRate.value,
           "operationTime":this.operationTime.value,
           "charterDate":this.charterDate.value,
-          "option1":this.option1.value,
-          "option2":this.option2.value,
-          "option3":this.option3.value,
+          "option1":freightOption1,
+          "option2":freightOption2,
+          "option3":freightOption3,
           "allowedLayTimeHours":this.allowedLayTimeHours.value,
           "charterer":this.charterer.value,
           "voyageManager":this.voyageManager.value,
@@ -299,7 +309,17 @@ export class NominationComponent implements OnInit {
 
 
   updateAsset(form: any): Promise<any> {
+    var freightOption1 = {$class: "firstcoin.shipping.FreightOption",
+    "rate":this.option1.value
+    }
+    var freightOption2 = {$class: "firstcoin.shipping.FreightOption",
+        "rate":this.option2.value
+    }
+    var freightOption3 = {$class: "firstcoin.shipping.FreightOption",
+        "rate":this.option3.value
+    }
     this.asset = {
+      
       $class: "firstcoin.shipping.Nomination",
       
         
@@ -319,9 +339,9 @@ export class NominationComponent implements OnInit {
             "demurrageRate":this.demurrageRate.value,
             "operationTime":this.operationTime.value,
             "charterDate":this.charterDate.value,
-            "option1":this.option1.value,
-            "option2":this.option2.value,
-            "option3":this.option3.value,
+            "option1":freightOption1,
+            "option2":freightOption2,
+            "option3":freightOption3,
             "allowedLayTimeHours":this.allowedLayTimeHours.value,
             "charterer":this.charterer.value,
             "voyageManager":this.voyageManager.value,
@@ -329,7 +349,7 @@ export class NominationComponent implements OnInit {
             "maxQuantity":this.maxQuantity.value,
             "minQuantity":this.minQuantity.value,
             "madeBy":this.madeBy.value,
-            "verified":this.verified.value,
+            "verified":false,
             "captain":this.captain.value
           
         
@@ -563,7 +583,7 @@ export class NominationComponent implements OnInit {
       
         if(result.option1){
           
-            formObject.option1 = result.option1;
+            formObject.option1 = result.option1.rate;
           
         }else{
           formObject.option1 = null;
@@ -571,7 +591,7 @@ export class NominationComponent implements OnInit {
       
         if(result.option2){
           
-            formObject.option2 = result.option2;
+            formObject.option2 = result.option2.rate;
           
         }else{
           formObject.option2 = null;
@@ -579,7 +599,7 @@ export class NominationComponent implements OnInit {
       
         if(result.option3){
           
-            formObject.option3 = result.option3;
+            formObject.option3 = result.option3.rate;
           
         }else{
           formObject.option3 = null;
@@ -953,6 +973,5 @@ export class NominationComponent implements OnInit {
         }
     });
   }
-
 
 }

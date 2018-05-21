@@ -78,43 +78,43 @@
           
               <div class="form-group text-left">
                 <label for="nominationId">nominationId</label>
-                  <input formControlName="nominationId" type="text" class="form-control">
+                  <input formControlName="nominationId" type="text" class="form-control" placeholder="Nomination ID - e.g: NOM_001">
               </div>
             
           
               <div class="form-group text-left">
                 <label for="vesselName">vesselName</label>
-                  <input formControlName="vesselName" type="text" class="form-control">
+                  <input formControlName="vesselName" type="text" class="form-control"  placeholder="Vessel Name - e.g: Vail Spirit">
               </div>
             
          
               <div class="form-group text-left">
                 <label for="IMONumber">IMONumber</label>
-                  <input formControlName="IMONumber" type="text" class="form-control">
+                  <input formControlName="IMONumber" type="text" class="form-control" placeholder="IMO Number - e.g: IMO-001">
               </div>
             
             
               <div class="form-group text-left">
                 <label for="voyageNumber">voyageNumber</label>
-                  <input formControlName="voyageNumber" type="text" class="form-control">
+                  <input formControlName="voyageNumber" type="text" class="form-control" placeholder="Voyage Number - e.g: 16">
               </div>
             
           
               <div class="form-group text-left">
                 <label for="departure">departure</label>
-                    <textarea formControlName="departure" class="form-control" rows="3"></textarea>
+                    <textarea formControlName="departure" class="form-control" rows="3" placeholder="Terminal ID - e.g: TER-001"></textarea>
               </div>
             
           
               <div class="form-group text-left">
                 <label for="destination">destination</label>
-                    <textarea formControlName="destination" class="form-control" rows="3"></textarea>
+                    <textarea formControlName="destination" class="form-control" rows="3" placeholder="Terminal ID - e.g: TER-002"></textarea>
               </div>
             
           
               <div class="form-group text-left">
                 <label for="ETA">ETA</label>
-                  <input formControlName="ETA" type="text" class="form-control">
+                  <input formControlName="ETA" type="datetime-local" class="form-control">
               </div>
             
             
@@ -194,7 +194,7 @@
             
               <div class="form-group text-left">
                 <label for="charterDate">charterDate</label>
-                  <input formControlName="charterDate" type="text" class="form-control">
+                  <input formControlName="charterDate" type="datetime-local" class="form-control">
               </div>
           
             
@@ -224,7 +224,7 @@
           
               <div class="form-group text-left">
                 <label for="charterer">charterer</label>
-                    <textarea formControlName="charterer" class="form-control" rows="3"></textarea>
+                    <textarea formControlName="charterer" class="form-control" rows="3" ></textarea>
               </div>
             
             
@@ -332,7 +332,7 @@
           
             <div class="form-group text-left">
               <label for="ETA">ETA</label>
-                <input [ngModel]="ETA"formControlName="ETA" type="text" class="form-control">
+                <input [ngModel]="ETA" formControlName="ETA" type="text" class="form-control">
             </div>
           
             <div class="form-group text-left">
@@ -472,10 +472,10 @@
                   <textarea [ngModel]="madeBy" formControlName="madeBy" class="form-control" rows="3"></textarea>
             </div>
           
-            <div class="form-group text-left">
+            <!-- <div class="form-group text-left">
               <label for="verified">verified</label>
                 <input [ngModel]="verified" formControlName="verified" type="checkbox" class="form-control">
-            </div>
+            </div> -->
           
 
 
@@ -578,16 +578,16 @@
 				       </svg>
 				      </button>
             
-              <button [disabled]="!asset.dischargeDone" (click)="generateInvoices(asset.nominationId);" type="button" class="btn btn-primary">
+              <button [disabled]="!asset.dischargeDone" (click)="generateInvoices(asset.nominationId);" type="button" class="btn btn-functions">
                 Generate and Email Invoices
               </button>
-              <button [disabled]="!asset.loadingDone || asset.dischargeDone" (click)="addDischargingAsset(asset.nominationId);" type="button" class="btn btn-primary">
+              <button [disabled]="!asset.loadingDone || asset.dischargeDone" (click)="addDischargingAsset(asset.nominationId);" type="button" class="btn btn-functions">
                 Discharging
               </button>
-              <button [disabled]="asset.loadingDone || !asset.verified" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary">
+              <button [disabled]="asset.loadingDone || !asset.verified" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-functions">
                 Loading
               </button>
-              <button [disabled]="asset.verified" (click)="captainVerify(asset.nominationId);" type="button" class="btn btn-primary">
+              <button [disabled]="asset.verified" (click)="captainVerify(asset.nominationId);" type="button" class="btn btn-functions">
                 Captain's App
               </button>              
             </td>

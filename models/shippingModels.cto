@@ -12,7 +12,7 @@ asset Nomination identified by nominationId {
   --> Terminal departure
   --> Terminal destination
   o DateTime ETA
-  o CargoItem[] cargo
+  o CargoItem[] cargo optional
   o Operation operationType
   o Double nominatedQuantity
   o Double wscFlat
@@ -26,14 +26,14 @@ asset Nomination identified by nominationId {
   o FreightOption option2
   o FreightOption option3
   o Integer allowedLayTimeHours
-  --> Charterer charterer
-  --> VoyageManager voyageManager
-  --> ShippingCompany shippingCompany
+  --> Charterer charterer optional
+  --> VoyageManager voyageManager optional
+  --> ShippingCompany shippingCompany optional
   o Double maxQuantity
   o Double minQuantity
-  --> Participant madeBy
+  --> Participant madeBy optional
   o Boolean verified default = false
-  --> Captain captain
+  --> Captain captain optional
   o Boolean loadingDone default = false
   o Boolean dischargeDone default = false
 }

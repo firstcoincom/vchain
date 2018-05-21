@@ -30,6 +30,17 @@
     float: right;
     margin-top: 5%;
 }
+.btn-functions {
+    background: #5B965B;
+    border-radius: 4px;
+    border: 0px;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    line-height: 10px;
+    height: 40px;
+    float: right;
+}
 
 .table > thead > tr > th {
     border-bottom: 1px solid #EAEAEA;
