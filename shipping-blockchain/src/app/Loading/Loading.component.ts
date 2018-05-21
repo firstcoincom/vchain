@@ -213,7 +213,7 @@ export class LoadingComponent implements OnInit {
         
     
     };
-
+    console.log(this.asset);
     return this.serviceLoading.updateAsset(form.get("loadingId").value,this.asset)
 		.toPromise()
 		.then(() => {
@@ -231,6 +231,7 @@ export class LoadingComponent implements OnInit {
 			}
     });
   }
+
 
 
   deleteAsset(): Promise<any> {
