@@ -578,7 +578,7 @@
 				       </svg>
 				      </button>
             
-              <button [disabled]="!asset.dischargeDone" (click)="generateInvoices(asset.nominationId);" type="button" class="btn btn-primary">
+              <button [disabled]="!asset.dischargeDone" (click)="generateInvoices(asset.nominationId);" type="button" id = "generate-Emails">
                 Generate and Email Invoices
               </button>
               <button [disabled]="!asset.loadingDone || asset.dischargeDone" (click)="addDischargingAsset(asset.nominationId);" type="button" class="btn btn-primary">
@@ -587,7 +587,7 @@
               <button [disabled]="asset.loadingDone || !asset.verified" (click)="addLoadingAsset(asset.nominationId);" type="button" class="btn btn-primary">
                 Loading
               </button>
-              <button [disabled]="asset.verified" (click)="captainVerify(asset.nominationId);" type="button" class="btn btn-primary">
+              <button [disabled]="asset.verified" (click)="captainVerify(asset.nominationId);" type="button" class="backtoNominationAndVerifyCaptian">
                 Captain's App
               </button>              
             </td>
