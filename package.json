@@ -16,7 +16,7 @@
     "chai-as-promised": "latest",
     "composer-admin": "^0.19.2",
     "composer-cli": "^0.19.2",
-    "composer-client": "^0.19.4",
+    "composer-client": "^0.19.5",
     "composer-common": "^0.19.2",
     "composer-connector-embedded": "^0.19.2",
     "composer-cucumber-steps": "^0.19.2",
