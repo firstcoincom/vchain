@@ -37,4 +37,4 @@ Running Angular Application
 
 2. npm start
 
-*note if errors occur, try 'npm install' in shipping-blockchain folder and 'npm start'
+*note first time running, do 'npm install' in shipping-blockchain folder then 'npm start'
