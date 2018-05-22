@@ -1,6 +1,6 @@
 {
   "name": "bond-marketplace",
-  "version": "0.1.0",
+  "version": "0.0.77",
   "description": "A practical application on top of blockchain.",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/bond-marketplace.bna",
@@ -16,7 +16,7 @@
     "chai-as-promised": "latest",
     "composer-admin": "^0.19.2",
     "composer-cli": "^0.19.2",
-    "composer-client": "^0.19.5",
+    "composer-client": "^0.19.4",
     "composer-common": "^0.19.2",
     "composer-connector-embedded": "^0.19.2",
     "composer-cucumber-steps": "^0.19.2",

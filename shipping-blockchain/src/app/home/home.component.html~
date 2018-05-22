@@ -1,0 +1,41 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<div class="container">
+	<div class="jumbotron">
+		<h1><u>Shipping-Blockchain</u></h1>
+		<p>Last modified: <b>May 15th, 2018</b> | Version: <b>bond-marketplace@0.0.67.bna</b></p>
+		<br />
+		<p>This is the Shipping Blockchain's home page.
+		<p>All <mark>Participants</mark> must create a <b><a [routerLink]="['/Nomination']">Nomination</a></b>, <b><a [routerLink]="['/Loading']">Loading</a></b>, and generate <b><a [routerLink]="['/Discharge']">Discharge</a></b> page under Assets in order to use the marketplace.</p>
+		<p><b>Nomination</b> - is where Voyage Managers enter the data from the text field. It is then email to their superior for validation purposes.</p>
+		<p><b>Discharge</b> - is where it keeps the reference ID from Nomination and records the timestamp of the Hose Connection and Hose Disconnection where the user can also Generate/Send Invoices to the according Participants.</p>
+		<p><b>Loading</b> - combines both the Nomination's and Discharge's numerical data and does function calculations which adds the additional pay to the grand total.</p>
+		<p><b>Invoice</b> - prints out all the information gathered from Nomination, Discharge, and Loading and gets emailed to the according participants.</p>
+		<br />
+		<p>1.) Creating a Nomination form page</p>
+		
+		<ul>
+			<li>Under the <b>Assets</b> tab, click on the drop down menu <b>Nominations</b></li>
+			<p>*Image goes here*</p>
+
+			<li>Fill out all empty fields and click Create Nomination</li>
+		</ul>
+		<p>2.) Creating Discharge page</p>
+		<ul>
+			<li>Under the <b>Assets</b> tab, click on the drop down menu <b>Discharge</b></li>
+			<p>*Image goes here*</p>
+			<li>Click Hose Connection and Hose Disconnection button to record and display the timestamp of Hose Connection and Hose Disconnection columns</li>
+		</ul>
+	</div>
+</div>
