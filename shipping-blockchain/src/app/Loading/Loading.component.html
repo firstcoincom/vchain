@@ -104,17 +104,15 @@
             
             <td>
                 <div>
-                    <button (click)="addTransactionDocumentsOnBoard(asset.loadingId);" type="button" class="btn btn-primary">
-                        Documents On Board
-                    </button>
-                    <button (click)="addTransactionNORTendered(asset.loadingId);" type="button" class="btn btn-primary">
+                    <button (click)="addTransactionNORTendered(asset.loadingId);" type="button" class="btn btn-functions">
                         NOR Tendered
                     </button>
-                    <button  (click)="getForm(asset.loadingId);" type="button" class="btn btn-primary" data-toggle="modal" data-target="#setB-LModal">
-                        Set B/L BLQuantity
-                          
+                    <button (click)="addTransactionDocumentsOnBoard(asset.loadingId);" type="button" class="btn btn-functions">
+                        Documents On Board
                     </button>
-
+                    <button  (click)="getForm(asset.loadingId);" type="button" class="btn btn-bl" data-toggle="modal" data-target="#setB-LModal">
+                        Set B/L BLQuantity                     
+                    </button>
 
                 </div>  
             </td>
@@ -125,7 +123,7 @@
   </div>
 <div>
 
-    <button [routerLink]="['/Nomination']"  id = "backbutton"  type="button" class="backtoNominationAndVerifyCaptian">
+    <button [routerLink]="['/Nomination']" type="button" class="backtoNominationAndVerifyCaptian">
       ← Back to Nominations 
   </button> 
 

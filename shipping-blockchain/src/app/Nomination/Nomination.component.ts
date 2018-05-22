@@ -43,6 +43,7 @@ export class NominationComponent implements OnInit {
           departure = new FormControl("", Validators.required);
           destination = new FormControl("", Validators.required);
           ETA = new FormControl("", Validators.required);
+          // cargo = new FormControl("", Validators.required);
           cargoName = new FormControl("", Validators.required);
           cargoQuantity = new FormControl("", Validators.required);
           cargoType = new FormControl("", Validators.required);
@@ -332,7 +333,7 @@ export class NominationComponent implements OnInit {
     var freightOption3 = {$class: "firstcoin.shipping.FreightOption",
         "rate":this.option3.value
     }
-    var cargoItem = [ {
+    var cargoItem = [{
       $class: "firstcoin.shipping.CargoItem",
       "name":this.cargoName.value,
       "quantity":this.cargoQuantity.value,
@@ -373,15 +374,14 @@ export class NominationComponent implements OnInit {
             "verified":false,
             "captain":this.captain.value
           
-        
-    
-    };
+          };
 
     return this.serviceNomination.updateAsset(form.get("nominationId").value,this.asset)
 		.toPromise()
 		.then(() => {
       
-			this.errorMessage = null;
+      this.errorMessage = null;
+
 		})
 		.catch((error) => {
             if(error == 'Server error'){
