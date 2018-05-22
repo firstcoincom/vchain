@@ -31,7 +31,7 @@ asset Nomination identified by nominationId {
   --> ShippingCompany shippingCompany
   o Double maxQuantity
   o Double minQuantity
-  --> Participant madeBy optional
+  --> Participant madeBy
   o Boolean verified default = false
   --> Captain captain
   o Boolean loadingDone default = false
