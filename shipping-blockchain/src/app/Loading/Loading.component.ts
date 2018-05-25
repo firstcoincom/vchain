@@ -35,6 +35,7 @@ export class LoadingComponent implements OnInit {
   private currentId;
   private errorMessage;
   private nominationObj;
+  private nominationObjString;
   private nomId;
   private nomId2;    
   loadingId = new FormControl("", Validators.required);
@@ -235,11 +236,10 @@ export class LoadingComponent implements OnInit {
 
 
   deleteAsset(): Promise<any> {
-
     return this.serviceLoading.deleteAsset(this.currentId)
 		.toPromise()
 		.then(() => {
-			this.errorMessage = null;
+			this.getNominationAsset(2);
 		})
 		.catch((error) => {
             if(error == 'Server error'){
@@ -253,6 +253,9 @@ export class LoadingComponent implements OnInit {
 			}
     });
   }
+  // deleteAsset(): void {
+  //   this.getNominationAsset();
+  // }
 
   setId(id: any): void{
     this.currentId = id;
@@ -349,8 +352,8 @@ export class LoadingComponent implements OnInit {
     .toPromise()
     .then((result) => {
       this.errorMessage = null;
-      this.checkLoading(id);
       // window.location.reload();
+      this.checkLoading(id);
     })
     .catch((error) => {
       if (error == 'Server error') {
@@ -362,7 +365,6 @@ export class LoadingComponent implements OnInit {
   }
 
   addTransactionDocumentsOnBoard(id:string): Promise<any>{
-
     var transaction = {    
       $class: "firstcoin.shipping.SetLoadingDocumentsOnBoardTimestamp",
       "loading":"resource:firstcoin.shipping.Loading#" + id ,
@@ -373,8 +375,8 @@ export class LoadingComponent implements OnInit {
     .toPromise()
     .then(() => {
       this.errorMessage = null;
-      this.checkLoading(id);
       // window.location.reload();
+      this.checkLoading(id);
     })
     .catch((error) => {
       if(error == 'Server error'){
@@ -389,6 +391,7 @@ export class LoadingComponent implements OnInit {
   /**
    * Function to check whether both NORtendered and DOConboard are completed for a specific loading asset
    * Also sets the nominationObj which is used in getNominationAsset()
+   * 1 indicates that it's updating the loadingDone field in the nomination
    * @param id loadingId
    */
   checkLoading(id: any): Promise<any> {
@@ -401,8 +404,8 @@ export class LoadingComponent implements OnInit {
         window.location.reload();
       } else {
         console.log("VALID TO UPDATE NOM");
-        this.nominationObj = result.nomination;
-        this.getNominationAsset();
+        this.nominationObjString = result.nomination;
+        this.getNominationAsset(1);
       }
     })
     .catch((error) => {
@@ -418,14 +421,14 @@ export class LoadingComponent implements OnInit {
   /**
    * Function to get nomination asset associated with loading asset
    */
-  getNominationAsset(): Promise<any> {
-    this.nomId = this.nominationObj.split("#");
-
-    return this.serviceNomination.getAsset(this.nomId[1])
+  getNominationAsset(type: any): Promise<any> {
+    // this.nomId = this.nominationObjString.split("#");
+    console.log("type: " + type);
+    return this.serviceNomination.getAsset(this.nomId2)
     .toPromise()
     .then((result) => {
-      this.updateNominationAsset(result);
       // window.location.reload();
+      this.updateNominationAsset(type, result);
     })
     .catch((error) => {
       if (error == 'Server error') {
@@ -439,49 +442,88 @@ export class LoadingComponent implements OnInit {
 
   /**
    * Function to update loadingDone to true in nomination object
+   * @param type 1 for loadingDone = true, 2 for loadingDone/loadingCreated = false
    * @param obj nominationObj
    */
-  updateNominationAsset(obj: any): Promise<any> {
-    // console.log(obj);
-     var asset  = {
-      $class: "firstcoin.shipping.Nomination",  
-      "vesselName":obj.vesselName,
-      "IMONumber":obj.IMONumber,
-      "voyageNumber":obj.voyageNumber,
-      "departure":obj.departure,
-      "destination":obj.destination,
-      "ETA":obj.ETA,
-      "cargo":obj.cargo,
-      "operationType":obj.operationType,
-      "nominatedQuantity":obj.nominatedQuantity,
-      "wscFlat":obj.wscFlat,
-      "wscPercent":obj.wscPercent,
-      "overageRate":obj.overageRate,
-      "freightCommission":obj.freightCommission,
-      "demurrageRate":obj.demurrageRate,
-      "operationTime":obj.operationTime,
-      "charterDate":obj.charterDate,
-      "option1":obj.option1,
-      "option2":obj.option2,
-      "option3":obj.option3,
-      "allowedLayTimeHours":obj.allowedLayTimeHours,
-      "charterer":obj.charterer,
-      "voyageManager":obj.voyageManager,
-      "shippingCompany":obj.shippingCompany,
-      "maxQuantity":obj.maxQuantity,
-      "minQuantity":obj.minQuantity,
-      "madeBy":obj.madeBy,
-      "verified":obj.verified,
-      "captain":obj.captain,
-      "loadingDone":true,
-      "dischargeDone": obj.dischargeDone
-    };
-    console.log(asset);
-    return this.serviceNomination.updateAsset(this.nomId[1], asset)
+  updateNominationAsset(type: any, obj: any): Promise<any> {
+    if (type == 1) {
+      var asset  = {
+        $class: "firstcoin.shipping.Nomination",  
+        "vesselName":obj.vesselName,
+        "IMONumber":obj.IMONumber,
+        "voyageNumber":obj.voyageNumber,
+        "departure":obj.departure,
+        "destination":obj.destination,
+        "ETA":obj.ETA,
+        "cargo":obj.cargo,
+        "operationType":obj.operationType,
+        "nominatedQuantity":obj.nominatedQuantity,
+        "wscFlat":obj.wscFlat,
+        "wscPercent":obj.wscPercent,
+        "overageRate":obj.overageRate,
+        "freightCommission":obj.freightCommission,
+        "demurrageRate":obj.demurrageRate,
+        "operationTime":obj.operationTime,
+        "charterDate":obj.charterDate,
+        "option1":obj.option1,
+        "option2":obj.option2,
+        "option3":obj.option3,
+        "allowedLayTimeHours":obj.allowedLayTimeHours,
+        "charterer":obj.charterer,
+        "voyageManager":obj.voyageManager,
+        "shippingCompany":obj.shippingCompany,
+        "maxQuantity":obj.maxQuantity,
+        "minQuantity":obj.minQuantity,
+        "madeBy":obj.madeBy,
+        "verified":obj.verified,
+        "captain":obj.captain,
+        "loadingCreated": true,
+        "dischargeCreated": obj.dischargeCreated,
+        "loadingDone":true,
+        "dischargeDone": obj.dischargeDone
+      };
+    } else {
+      var asset  = {
+        $class: "firstcoin.shipping.Nomination",  
+        "vesselName":obj.vesselName,
+        "IMONumber":obj.IMONumber,
+        "voyageNumber":obj.voyageNumber,
+        "departure":obj.departure,
+        "destination":obj.destination,
+        "ETA":obj.ETA,
+        "cargo":obj.cargo,
+        "operationType":obj.operationType,
+        "nominatedQuantity":obj.nominatedQuantity,
+        "wscFlat":obj.wscFlat,
+        "wscPercent":obj.wscPercent,
+        "overageRate":obj.overageRate,
+        "freightCommission":obj.freightCommission,
+        "demurrageRate":obj.demurrageRate,
+        "operationTime":obj.operationTime,
+        "charterDate":obj.charterDate,
+        "option1":obj.option1,
+        "option2":obj.option2,
+        "option3":obj.option3,
+        "allowedLayTimeHours":obj.allowedLayTimeHours,
+        "charterer":obj.charterer,
+        "voyageManager":obj.voyageManager,
+        "shippingCompany":obj.shippingCompany,
+        "maxQuantity":obj.maxQuantity,
+        "minQuantity":obj.minQuantity,
+        "madeBy":obj.madeBy,
+        "verified":obj.verified,
+        "captain":obj.captain,
+        "loadingCreated": false,
+        "dischargeCreated": obj.dischargeCreated,
+        "loadingDone": false,
+        "dischargeDone": obj.dischargeDone
+      };
+    }
+     
+    return this.serviceNomination.updateAsset(this.nomId2, asset)
     .toPromise()
     .then((result) => {
       console.log("UPDATE SUCCESS");
-      console.log(result);
       window.location.reload();
     })
     .catch((error) => {

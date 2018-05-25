@@ -238,10 +238,10 @@ export class DischargeComponent implements OnInit {
     return this.serviceDischarge.deleteAsset(this.currentId)
 		.toPromise()
 		.then(() => {
-			this.errorMessage = null;
+			this.getNominationAsset(2);
 		})
 		.catch((error) => {
-            if(error == 'Server error'){
+      if(error == 'Server error'){
 				this.errorMessage = "Could not connect to REST server. Please check your configuration details";
 			}
 			else if(error == '404 - Not Found'){
@@ -381,7 +381,6 @@ export class DischargeComponent implements OnInit {
   }
 
   addTransactionDisconnectHoses(id:string): Promise<any>{
-
     var transaction = {    
     $class: "firstcoin.shipping.SetDischargeDisconnectTimestamp",
       
@@ -425,7 +424,7 @@ export class DischargeComponent implements OnInit {
       } else {
         console.log("VALID TO UPDATE NOM");
         this.nominationObj = result.nomination;
-        this.getNominationAsset();
+        this.getNominationAsset(1);
       }
     })
     .catch((error) => {
@@ -441,14 +440,13 @@ export class DischargeComponent implements OnInit {
   /**
    * Function to get nomination asset associated with discharge asset
    */
-  getNominationAsset(): Promise<any> {
-    this.nomId = this.nominationObj.split("#");
-
-    return this.serviceNomination.getAsset(this.nomId[1])
+  getNominationAsset(type: any): Promise<any> {
+    // this.nomId = this.nominationObjString.split("#");
+    return this.serviceNomination.getAsset(this.nomId2)
     .toPromise()
     .then((result) => {
-      this.updateNominationAsset(result);
       // window.location.reload();
+      this.updateNominationAsset(type, result);
     })
     .catch((error) => {
       if (error == 'Server error') {
@@ -462,49 +460,87 @@ export class DischargeComponent implements OnInit {
 
   /**
    * Function to update loadingDone to true in nomination object
+   * @param type 1 for dischargeDone = true, 2 for dischargeDone/dischargeCreated = false
    * @param obj nominationObj
    */
-  updateNominationAsset(obj: any): Promise<any> {
-    // console.log(obj);
-     var asset  = {
-      $class: "firstcoin.shipping.Nomination",  
-      "vesselName":obj.vesselName,
-      "IMONumber":obj.IMONumber,
-      "voyageNumber":obj.voyageNumber,
-      "departure":obj.departure,
-      "destination":obj.destination,
-      "ETA":obj.ETA,
-      "cargo":obj.cargo,
-      "operationType":obj.operationType,
-      "nominatedQuantity":obj.nominatedQuantity,
-      "wscFlat":obj.wscFlat,
-      "wscPercent":obj.wscPercent,
-      "overageRate":obj.overageRate,
-      "freightCommission":obj.freightCommission,
-      "demurrageRate":obj.demurrageRate,
-      "operationTime":obj.operationTime,
-      "charterDate":obj.charterDate,
-      "option1":obj.option1,
-      "option2":obj.option2,
-      "option3":obj.option3,
-      "allowedLayTimeHours":obj.allowedLayTimeHours,
-      "charterer":obj.charterer,
-      "voyageManager":obj.voyageManager,
-      "shippingCompany":obj.shippingCompany,
-      "maxQuantity":obj.maxQuantity,
-      "minQuantity":obj.minQuantity,
-      "madeBy":obj.madeBy,
-      "verified":obj.verified,
-      "captain":obj.captain,
-      "loadingDone":obj.loadingDone,
-      "dischargeDone": true
-    };
-    console.log(asset);
-    return this.serviceNomination.updateAsset(this.nomId[1], asset)
+  updateNominationAsset(type: any, obj: any): Promise<any> {
+    if (type == 1) {
+      var asset  = {
+        $class: "firstcoin.shipping.Nomination",  
+        "vesselName":obj.vesselName,
+        "IMONumber":obj.IMONumber,
+        "voyageNumber":obj.voyageNumber,
+        "departure":obj.departure,
+        "destination":obj.destination,
+        "ETA":obj.ETA,
+        "cargo":obj.cargo,
+        "operationType":obj.operationType,
+        "nominatedQuantity":obj.nominatedQuantity,
+        "wscFlat":obj.wscFlat,
+        "wscPercent":obj.wscPercent,
+        "overageRate":obj.overageRate,
+        "freightCommission":obj.freightCommission,
+        "demurrageRate":obj.demurrageRate,
+        "operationTime":obj.operationTime,
+        "charterDate":obj.charterDate,
+        "option1":obj.option1,
+        "option2":obj.option2,
+        "option3":obj.option3,
+        "allowedLayTimeHours":obj.allowedLayTimeHours,
+        "charterer":obj.charterer,
+        "voyageManager":obj.voyageManager,
+        "shippingCompany":obj.shippingCompany,
+        "maxQuantity":obj.maxQuantity,
+        "minQuantity":obj.minQuantity,
+        "madeBy":obj.madeBy,
+        "verified":obj.verified,
+        "captain":obj.captain,
+        "loadingCreated": obj.loadingCreated,
+        "dischargeCreated": true,
+        "loadingDone": obj.loadingDone,
+        "dischargeDone": true
+      };
+    } else {
+      var asset  = {
+        $class: "firstcoin.shipping.Nomination",  
+        "vesselName":obj.vesselName,
+        "IMONumber":obj.IMONumber,
+        "voyageNumber":obj.voyageNumber,
+        "departure":obj.departure,
+        "destination":obj.destination,
+        "ETA":obj.ETA,
+        "cargo":obj.cargo,
+        "operationType":obj.operationType,
+        "nominatedQuantity":obj.nominatedQuantity,
+        "wscFlat":obj.wscFlat,
+        "wscPercent":obj.wscPercent,
+        "overageRate":obj.overageRate,
+        "freightCommission":obj.freightCommission,
+        "demurrageRate":obj.demurrageRate,
+        "operationTime":obj.operationTime,
+        "charterDate":obj.charterDate,
+        "option1":obj.option1,
+        "option2":obj.option2,
+        "option3":obj.option3,
+        "allowedLayTimeHours":obj.allowedLayTimeHours,
+        "charterer":obj.charterer,
+        "voyageManager":obj.voyageManager,
+        "shippingCompany":obj.shippingCompany,
+        "maxQuantity":obj.maxQuantity,
+        "minQuantity":obj.minQuantity,
+        "madeBy":obj.madeBy,
+        "verified":obj.verified,
+        "captain":obj.captain,
+        "loadingCreated": obj.loadingCreated,
+        "dischargeCreated": false,
+        "loadingDone": obj.loadingDone,
+        "dischargeDone": false
+      };
+    }
+    return this.serviceNomination.updateAsset(this.nomId2, asset)
     .toPromise()
     .then((result) => {
       console.log("UPDATE SUCCESS");
-      console.log(result);
       window.location.reload();
     })
     .catch((error) => {

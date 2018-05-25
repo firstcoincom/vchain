@@ -68,11 +68,7 @@ export class NominationComponent implements OnInit {
           madeBy = new FormControl("", Validators.required);
           verified = new FormControl("", Validators.required);
           captain = new FormControl("", Validators.required);
-          loadingId = new FormControl("", Validators.required);
-          nomination = new FormControl("", Validators.required);
-          NORTendered = new FormControl("", Validators.required);
-          documentsOnBoard = new FormControl("", Validators.required);
-          BLQuantity = new FormControl("", Validators.required);
+          captainId = new FormControl("", Validators.required);
   
   constructor(private serviceNomination:NominationService, 
     private serviceLoading:LoadingService, 
@@ -118,11 +114,7 @@ export class NominationComponent implements OnInit {
     });
 
     this.Form2 = fb.group({
-      loadingId:this.loadingId,
-      nomination:this.nomination,
-      NORTendered:this.NORTendered,
-      documentsOnBoard:this.documentsOnBoard,
-      BLQuantity:this.BLQuantity
+      captainId:this.captainId
     });
   };
 
@@ -402,7 +394,8 @@ export class NominationComponent implements OnInit {
     return this.serviceNomination.deleteAsset(this.currentId)
 		.toPromise()
 		.then(() => {
-			this.errorMessage = null;
+      this.errorMessage = null;
+      // this.searchLoading(this.currentId);
 		})
 		.catch((error) => {
             if(error == 'Server error'){
@@ -753,8 +746,46 @@ export class NominationComponent implements OnInit {
       });
   }
 
+  /**
+   * Function to determine if a nomination has 
+   * @param id nominationId
+   * @param type type of event
+   */
+  searchNomination(id: any, type: any): Promise<any> {
+    if (type == 1) {
+      console.log("LOADING TYPE");
+    } else {
+      console.log("DISCHARGING TYPE");
+    }
+    return this.serviceNomination.getAsset(id)
+    .toPromise()
+    .then((result) => {
+      if (type == 1) {
+        if (result.loadingCreated) {
+          this.routeLoading(id);
+        } else {
+          this.addLoadingAsset(id ,result);
+        }
+      } else {
+        if (result.dischargeCreated) {
+          this.routeDischarging(id);
+        } else {
+          this.addDischargingAsset(id, result);
+        }
+      }
+    })
+    .catch((error) => {
+      if(error == 'Server error'){
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      }
+      else {
+        this.errorMessage = error;
+      }
+    });
+  }
+
   /* Click on Loading button and it will auto generate data to Loading page from Nomination page */
-	addLoadingAsset(id: any): Promise<any> {
+	addLoadingAsset(id: any, obj: any): Promise<any> {
     var random = Math.floor((Math.random() * 1000) + 1);
     var loading = { 
       $class: "firstcoin.shipping.Loading",
@@ -770,7 +801,8 @@ export class NominationComponent implements OnInit {
 		return this.serviceLoading.addAsset(loading)
 		.toPromise()
 		.then((result) => {
-      this.routeLoading(id);
+      // this.routeLoading(id);
+      this.updateNominationAssetLoad(id, obj);
 		})
 		.catch((error) => {
 			if(error == 'Server error'){
@@ -781,9 +813,66 @@ export class NominationComponent implements OnInit {
 			}
 		});
   }
+
+  /**
+   * Function to update loadingDone to true in nomination object
+   * @param obj nominationObj
+   */
+  updateNominationAssetLoad(id: any, obj: any): Promise<any> {
+     var nomAsset  = {
+      $class: "firstcoin.shipping.Nomination",  
+      "vesselName":obj.vesselName,
+      "IMONumber":obj.IMONumber,
+      "voyageNumber":obj.voyageNumber,
+      "departure":obj.departure,
+      "destination":obj.destination,
+      "ETA":obj.ETA,
+      "cargo":obj.cargo,
+      "operationType":obj.operationType,
+      "nominatedQuantity":obj.nominatedQuantity,
+      "wscFlat":obj.wscFlat,
+      "wscPercent":obj.wscPercent,
+      "overageRate":obj.overageRate,
+      "freightCommission":obj.freightCommission,
+      "demurrageRate":obj.demurrageRate,
+      "operationTime":obj.operationTime,
+      "charterDate":obj.charterDate,
+      "option1":obj.option1,
+      "option2":obj.option2,
+      "option3":obj.option3,
+      "allowedLayTimeHours":obj.allowedLayTimeHours,
+      "charterer":obj.charterer,
+      "voyageManager":obj.voyageManager,
+      "shippingCompany":obj.shippingCompany,
+      "maxQuantity":obj.maxQuantity,
+      "minQuantity":obj.minQuantity,
+      "madeBy":obj.madeBy,
+      "verified":obj.verified,
+      "captain":obj.captain,
+      "loadingCreated": true,
+      "dischargeCreated": obj.dischargeCreated,
+      "loadingDone":obj.loadingDone,
+      "dischargeDone": obj.dischargeDone
+    };
+    console.log(nomAsset);
+    return this.serviceNomination.updateAsset(id, nomAsset)
+    .toPromise()
+    .then((result) => {
+      console.log("UPDATE SUCCESS");
+      this.routeLoading(id);
+    })
+    .catch((error) => {
+      if (error == 'Server error') {
+        this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+      } else {
+        this.errorMessage = error;
+      }
+      window.location.reload();
+    });
+  }
   
   /* Click on Discharge button and it will auto generate data to Discharge page from Nomination page */
-  addDischargingAsset(id: any): Promise<any> {
+  addDischargingAsset(id: any, obj: any): Promise<any> {
     var random = Math.floor((Math.random() * 1000) + 1);
     var discharge = { 
       $class: "firstcoin.shipping.Discharge",
@@ -796,7 +885,8 @@ export class NominationComponent implements OnInit {
 		return this.serviceDischarging.addAsset(discharge)
 		.toPromise()
 		.then((result) => {
-			this.routeDischarging(id);
+      // this.routeDischarging(id);
+      this.updateNominationAssetDischarge(id, obj);
 		})
 		.catch((error) => {
 			if(error == 'Server error'){
@@ -808,6 +898,62 @@ export class NominationComponent implements OnInit {
 		});
   }
 
+  /**
+   * Function to update loadingDone to true in nomination object
+   * @param obj nominationObj
+   */
+  updateNominationAssetDischarge(id: any, obj: any): Promise<any> {
+    var nomAsset  = {
+      $class: "firstcoin.shipping.Nomination",  
+      "vesselName":obj.vesselName,
+      "IMONumber":obj.IMONumber,
+      "voyageNumber":obj.voyageNumber,
+      "departure":obj.departure,
+      "destination":obj.destination,
+      "ETA":obj.ETA,
+      "cargo":obj.cargo,
+      "operationType":obj.operationType,
+      "nominatedQuantity":obj.nominatedQuantity,
+      "wscFlat":obj.wscFlat,
+      "wscPercent":obj.wscPercent,
+      "overageRate":obj.overageRate,
+      "freightCommission":obj.freightCommission,
+      "demurrageRate":obj.demurrageRate,
+      "operationTime":obj.operationTime,
+      "charterDate":obj.charterDate,
+      "option1":obj.option1,
+      "option2":obj.option2,
+      "option3":obj.option3,
+      "allowedLayTimeHours":obj.allowedLayTimeHours,
+      "charterer":obj.charterer,
+      "voyageManager":obj.voyageManager,
+      "shippingCompany":obj.shippingCompany,
+      "maxQuantity":obj.maxQuantity,
+      "minQuantity":obj.minQuantity,
+      "madeBy":obj.madeBy,
+      "verified":obj.verified,
+      "captain":obj.captain,
+      "loadingCreated": obj.loadingCreated,
+      "dischargeCreated": true,
+      "loadingDone":obj.loadingDone,
+      "dischargeDone": obj.dischargeDone
+   };
+   console.log(nomAsset);
+   return this.serviceNomination.updateAsset(id, nomAsset)
+   .toPromise()
+   .then((result) => {
+     console.log("UPDATE SUCCESS");
+     this.routeDischarging(id);
+   })
+   .catch((error) => {
+     if (error == 'Server error') {
+       this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+     } else {
+       this.errorMessage = error;
+     }
+     window.location.reload();
+   });
+ }
   /**
    * Function to pass the nominationId to loading page
    * @param id nominationId
@@ -862,13 +1008,12 @@ export class NominationComponent implements OnInit {
    * Function to pass the captainId to captainapp page
    * @param id captainId
    */
-  routeCaptain(id: any): void {
-    let capIdString = id.split("#");
-    let capIdNum = capIdString[1];
-    console.log(capIdNum);
+  routeCaptain(form: any): void {
+    // let capIdString = id.split("#");
+    // let capIdNum = capIdString[1];
     let navigationExtras: NavigationExtras = {
       queryParams: {
-          "capIdPass": capIdNum
+          "capIdPass": this.captainId.value
       }
     };
     this.router.navigate(['/CaptainApp'], navigationExtras);
@@ -900,6 +1045,42 @@ export class NominationComponent implements OnInit {
           this.errorMessage = error;
       }
     });
+  }
+
+  // searchLoading(id: any): Promise<any> {
+  //   return this.serviceNomination.getAsset(id)
+  //   .toPromise()
+  //   .then((result) => {
+      
+  //   })
+  //   .catch((error) => {
+  //     if(error == 'Server error'){
+  //         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+  //     }
+  //     else{
+  //         this.errorMessage = error;
+  //     }
+  //   });
+  // }
+
+  // updateLoading(id: any): Promise<any> {
+  //   return this.serviceLoading.deleteAsset(id)
+  //   .toPromise()
+  //   .then((result) => {
+
+  //   })
+  //   .catch((error) => {
+  //     if(error == 'Server error'){
+  //         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+  //     }
+  //     else{
+  //         this.errorMessage = error;
+  //     }
+  //   });
+  // }
+
+  searchDischarging(id: any): void {
+
   }
 
   /* CHecks to see if BLQuantity was passed into console 
