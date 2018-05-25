@@ -33,6 +33,8 @@ import {Event} from './org.hyperledger.composer.system';
       madeBy: Participant;
       verified: boolean;
       captain: Captain;
+      loadingCreated: boolean;
+      dischargeCreated: boolean;
       loadingDone: boolean;
       dischargeDone: boolean;
    }

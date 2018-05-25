@@ -56,7 +56,6 @@ export class CaptainAppComponent implements OnInit {
   loadSelected(id: any): Promise<any> {
     let tempList = [];
     let capIdString = "resource:firstcoin.shipping.Captain%23" + id;
-    console.log(capIdString);
     return this.serviceNomination.queryNominations(capIdString)
     .toPromise()
     .then((result) => {
