@@ -30,11 +30,18 @@ export class NominationComponent implements OnInit {
 
   myForm: FormGroup;
   Form2: FormGroup;
+  Form3: FormGroup;
 
   private allAssets;
+  private allCargoItems;
   private asset;
   private currentId;
   private errorMessage;
+  private nomAsset;
+  private cargoItemList = [];
+  private scrollMin = false;
+  private scrollMax = false;
+  private scrollCounter = 0;
 
           nominationId = new FormControl("", Validators.required);
           vesselName = new FormControl("", Validators.required);
@@ -85,9 +92,6 @@ export class NominationComponent implements OnInit {
           departure:this.departure,
           destination:this.destination,
           ETA:this.ETA,
-          cargoName:this.cargoName,
-          cargoQuantity:this.cargoQuantity,
-          cargoType:this.cargoType,
           operationType:this.operationType,
           nominatedQuantity:this.nominatedQuantity,
           wscFlat:this.wscFlat,
@@ -115,6 +119,12 @@ export class NominationComponent implements OnInit {
 
     this.Form2 = fb.group({
       captainId:this.captainId
+    });
+
+    this.Form3 = fb.group({
+      cargoName:this.cargoName,
+      cargoQuantity:this.cargoQuantity,
+      cargoType:this.cargoType,
     });
   };
 
@@ -387,7 +397,6 @@ export class NominationComponent implements OnInit {
 			}
     });
   }
-
 
   deleteAsset(): Promise<any> {
 
@@ -718,9 +727,9 @@ export class NominationComponent implements OnInit {
           "departure":null,
           "destination":null,
           "ETA":null,
-          "cargoName":null,
-          "cargoQuantity":null,
-          "cargoType":null,
+          // "cargoName":null,
+          // "cargoQuantity":null,
+          // "cargoType":null,
           "operationType":null,
           "nominatedQuantity":null,
           "wscFlat":null,
@@ -1020,16 +1029,16 @@ export class NominationComponent implements OnInit {
   }
 
   /**
-   * 
+   * Function to make generate invoices transaction
    * @param id nominationId
    */
   generateInvoices(id: any): Promise<any> {
     let nomIdString = "resource:firstcoin.shipping.Nomination#" + id;
     var transaction = {
       $class: "firstcoin.shipping.FinalizeNomination",
-        "nomination":nomIdString,
-        "transactionId":"",
-        "timestamp":Date.now()
+      "nomination":nomIdString,
+      "transactionId":"",
+      "timestamp":Date.now()
     };
     console.log(transaction);
     return this.serviceFinalize.addTransaction(transaction)
@@ -1047,69 +1056,241 @@ export class NominationComponent implements OnInit {
     });
   }
 
-  // searchLoading(id: any): Promise<any> {
-  //   return this.serviceNomination.getAsset(id)
-  //   .toPromise()
-  //   .then((result) => {
-      
-  //   })
-  //   .catch((error) => {
-  //     if(error == 'Server error'){
-  //         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-  //     }
-  //     else{
-  //         this.errorMessage = error;
-  //     }
-  //   });
-  // }
-
-  // updateLoading(id: any): Promise<any> {
-  //   return this.serviceLoading.deleteAsset(id)
-  //   .toPromise()
-  //   .then((result) => {
-
-  //   })
-  //   .catch((error) => {
-  //     if(error == 'Server error'){
-  //         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-  //     }
-  //     else{
-  //         this.errorMessage = error;
-  //     }
-  //   });
-  // }
-
-  searchDischarging(id: any): void {
-
+  /**
+   * Function to pass the cargo object of that nomination to the modal
+   * @param item cargo object
+   */
+  displayCargoItems(item: any): void {
+    this.allCargoItems = item;
   }
 
-  /* CHecks to see if BLQuantity was passed into console 
-	addBLQuantity (form: any): Promise<any> {
-    this.asset = {
-      $class: "firstcoin.shipping.Loading",
-          "loadingId":this.loadingId.value,
-          "nomination":this.nomination.value,
-          "NORTendered":this.NORTendered.value,
-          "documentsOnBoard":this.documentsOnBoard.value,
-          "BLQuantity":this.BLQuantity.value
+  /**
+   * Function to temporary save details from nomination modal
+   * @param form myForm
+   */
+  saveNomInfo(form: any): void {
+    this.nomAsset = form;
+    console.log(this.nomAsset);
+    sessionStorage.setItem("nomAsset", this.nomAsset);
+  }
+
+  /**
+   * Function to save cargo items and push to array
+   * @param form Form3
+   */
+  saveCargoItem(form: any): void {
+    var item = {
+      $class: "firstcoin.shipping.CargoItem",
+      "name":this.cargoName.value,
+      "quantity":this.cargoQuantity.value,
+      "cargoType":this.cargoType.value
     };
 
-    return this.serviceNomination.addBLQuantity(this.asset)
-    .toPromise()
-    .then(() => {
-      this.errorMessage = null;
-    })
-    .catch((error) => {
-        if(error == 'Server error'){
-            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-        }
-        else{
-            this.errorMessage = error;
-        }
-    });
-  }*/
+    this.cargoItemList.push(item);
+    if (this.cargoItemList.length == 2) {
+      this.scrollCargoItems(1, 0);
+    }
+    console.log(this.cargoItemList);
+  }
 
-    /* Checks to see if BLQuantity was passed into console */
+  /**
+   * Function to reset the list of cargo items
+   */
+  resetCargoForm(): void {
+    this.cargoItemList = [];
+    this.scrollCounter = 0;
+    this.scrollMax = false;
+    this.scrollMin = false;
+    this.Form3.controls['cargoName'].setValue("");
+    this.Form3.controls['cargoQuantity'].setValue("");
+    this.Form3.controls['cargoType'].setValue("");
+  }
+
+  /**
+   * Function for scrolling through cargo items
+   * @param type 1 for next, 2 for previous
+   * @param inc increment, if 1 then increment counter; if 0 then don't
+   */
+  scrollCargoItems(type: any, inc: any): void {
+    if (this.scrollCounter < 0) {
+      this.scrollCounter = 0;
+    }
+
+    if (type == 1 && inc == 1) {
+      this.scrollCounter++;   
+    } 
+    if (type == 2 && inc == 1) {
+      this.scrollCounter--;   
+    }
+
+    console.log("scrollCounter: " + this.scrollCounter);
+    console.log("this.cargoItemList.length: " + this.cargoItemList.length);
+    if (this.scrollCounter < this.cargoItemList.length - 1 && this.scrollCounter > 0) {
+      this.scrollMax = true;
+      this.scrollMin = true;
+      console.log("this.scrollCounter < this.cargoItemList.length && this.scrollCounter > 0");
+    } else if (this.scrollCounter >= this.cargoItemList.length - 1) {
+      this.scrollMax = false;
+      this.scrollMin = true;
+      console.log("this.scrollCounter > this.cargoItemList.length");
+    } else if (this.scrollCounter == 0) {
+      this.scrollMax = true;
+      this.scrollMin = false;
+      console.log("this.scrollCounter == 0");
+    } else {
+      this.scrollMax = false;
+      this.scrollMin = false;
+      console.log("last thing");
+    }
+    console.log("scrollMax: " + this.scrollMax);
+    console.log("scrollMin: " + this.scrollMin);
+    this.Form3.controls['cargoName'].setValue(this.cargoItemList[this.scrollCounter].name);
+    this.Form3.controls['cargoQuantity'].setValue(this.cargoItemList[this.scrollCounter].quantity);
+    this.Form3.controls['cargoType'].setValue(this.cargoItemList[this.scrollCounter].cargoType);
+  }
+
+  /**
+   * Function to add nomination asset
+   */
+  addNomAsset(): void {
+    var nasset = sessionStorage.getItem("nomAsset");
+    console.log(nasset.valueOf());
+
+    // var freightOption1 = {
+    //   $class: "firstcoin.shipping.FreightOption",
+    //   "rate":this.nomAsset.option1
+    // }
+    // var freightOption2 = {
+    //   $class: "firstcoin.shipping.FreightOption",
+    //   "rate":this.nomAsset.option2
+    // }
+    // var freightOption3 = {
+    //   $class: "firstcoin.shipping.FreightOption",
+    //   "rate":this.nomAsset.option3
+    // }
+
+    // var nomAssetComplete = {
+    //   $class: "firstcoin.shipping.Nomination",
+    //   "nominationId":this.nomAsset.nominationId,
+    //   "vesselName":this.nomAsset.vesselName,
+    //   "IMONumber":this.nomAsset.IMONumber,
+    //   "voyageNumber":this.nomAsset.voyageNumber,
+    //   "departure":this.nomAsset.departure,
+    //   "destination":this.nomAsset.destination,
+    //   "ETA":this.nomAsset.ETA,
+    //   "cargo": this.cargoItemList,
+    //   "operationType":this.nomAsset.operationType,
+    //   "nominatedQuantity":this.nomAsset.nominatedQuantity,
+    //   "wscFlat":this.nomAsset.wscFlat,
+    //   "wscPercent":this.nomAsset.wscPercent,
+    //   "overageRate":this.nomAsset.overageRate,
+    //   "freightCommission":this.nomAsset.freightCommission,
+    //   "demurrageRate":this.nomAsset.demurrageRate,
+    //   "operationTime":this.nomAsset.operationTime,
+    //   "charterDate":this.nomAsset.charterDate,
+    //   "option1":freightOption1,
+    //   "option2":freightOption2,
+    //   "option3":freightOption3,
+    //   "allowedLayTimeHours":this.nomAsset.allowedLayTimeHours,
+    //   "charterer":this.nomAsset.charterer,
+    //   "voyageManager":this.nomAsset.voyageManager,
+    //   "shippingCompany":this.nomAsset.shippingCompany,
+    //   "maxQuantity":this.nomAsset.maxQuantity,
+    //   "minQuantity":this.nomAsset.minQuantity,
+    //   "madeBy":this.nomAsset.madeBy,
+    //   "verified":false,
+    //   "captain":this.nomAsset.captain
+    // };
+
+    // this.myForm.setValue({ 
+    //   "nominationId":null,
+    //   "vesselName":null,
+    //   "IMONumber":null,
+    //   "voyageNumber":null,
+    //   "departure":null,
+    //   "destination":null,
+    //   "ETA":null,
+    //   "operationType":null,
+    //   "nominatedQuantity":null,
+    //   "wscFlat":null,
+    //   "wscPercent":null,
+    //   "overageRate":null,
+    //   "freightCommission":null,
+    //   "demurrageRate":null,
+    //   "operationTime":null,
+    //   "charterDate":null,
+    //   "option1":null,
+    //   "option2":null,
+    //   "option3":null,
+    //   "allowedLayTimeHours":null,
+    //   "charterer":null,
+    //   "voyageManager":null,
+    //   "shippingCompany":null,
+    //   "maxQuantity":null,
+    //   "minQuantity":null,
+    //   "madeBy":null, 
+    //   "verified":null,
+    //   "captain":null
+    // });
+
+    // console.log(this.nomAsset);
+    // console.log(nomAssetComplete);
+
+    // this.resetCargoForm();
+
+    // return this.serviceNomination.addAsset(nomAssetComplete)
+    // .toPromise()
+    // .then(() => {
+    //   this.errorMessage = null;
+    //   this.myForm.setValue({
+      
+        
+    //       "nominationId":null,
+    //       "vesselName":null,
+    //       "IMONumber":null,
+    //       "voyageNumber":null,
+    //       "departure":null,
+    //       "destination":null,
+    //       "ETA":null,
+    //       "cargoName":null,
+    //       "cargoQuantity":null,
+    //       "cargoType":null,
+    //       "operationType":null,
+    //       "nominatedQuantity":null,
+    //       "wscFlat":null,
+    //       "wscPercent":null,
+    //       "overageRate":null,
+    //       "freightCommission":null,
+    //       "demurrageRate":null,
+    //       "operationTime":null,
+    //       "charterDate":null,
+    //       "option1":null,
+    //       "option2":null,
+    //       "option3":null,
+    //       "allowedLayTimeHours":null,
+    //       "charterer":null,
+    //       "voyageManager":null,
+    //       "shippingCompany":null,
+    //       "maxQuantity":null,
+    //       "minQuantity":null,
+    //       "madeBy":null,
+    //       "verified":null,
+    //       "captain":null
+        
+      
+    //   });
+    // })
+    // .catch((error) => {
+    //     if(error == 'Server error'){
+    //         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+    //     }
+    //     else{
+    //         this.errorMessage = error;
+    //     }
+    // });
+  }
+
+  /* Checks to see if BLQuantity was passed into console */
 	getNomIdForLoading (id : any): Promise<any> {
     console.log("hi");
     return this.serviceLoading.getAsset(id)
