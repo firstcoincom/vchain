@@ -39,6 +39,7 @@ export class NominationComponent implements OnInit {
   private errorMessage;
   private nomAsset;
   private nomId;
+  private cargoNameSave;
   private cargoItemList = [];
   private scrollMin = false;
   private scrollMax = false;
@@ -1074,6 +1075,14 @@ export class NominationComponent implements OnInit {
   }
 
   /**
+   * Function to save cargo name for deleting
+   * @param name cargoName
+   */
+  saveCargoName(name: any): void {
+    this.cargoNameSave = name;
+  }
+
+  /**
    * Function to temporary save details from nomination modal
    * @param form myForm
    */
@@ -1098,6 +1107,19 @@ export class NominationComponent implements OnInit {
       this.scrollCargoItems(1, 0);
     }
     console.log(this.cargoItemList);
+  }
+
+  /**
+   * Function to delete cargo item for cargoItemList
+   */
+  deleteCargoItem(): void {
+    console.log(this.cargoNameSave);
+    for (var i = 0; i < this.cargoItemList.length; i++) {
+      if (this.cargoItemList[i].name == this.cargoNameSave) {
+        this.cargoItemList.splice(i,1);
+        this.resetCargoForm();
+      }
+    }
   }
 
   /**
