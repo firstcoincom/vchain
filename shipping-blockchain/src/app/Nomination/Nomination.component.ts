@@ -1104,10 +1104,6 @@ export class NominationComponent implements OnInit {
    * Function to reset the list of cargo items
    */
   resetCargoForm(): void {
-    this.cargoItemList = [];
-    this.scrollCounter = 0;
-    this.scrollMax = false;
-    this.scrollMin = false;
     this.Form3.controls['cargoName'].setValue("");
     this.Form3.controls['cargoQuantity'].setValue("");
     this.Form3.controls['cargoType'].setValue("");
@@ -1198,8 +1194,6 @@ export class NominationComponent implements OnInit {
       "captain":this.nomAsset._value.captain
     };
 
-    this.resetCargoForm();
-
     return this.serviceNomination.addAsset(nomAssetComplete)
     .toPromise()
     .then(() => {
@@ -1241,6 +1235,15 @@ export class NominationComponent implements OnInit {
         
       
       });
+      this.Form3.setValue({
+        "cargoName":null,
+        "cargoQuantity":null,
+        "cargoType":null
+      });
+      this.cargoItemList = [];
+      this.scrollCounter = 0;
+      this.scrollMax = false;
+      this.scrollMin = false;
     })
     .catch((error) => {
         if(error == 'Server error'){
