@@ -30,11 +30,19 @@ export class NominationComponent implements OnInit {
 
   myForm: FormGroup;
   Form2: FormGroup;
+  Form3: FormGroup;
 
   private allAssets;
+  private allCargoItems;
   private asset;
   private currentId;
   private errorMessage;
+  private nomAsset;
+  private nomId;
+  private cargoItemList = [];
+  private scrollMin = false;
+  private scrollMax = false;
+  private scrollCounter = 0;
 
           nominationId = new FormControl("", Validators.required);
           vesselName = new FormControl("", Validators.required);
@@ -85,9 +93,6 @@ export class NominationComponent implements OnInit {
           departure:this.departure,
           destination:this.destination,
           ETA:this.ETA,
-          cargoName:this.cargoName,
-          cargoQuantity:this.cargoQuantity,
-          cargoType:this.cargoType,
           operationType:this.operationType,
           nominatedQuantity:this.nominatedQuantity,
           wscFlat:this.wscFlat,
@@ -115,6 +120,12 @@ export class NominationComponent implements OnInit {
 
     this.Form2 = fb.group({
       captainId:this.captainId
+    });
+
+    this.Form3 = fb.group({
+      cargoName:this.cargoName,
+      cargoQuantity:this.cargoQuantity,
+      cargoType:this.cargoType,
     });
   };
 
@@ -387,7 +398,6 @@ export class NominationComponent implements OnInit {
 			}
     });
   }
-
 
   deleteAsset(): Promise<any> {
 
@@ -718,9 +728,9 @@ export class NominationComponent implements OnInit {
           "departure":null,
           "destination":null,
           "ETA":null,
-          "cargoName":null,
-          "cargoQuantity":null,
-          "cargoType":null,
+          // "cargoName":null,
+          // "cargoQuantity":null,
+          // "cargoType":null,
           "operationType":null,
           "nominatedQuantity":null,
           "wscFlat":null,
@@ -1020,16 +1030,16 @@ export class NominationComponent implements OnInit {
   }
 
   /**
-   * 
+   * Function to make generate invoices transaction
    * @param id nominationId
    */
-  generateInvoices(id: any): Promise<any> {
-    let nomIdString = "resource:firstcoin.shipping.Nomination#" + id;
+  generateInvoices(): Promise<any> {
+    let nomIdString = "resource:firstcoin.shipping.Nomination#" + this.nomId;
     var transaction = {
       $class: "firstcoin.shipping.FinalizeNomination",
-        "nomination":nomIdString,
-        "transactionId":"",
-        "timestamp":Date.now()
+      "nomination":nomIdString,
+      "transactionId":"",
+      "timestamp":Date.now()
     };
     console.log(transaction);
     return this.serviceFinalize.addTransaction(transaction)
@@ -1047,57 +1057,190 @@ export class NominationComponent implements OnInit {
     });
   }
 
-  // searchLoading(id: any): Promise<any> {
-  //   return this.serviceNomination.getAsset(id)
-  //   .toPromise()
-  //   .then((result) => {
-      
-  //   })
-  //   .catch((error) => {
-  //     if(error == 'Server error'){
-  //         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-  //     }
-  //     else{
-  //         this.errorMessage = error;
-  //     }
-  //   });
-  // }
-
-  // updateLoading(id: any): Promise<any> {
-  //   return this.serviceLoading.deleteAsset(id)
-  //   .toPromise()
-  //   .then((result) => {
-
-  //   })
-  //   .catch((error) => {
-  //     if(error == 'Server error'){
-  //         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-  //     }
-  //     else{
-  //         this.errorMessage = error;
-  //     }
-  //   });
-  // }
-
-  searchDischarging(id: any): void {
-
+  /**
+   * Function to pass the cargo object of that nomination to the modal
+   * @param item cargo object
+   */
+  displayCargoItems(item: any): void {
+    this.allCargoItems = item;
   }
 
-  /* CHecks to see if BLQuantity was passed into console 
-	addBLQuantity (form: any): Promise<any> {
-    this.asset = {
-      $class: "firstcoin.shipping.Loading",
-          "loadingId":this.loadingId.value,
-          "nomination":this.nomination.value,
-          "NORTendered":this.NORTendered.value,
-          "documentsOnBoard":this.documentsOnBoard.value,
-          "BLQuantity":this.BLQuantity.value
+  /**
+   * Function to temporarily save the nominationId to be passed into generateInvoices()
+   * @param id nominationId
+   */
+  saveNomId(id: any): void {
+    this.nomId = id;
+  }
+
+  /**
+   * Function to temporary save details from nomination modal
+   * @param form myForm
+   */
+  saveNomInfo(form: any): void {
+    this.nomAsset = form;
+  }
+
+  /**
+   * Function to save cargo items and push to array
+   * @param form Form3
+   */
+  saveCargoItem(form: any): void {
+    var item = {
+      $class: "firstcoin.shipping.CargoItem",
+      "name":this.cargoName.value,
+      "quantity":this.cargoQuantity.value,
+      "cargoType":this.cargoType.value
     };
 
-    return this.serviceNomination.addBLQuantity(this.asset)
+    this.cargoItemList.push(item);
+    if (this.cargoItemList.length == 2) {
+      this.scrollCargoItems(1, 0);
+    }
+    console.log(this.cargoItemList);
+  }
+
+  /**
+   * Function to reset the list of cargo items
+   */
+  resetCargoForm(): void {
+    this.cargoItemList = [];
+    this.scrollCounter = 0;
+    this.scrollMax = false;
+    this.scrollMin = false;
+    this.Form3.controls['cargoName'].setValue("");
+    this.Form3.controls['cargoQuantity'].setValue("");
+    this.Form3.controls['cargoType'].setValue("");
+  }
+
+  /**
+   * Function for scrolling through cargo items
+   * @param type 1 for next, 2 for previous
+   * @param inc increment, if 1 then increment counter; if 0 then don't
+   */
+  scrollCargoItems(type: any, inc: any): void {
+    if (this.scrollCounter < 0) {
+      this.scrollCounter = 0;
+    }
+
+    if (type == 1 && inc == 1) {
+      this.scrollCounter++;   
+    } 
+    if (type == 2 && inc == 1) {
+      this.scrollCounter--;   
+    }
+
+    if (this.scrollCounter < this.cargoItemList.length - 1 && this.scrollCounter > 0) {
+      this.scrollMax = true;
+      this.scrollMin = true;
+    } else if (this.scrollCounter >= this.cargoItemList.length - 1) {
+      this.scrollMax = false;
+      this.scrollMin = true;
+    } else if (this.scrollCounter == 0) {
+      this.scrollMax = true;
+      this.scrollMin = false;
+    } else {
+      this.scrollMax = false;
+      this.scrollMin = false;
+    }
+    this.Form3.controls['cargoName'].setValue(this.cargoItemList[this.scrollCounter].name);
+    this.Form3.controls['cargoQuantity'].setValue(this.cargoItemList[this.scrollCounter].quantity);
+    this.Form3.controls['cargoType'].setValue(this.cargoItemList[this.scrollCounter].cargoType);
+  }
+
+  /**
+   * Function to add nomination asset
+   */
+  addNomAsset(): Promise<any> {
+    var freightOption1 = {
+      $class: "firstcoin.shipping.FreightOption",
+      "rate":this.nomAsset._value.option1
+    }
+    var freightOption2 = {
+      $class: "firstcoin.shipping.FreightOption",
+      "rate":this.nomAsset._value.option2
+    }
+    var freightOption3 = {
+      $class: "firstcoin.shipping.FreightOption",
+      "rate":this.nomAsset._value.option3
+    }
+
+    var nomAssetComplete = {
+      $class: "firstcoin.shipping.Nomination",
+      "nominationId":this.nomAsset._value.nominationId,
+      "vesselName":this.nomAsset._value.vesselName,
+      "IMONumber":this.nomAsset._value.IMONumber,
+      "voyageNumber":this.nomAsset._value.voyageNumber,
+      "departure":this.nomAsset._value.departure,
+      "destination":this.nomAsset._value.destination,
+      "ETA":this.nomAsset._value.ETA,
+      "cargo": this.cargoItemList,
+      "operationType":this.nomAsset._value.operationType,
+      "nominatedQuantity":this.nomAsset._value.nominatedQuantity,
+      "wscFlat":this.nomAsset._value.wscFlat,
+      "wscPercent":this.nomAsset._value.wscPercent,
+      "overageRate":this.nomAsset._value.overageRate,
+      "freightCommission":this.nomAsset._value.freightCommission,
+      "demurrageRate":this.nomAsset._value.demurrageRate,
+      "operationTime":this.nomAsset._value.operationTime,
+      "charterDate":this.nomAsset._value.charterDate,
+      "option1":freightOption1,
+      "option2":freightOption2,
+      "option3":freightOption3,
+      "allowedLayTimeHours":this.nomAsset._value.allowedLayTimeHours,
+      "charterer":this.nomAsset._value.charterer,
+      "voyageManager":this.nomAsset._value.voyageManager,
+      "shippingCompany":this.nomAsset._value.shippingCompany,
+      "maxQuantity":this.nomAsset._value.maxQuantity,
+      "minQuantity":this.nomAsset._value.minQuantity,
+      "madeBy":this.nomAsset._value.madeBy,
+      "verified":false,
+      "captain":this.nomAsset._value.captain
+    };
+
+    this.resetCargoForm();
+
+    return this.serviceNomination.addAsset(nomAssetComplete)
     .toPromise()
     .then(() => {
       this.errorMessage = null;
+      this.myForm.setValue({
+      
+        
+          "nominationId":null,
+          "vesselName":null,
+          "IMONumber":null,
+          "voyageNumber":null,
+          "departure":null,
+          "destination":null,
+          "ETA":null,
+          "cargoName":null,
+          "cargoQuantity":null,
+          "cargoType":null,
+          "operationType":null,
+          "nominatedQuantity":null,
+          "wscFlat":null,
+          "wscPercent":null,
+          "overageRate":null,
+          "freightCommission":null,
+          "demurrageRate":null,
+          "operationTime":null,
+          "charterDate":null,
+          "option1":null,
+          "option2":null,
+          "option3":null,
+          "allowedLayTimeHours":null,
+          "charterer":null,
+          "voyageManager":null,
+          "shippingCompany":null,
+          "maxQuantity":null,
+          "minQuantity":null,
+          "madeBy":null,
+          "verified":null,
+          "captain":null
+        
+      
+      });
     })
     .catch((error) => {
         if(error == 'Server error'){
@@ -1107,9 +1250,9 @@ export class NominationComponent implements OnInit {
             this.errorMessage = error;
         }
     });
-  }*/
+  }
 
-    /* Checks to see if BLQuantity was passed into console */
+  /* Checks to see if BLQuantity was passed into console */
 	getNomIdForLoading (id : any): Promise<any> {
     console.log("hi");
     return this.serviceLoading.getAsset(id)
