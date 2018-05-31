@@ -275,10 +275,10 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button (click)="addAsset(myForm);" type="submit" class="btn btn-success" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" 
+          <!-- <button (click)="addAsset(myForm);" type="submit" class="btn btn-success" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" 
             value="Refresh Page"  data-dismiss="modal">
             Confirm
-          </button>
+          </button> -->
           <button (click)="saveNomInfo(myForm);" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#addCargoModal">Next</button>
         </div>
 
@@ -541,7 +541,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-          <button (click)="generateInvoices(asset.nominationId);" type="submit" class="btn btn-danger" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" data-dismiss="modal">Yes</button>
+          <button (click)="generateInvoices();" type="submit" class="btn btn-danger" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" data-dismiss="modal">Yes</button>
         </div>
       </form>
     </div>
@@ -615,13 +615,12 @@
         <div class="modal-footer">
           <button (click)="scrollCargoItems(2, 1);" [disabled]="!this.scrollMin" type="button" class="btn btn-default"><--</button>
           <button (click)="scrollCargoItems(1, 1);" [disabled]="!this.scrollMax" type="button" class="btn btn-default">--></button>
-          <button (click)="resetCargoForm();" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <!-- <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addAssetModal">Back</button> -->
           <button (click)="saveCargoItem(Form3);" type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addSuccessModal">
             Add
           </button>
-          <!-- <button (click)="addNomAsset();" type="submit" class="btn btn-success" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" 
-            value="Refresh Page"  data-dismiss="modal"> -->
-          <button (click)="addNomAsset();" type="submit" class="btn btn-success" data-dismiss="modal">
+          <button (click)="addNomAsset();" type="submit" class="btn btn-success" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" 
+            value="Refresh Page"  data-dismiss="modal">
             Confirm
           </button>
         </div>
@@ -704,7 +703,8 @@
               <button (click)="searchNomination(asset.nominationId, 2);" type="button" class="btn btn-functions">
                 Discharging
               </button>
-              <button [disabled]="!asset.verified || !asset.loadingDone || !asset.dischargeDone"  type="button" class="btn btn-functions" data-toggle="modal" data-target="#invoiceModal">
+              <button (click)="saveNomId(asset.nominationId);" [disabled]="!asset.verified || !asset.loadingDone || !asset.dischargeDone"  type="button" 
+                class="btn btn-functions" data-toggle="modal" data-target="#invoiceModal">
                 Generate and Email Invoices
               </button>
               <button (click)="setId(asset.nominationId);" type="button" class="btn btn-delete" data-toggle="modal" data-target="#deleteAssetModal">

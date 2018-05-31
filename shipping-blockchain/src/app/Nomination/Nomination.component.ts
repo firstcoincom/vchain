@@ -38,6 +38,7 @@ export class NominationComponent implements OnInit {
   private currentId;
   private errorMessage;
   private nomAsset;
+  private nomId;
   private cargoItemList = [];
   private scrollMin = false;
   private scrollMax = false;
@@ -1032,8 +1033,8 @@ export class NominationComponent implements OnInit {
    * Function to make generate invoices transaction
    * @param id nominationId
    */
-  generateInvoices(id: any): Promise<any> {
-    let nomIdString = "resource:firstcoin.shipping.Nomination#" + id;
+  generateInvoices(): Promise<any> {
+    let nomIdString = "resource:firstcoin.shipping.Nomination#" + this.nomId;
     var transaction = {
       $class: "firstcoin.shipping.FinalizeNomination",
       "nomination":nomIdString,
@@ -1065,13 +1066,19 @@ export class NominationComponent implements OnInit {
   }
 
   /**
+   * Function to temporarily save the nominationId to be passed into generateInvoices()
+   * @param id nominationId
+   */
+  saveNomId(id: any): void {
+    this.nomId = id;
+  }
+
+  /**
    * Function to temporary save details from nomination modal
    * @param form myForm
    */
   saveNomInfo(form: any): void {
     this.nomAsset = form;
-    console.log(this.nomAsset);
-    sessionStorage.setItem("nomAsset", this.nomAsset);
   }
 
   /**
@@ -1123,27 +1130,19 @@ export class NominationComponent implements OnInit {
       this.scrollCounter--;   
     }
 
-    console.log("scrollCounter: " + this.scrollCounter);
-    console.log("this.cargoItemList.length: " + this.cargoItemList.length);
     if (this.scrollCounter < this.cargoItemList.length - 1 && this.scrollCounter > 0) {
       this.scrollMax = true;
       this.scrollMin = true;
-      console.log("this.scrollCounter < this.cargoItemList.length && this.scrollCounter > 0");
     } else if (this.scrollCounter >= this.cargoItemList.length - 1) {
       this.scrollMax = false;
       this.scrollMin = true;
-      console.log("this.scrollCounter > this.cargoItemList.length");
     } else if (this.scrollCounter == 0) {
       this.scrollMax = true;
       this.scrollMin = false;
-      console.log("this.scrollCounter == 0");
     } else {
       this.scrollMax = false;
       this.scrollMin = false;
-      console.log("last thing");
     }
-    console.log("scrollMax: " + this.scrollMax);
-    console.log("scrollMin: " + this.scrollMin);
     this.Form3.controls['cargoName'].setValue(this.cargoItemList[this.scrollCounter].name);
     this.Form3.controls['cargoQuantity'].setValue(this.cargoItemList[this.scrollCounter].quantity);
     this.Form3.controls['cargoType'].setValue(this.cargoItemList[this.scrollCounter].cargoType);
@@ -1152,142 +1151,105 @@ export class NominationComponent implements OnInit {
   /**
    * Function to add nomination asset
    */
-  addNomAsset(): void {
-    var nasset = sessionStorage.getItem("nomAsset");
-    console.log(nasset.valueOf());
+  addNomAsset(): Promise<any> {
+    var freightOption1 = {
+      $class: "firstcoin.shipping.FreightOption",
+      "rate":this.nomAsset._value.option1
+    }
+    var freightOption2 = {
+      $class: "firstcoin.shipping.FreightOption",
+      "rate":this.nomAsset._value.option2
+    }
+    var freightOption3 = {
+      $class: "firstcoin.shipping.FreightOption",
+      "rate":this.nomAsset._value.option3
+    }
 
-    // var freightOption1 = {
-    //   $class: "firstcoin.shipping.FreightOption",
-    //   "rate":this.nomAsset.option1
-    // }
-    // var freightOption2 = {
-    //   $class: "firstcoin.shipping.FreightOption",
-    //   "rate":this.nomAsset.option2
-    // }
-    // var freightOption3 = {
-    //   $class: "firstcoin.shipping.FreightOption",
-    //   "rate":this.nomAsset.option3
-    // }
+    var nomAssetComplete = {
+      $class: "firstcoin.shipping.Nomination",
+      "nominationId":this.nomAsset._value.nominationId,
+      "vesselName":this.nomAsset._value.vesselName,
+      "IMONumber":this.nomAsset._value.IMONumber,
+      "voyageNumber":this.nomAsset._value.voyageNumber,
+      "departure":this.nomAsset._value.departure,
+      "destination":this.nomAsset._value.destination,
+      "ETA":this.nomAsset._value.ETA,
+      "cargo": this.cargoItemList,
+      "operationType":this.nomAsset._value.operationType,
+      "nominatedQuantity":this.nomAsset._value.nominatedQuantity,
+      "wscFlat":this.nomAsset._value.wscFlat,
+      "wscPercent":this.nomAsset._value.wscPercent,
+      "overageRate":this.nomAsset._value.overageRate,
+      "freightCommission":this.nomAsset._value.freightCommission,
+      "demurrageRate":this.nomAsset._value.demurrageRate,
+      "operationTime":this.nomAsset._value.operationTime,
+      "charterDate":this.nomAsset._value.charterDate,
+      "option1":freightOption1,
+      "option2":freightOption2,
+      "option3":freightOption3,
+      "allowedLayTimeHours":this.nomAsset._value.allowedLayTimeHours,
+      "charterer":this.nomAsset._value.charterer,
+      "voyageManager":this.nomAsset._value.voyageManager,
+      "shippingCompany":this.nomAsset._value.shippingCompany,
+      "maxQuantity":this.nomAsset._value.maxQuantity,
+      "minQuantity":this.nomAsset._value.minQuantity,
+      "madeBy":this.nomAsset._value.madeBy,
+      "verified":false,
+      "captain":this.nomAsset._value.captain
+    };
 
-    // var nomAssetComplete = {
-    //   $class: "firstcoin.shipping.Nomination",
-    //   "nominationId":this.nomAsset.nominationId,
-    //   "vesselName":this.nomAsset.vesselName,
-    //   "IMONumber":this.nomAsset.IMONumber,
-    //   "voyageNumber":this.nomAsset.voyageNumber,
-    //   "departure":this.nomAsset.departure,
-    //   "destination":this.nomAsset.destination,
-    //   "ETA":this.nomAsset.ETA,
-    //   "cargo": this.cargoItemList,
-    //   "operationType":this.nomAsset.operationType,
-    //   "nominatedQuantity":this.nomAsset.nominatedQuantity,
-    //   "wscFlat":this.nomAsset.wscFlat,
-    //   "wscPercent":this.nomAsset.wscPercent,
-    //   "overageRate":this.nomAsset.overageRate,
-    //   "freightCommission":this.nomAsset.freightCommission,
-    //   "demurrageRate":this.nomAsset.demurrageRate,
-    //   "operationTime":this.nomAsset.operationTime,
-    //   "charterDate":this.nomAsset.charterDate,
-    //   "option1":freightOption1,
-    //   "option2":freightOption2,
-    //   "option3":freightOption3,
-    //   "allowedLayTimeHours":this.nomAsset.allowedLayTimeHours,
-    //   "charterer":this.nomAsset.charterer,
-    //   "voyageManager":this.nomAsset.voyageManager,
-    //   "shippingCompany":this.nomAsset.shippingCompany,
-    //   "maxQuantity":this.nomAsset.maxQuantity,
-    //   "minQuantity":this.nomAsset.minQuantity,
-    //   "madeBy":this.nomAsset.madeBy,
-    //   "verified":false,
-    //   "captain":this.nomAsset.captain
-    // };
+    this.resetCargoForm();
 
-    // this.myForm.setValue({ 
-    //   "nominationId":null,
-    //   "vesselName":null,
-    //   "IMONumber":null,
-    //   "voyageNumber":null,
-    //   "departure":null,
-    //   "destination":null,
-    //   "ETA":null,
-    //   "operationType":null,
-    //   "nominatedQuantity":null,
-    //   "wscFlat":null,
-    //   "wscPercent":null,
-    //   "overageRate":null,
-    //   "freightCommission":null,
-    //   "demurrageRate":null,
-    //   "operationTime":null,
-    //   "charterDate":null,
-    //   "option1":null,
-    //   "option2":null,
-    //   "option3":null,
-    //   "allowedLayTimeHours":null,
-    //   "charterer":null,
-    //   "voyageManager":null,
-    //   "shippingCompany":null,
-    //   "maxQuantity":null,
-    //   "minQuantity":null,
-    //   "madeBy":null, 
-    //   "verified":null,
-    //   "captain":null
-    // });
-
-    // console.log(this.nomAsset);
-    // console.log(nomAssetComplete);
-
-    // this.resetCargoForm();
-
-    // return this.serviceNomination.addAsset(nomAssetComplete)
-    // .toPromise()
-    // .then(() => {
-    //   this.errorMessage = null;
-    //   this.myForm.setValue({
+    return this.serviceNomination.addAsset(nomAssetComplete)
+    .toPromise()
+    .then(() => {
+      this.errorMessage = null;
+      this.myForm.setValue({
       
         
-    //       "nominationId":null,
-    //       "vesselName":null,
-    //       "IMONumber":null,
-    //       "voyageNumber":null,
-    //       "departure":null,
-    //       "destination":null,
-    //       "ETA":null,
-    //       "cargoName":null,
-    //       "cargoQuantity":null,
-    //       "cargoType":null,
-    //       "operationType":null,
-    //       "nominatedQuantity":null,
-    //       "wscFlat":null,
-    //       "wscPercent":null,
-    //       "overageRate":null,
-    //       "freightCommission":null,
-    //       "demurrageRate":null,
-    //       "operationTime":null,
-    //       "charterDate":null,
-    //       "option1":null,
-    //       "option2":null,
-    //       "option3":null,
-    //       "allowedLayTimeHours":null,
-    //       "charterer":null,
-    //       "voyageManager":null,
-    //       "shippingCompany":null,
-    //       "maxQuantity":null,
-    //       "minQuantity":null,
-    //       "madeBy":null,
-    //       "verified":null,
-    //       "captain":null
+          "nominationId":null,
+          "vesselName":null,
+          "IMONumber":null,
+          "voyageNumber":null,
+          "departure":null,
+          "destination":null,
+          "ETA":null,
+          "cargoName":null,
+          "cargoQuantity":null,
+          "cargoType":null,
+          "operationType":null,
+          "nominatedQuantity":null,
+          "wscFlat":null,
+          "wscPercent":null,
+          "overageRate":null,
+          "freightCommission":null,
+          "demurrageRate":null,
+          "operationTime":null,
+          "charterDate":null,
+          "option1":null,
+          "option2":null,
+          "option3":null,
+          "allowedLayTimeHours":null,
+          "charterer":null,
+          "voyageManager":null,
+          "shippingCompany":null,
+          "maxQuantity":null,
+          "minQuantity":null,
+          "madeBy":null,
+          "verified":null,
+          "captain":null
         
       
-    //   });
-    // })
-    // .catch((error) => {
-    //     if(error == 'Server error'){
-    //         this.errorMessage = "Could not connect to REST server. Please check your configuration details";
-    //     }
-    //     else{
-    //         this.errorMessage = error;
-    //     }
-    // });
+      });
+    })
+    .catch((error) => {
+        if(error == 'Server error'){
+            this.errorMessage = "Could not connect to REST server. Please check your configuration details";
+        }
+        else{
+            this.errorMessage = error;
+        }
+    });
   }
 
   /* Checks to see if BLQuantity was passed into console */
