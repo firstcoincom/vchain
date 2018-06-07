@@ -198,7 +198,9 @@ transaction CreateNomination {
 
 event EmailEvent {
   o String voyageNumber
-  o String[] emails
+  o String shippingCompanyEmail
+  o String chartererEmail
+  o String voyageManagerEmail
   o Double freightInvoice
   o Double freightCommission
   o Double loadDemurrage
