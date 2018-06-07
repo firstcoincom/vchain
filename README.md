@@ -32,7 +32,9 @@ To run the server for the first time:
 
 9. Run Angular app: ```npm start```
 
-10. The server should be reachable on ```http://localhost:4200```
+10. Start the email server by ```cd ../nodejs-email``` and ```node emailSender USERNAME PASSWORD``` where USERNAME and PASSWORD are the Gmail credentials the emails will be sent from.
+
+The server should now be reachable at ```http://localhost:4200```
 
 ## Restart
 
@@ -44,9 +46,11 @@ To restart the server (e.g. after a reboot):
 
 3. Start REST server (path to server should be included in Bash path on MacOS): ```composer-rest-server```. Enter ```admin@bond-marketplace``` as business cardand accept all default values after (always use namespaces, N, Y, N)
 
-7. cd to ~/vchain/shipping-blockchain folder
+4. cd to ~/vchain/shipping-blockchain folder
 
-8. Run Angular app: ```npm start```
+5. Run Angular app: ```npm start```
+
+6. Start the email server by ```cd ../nodejs-email``` and ```node emailSender USERNAME PASSWORD``` where USERNAME and PASSWORD are the Gmail credentials the emails will be sent from.
 
 ## Updating to a new vchain version
 1. Deploy the business network by running ```scripts/deployNetwork.sh``` and enter the version number in the package.json file (currently ```0.1.7```)
