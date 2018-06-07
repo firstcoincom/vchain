@@ -22,6 +22,20 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+function sendMail(mailOptions)
+{
+    transporter.sendMail(mailOptions, function (error, info)
+    {
+        if (error)
+        {
+            console.log(error);
+        } else
+        {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
+
 // connects to business network and subscribes to events it emits
 (async () =>
 {
@@ -39,32 +53,52 @@ const transporter = nodemailer.createTransport({
             return;
         }
 
-        // create general email for all addresses
-        mailOptions.subject = 'Invoice for voyage '
-            + event.voyageNumber + '.';
-        mailOptions.text = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
-            + '\nFreight commission: $' + parseFloat(event.freightCommission).toFixed(2)
-            + '\nLoad demurrage: $' + parseFloat(event.loadDemurrage).toFixed(2)
-            + '\nTotal demurrage: $' + parseFloat(event.totalDemurrage).toFixed(2);
+        let freightInvoice = parseFloat(event.freightInvoice).toFixed(2);
+        let freightCommission = parseFloat(event.freightCommission).toFixed(2);
+        let loadDemurrage = parseFloat(event.loadDemurrage).toFixed(2);
+        let totalDemurrage = parseFloat(event.totalDemurrage).toFixed(2);
 
-        // send an email to each given address
-        event.emails.forEach(address =>
+        if (event.chartererEmail != null)
         {
-            mailOptions.to = address;
+            mailOptions.to = event.chartererEmail;
 
-            transporter.sendMail(mailOptions, function (error, info)
-            {
-                if (error)
-                {
-                    console.log(error);
-                } else
-                {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
-        });
+            mailOptions.subject = 'Invoice for voyage '
+                + event.voyageNumber + '.';
+            mailOptions.text = 'Freight invoice: $' + freightInvoice
+                + '\nFreight commission: $' + freightCommission
+                + '\nLoad demurrage: $' + loadDemurrage
+                + '\nTotal demurrage: $' + totalDemurrage;
 
+            sendMail(mailOptions);
+        }
 
+        if (event.voyageManagerEmail != null)
+        {
+            mailOptions.to = event.voyageManagerEmail;
+
+            mailOptions.subject = 'Invoice for voyage '
+                + event.voyageNumber + '.';
+            mailOptions.text = 'Freight invoice: $' + freightInvoice
+                + '\nFreight commission: $' + freightCommission
+                + '\nLoad demurrage: $' + loadDemurrage
+                + '\nTotal demurrage: $' + totalDemurrage;
+
+            sendMail(mailOptions);
+        }
+
+        if (event.chartererEmail != null)
+        {
+            mailOptions.to = event.chartererEmail;
+
+            mailOptions.subject = 'Invoice for voyage '
+                + event.voyageNumber + '.';
+            mailOptions.text = 'Freight invoice: $' + freightInvoice
+                + '\nFreight commission: $' + freightCommission
+                + '\nLoad demurrage: $' + loadDemurrage
+                + '\nTotal demurrage: $' + totalDemurrage;
+
+            sendMail(mailOptions);
+        }
     });
 
     console.log('Now listening for business network events...');
