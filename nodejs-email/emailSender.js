@@ -53,16 +53,21 @@ function sendMail(mailOptions)
             return;
         }
 
+        let freightInvoice = parseFloat(event.freightInvoice).toFixed(2);
+        let freightCommission = parseFloat(event.freightCommission).toFixed(2);
+        let loadDemurrage = parseFloat(event.loadDemurrage).toFixed(2);
+        let totalDemurrage = parseFloat(event.totalDemurrage).toFixed(2);
+
         if (event.chartererEmail != null)
         {
             mailOptions.to = event.chartererEmail;
 
             mailOptions.subject = 'Invoice for voyage '
                 + event.voyageNumber + '.';
-            mailOptions.text = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
-                + '\nFreight commission: $' + parseFloat(event.freightCommission).toFixed(2)
-                + '\nLoad demurrage: $' + parseFloat(event.loadDemurrage).toFixed(2)
-                + '\nTotal demurrage: $' + parseFloat(event.totalDemurrage).toFixed(2);
+            mailOptions.text = 'Freight invoice: $' + freightInvoice
+                + '\nFreight commission: $' + freightCommission
+                + '\nLoad demurrage: $' + loadDemurrage
+                + '\nTotal demurrage: $' + totalDemurrage;
 
             sendMail(mailOptions);
         }
@@ -73,10 +78,10 @@ function sendMail(mailOptions)
 
             mailOptions.subject = 'Invoice for voyage '
                 + event.voyageNumber + '.';
-            mailOptions.text = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
-                + '\nFreight commission: $' + parseFloat(event.freightCommission).toFixed(2)
-                + '\nLoad demurrage: $' + parseFloat(event.loadDemurrage).toFixed(2)
-                + '\nTotal demurrage: $' + parseFloat(event.totalDemurrage).toFixed(2);
+            mailOptions.text = 'Freight invoice: $' + freightInvoice
+                + '\nFreight commission: $' + freightCommission
+                + '\nLoad demurrage: $' + loadDemurrage
+                + '\nTotal demurrage: $' + totalDemurrage;
 
             sendMail(mailOptions);
         }
@@ -87,10 +92,10 @@ function sendMail(mailOptions)
 
             mailOptions.subject = 'Invoice for voyage '
                 + event.voyageNumber + '.';
-            mailOptions.text = 'Freight invoice: $' + parseFloat(event.freightInvoice).toFixed(2)
-                + '\nFreight commission: $' + parseFloat(event.freightCommission).toFixed(2)
-                + '\nLoad demurrage: $' + parseFloat(event.loadDemurrage).toFixed(2)
-                + '\nTotal demurrage: $' + parseFloat(event.totalDemurrage).toFixed(2);
+            mailOptions.text = 'Freight invoice: $' + freightInvoice
+                + '\nFreight commission: $' + freightCommission
+                + '\nLoad demurrage: $' + loadDemurrage
+                + '\nTotal demurrage: $' + totalDemurrage;
 
             sendMail(mailOptions);
         }
