@@ -3,7 +3,7 @@
 A practical application on top of blockchain.
 
 
-##Install
+## Install
 
 To install the server:
 
@@ -34,7 +34,7 @@ To run the server for the first time:
 
 10. The server should be reachable on ```http://localhost:4200```
 
-##Restart
+## Restart
 
 To restart the server (e.g. after a reboot):
 
@@ -48,11 +48,11 @@ To restart the server (e.g. after a reboot):
 
 8. Run Angular app: ```npm start```
 
-##Updating to a new vchain version
+## Updating to a new vchain version
 1. Deploy the business network by running ```scripts/deployNetwork.sh``` and enter the version number in the package.json file (currently ```0.1.7```)
 2. Follow the steps in [Restart](#restart)
 
-##Errors
+## Errors
 - Error 401: Unauthorized. Wrong composer-rest-server options entered. Run ```composer-rest-server``` again, with ```admin@bond-marketplace``` as business card and with default values for all other options.
 - Error: 504 - Gateway Timeout. REST server isn't running. See solution for error 401.
 - Error: xxx - Server Error. Fabric isn't running. Start fabric ```./startfabric.sh``` in the fabric-dev-servers folder
