@@ -10,7 +10,7 @@ To run the server:
 
 3. Deploying Business Network
 	
-	a. cd to ~vchain/scripts and run deployNetwork.sh
+	a. run scripts/deployNetwork.sh
 
     b. enter version number by checking you package.json file. eg. 0.0.67
 
