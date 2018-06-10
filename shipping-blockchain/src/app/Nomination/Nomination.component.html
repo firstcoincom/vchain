@@ -15,34 +15,36 @@
 
 <!-- Captain's app modal. -->
 <div class="modal fade" id="captainModal" tabindex="-1" role="dialog" aria-labelledby="captainModal">
- <div class="modal-dialog" role="document">
-   <div class="modal-content">
-     
-	 <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-       <h4 class="modal-title" id="addBLQuantityModalLabel">Captain's App</h4>
-       <p class="modal-intro">Enter your CaptainId below.</p>
-   </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
 
-     <form [formGroup]="Form2">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="addBLQuantityModalLabel">Captain's App</h4>
+        <p class="modal-intro">Enter your CaptainId below.</p>
+      </div>
+
+      <form [formGroup]="Form2">
         <div class="modal-body">
 
           <div class="form-group text-left">
             <label for="loadingId">CaptainId</label>
             <input formControlName="captainId" type="text" class="form-control">
-          </div>  
-          
+          </div>
+
         </div>
 
         <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button (click)="routeCaptain(Form2);" type="submit" class="btn btn-success" data-dismiss="modal">Confirm</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button (click)="routeCaptain(Form2);" type="submit" class="btn btn-success" data-dismiss="modal">Confirm</button>
         </div>
-     
-     </form>
 
-   </div>
- </div>
+      </form>
+
+    </div>
+  </div>
 </div>
 
 
@@ -51,57 +53,59 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="addAssetModalLabel">Create Nomination</h4>
-          <p class="modal-intro">Enter the required values below.</p>
+        <p class="modal-intro">Enter the required values below.</p>
       </div>
       <form [formGroup]="myForm">
         <div class="modal-body">
 
 
-          
-              <div class="form-group text-left">
-                <label for="nominationId">nominationId</label>
-                  <input formControlName="nominationId" type="text" class="form-control" placeholder="Nomination ID - e.g: NOM_001">
-              </div>
-            
-          
-              <div class="form-group text-left">
-                <label for="vesselName">vesselName</label>
-                  <input formControlName="vesselName" type="text" class="form-control"  placeholder="Vessel Name - e.g: Vail Spirit">
-              </div>
-            
-         
-              <div class="form-group text-left">
-                <label for="IMONumber">IMONumber</label>
-                  <input formControlName="IMONumber" type="text" class="form-control" placeholder="IMO Number - e.g: IMO-001">
-              </div>
-            
-            
-              <div class="form-group text-left">
-                <label for="voyageNumber">voyageNumber</label>
-                  <input formControlName="voyageNumber" type="text" class="form-control" placeholder="Voyage Number - e.g: 16">
-              </div>
-            
-          
-              <div class="form-group text-left">
-                <label for="departure">departure</label>
-                    <textarea formControlName="departure" class="form-control" rows="3" placeholder="Terminal ID - e.g: TER-001"></textarea>
-              </div>
-            
-          
-              <div class="form-group text-left">
-                <label for="destination">destination</label>
-                    <textarea formControlName="destination" class="form-control" rows="3" placeholder="Terminal ID - e.g: TER-002"></textarea>
-              </div>
-            
-          
-              <div class="form-group text-left">
-                <label for="ETA">ETA</label>
-                  <input formControlName="ETA" type="datetime-local" class="form-control">
-              </div>
-          
-              <!-- <div class="form-group text-left">
+
+          <div class="form-group text-left">
+            <label for="nominationId">nominationId</label>
+            <input formControlName="nominationId" type="text" class="form-control" placeholder="Nomination ID - e.g: NOM_001">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="vesselName">vesselName</label>
+            <input formControlName="vesselName" type="text" class="form-control" placeholder="Vessel Name - e.g: Vail Spirit">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="IMONumber">IMONumber</label>
+            <input formControlName="IMONumber" type="text" class="form-control" placeholder="IMO Number - e.g: IMO-001">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="voyageNumber">voyageNumber</label>
+            <input formControlName="voyageNumber" type="text" class="form-control" placeholder="Voyage Number - e.g: 16">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="departure">departure</label>
+            <textarea formControlName="departure" class="form-control" rows="3" placeholder="Terminal ID - e.g: TER-001"></textarea>
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="destination">destination</label>
+            <textarea formControlName="destination" class="form-control" rows="3" placeholder="Terminal ID - e.g: TER-002"></textarea>
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="ETA">ETA</label>
+            <input formControlName="ETA" type="datetime-local" class="form-control">
+          </div>
+
+          <!-- <div class="form-group text-left">
                 <label for="cargo">Cargo Name</label>
                     <textarea formControlName="cargoName" class="form-control" rows="3"></textarea>
               </div>
@@ -121,155 +125,143 @@
                   <option value="RORO">Roll on Roll off</option>
                 </select>
               </div>            -->
-          
-              <label for="operationType">operationType</label>
-              <div class="checkbox">
-                
-                  <label>
-                    <input
-                      formControlName="operationType"
-                      name="operationType"
-                      value="LOADING"
-                      type="radio"
-                    />
-                    LOADING
-                  </label>
-                
-                  <label>
-                    <input    
-                      formControlName="operationType"
-                      name="operationType"
-                      value="DISCHARGING"
-                      type="radio"
-                    />
-                    DISCHARGING
-                  </label>
-                
-              </div>
-            
-          
-              <div class="form-group text-left">
-                <label for="nominatedQuantity">nominatedQuantity</label>
-                  <input formControlName="nominatedQuantity" type="number" step='any' class="form-control"  placeholder="Quantity - e.g: 130000">
-              </div>
 
-            
-              <div class="form-group text-left">
-                <label for="wscFlat">wscFlat</label>
-                  <input formControlName="wscFlat" type="number" step='any' class="form-control" placeholder="WSC Flat - e.g: 10.47">
-              </div>
-            
-            
-              <div class="form-group text-left">
-                <label for="wscPercent">wscPercent</label>    
-                  <input formControlName="wscPercent" type="number" step='any' class="form-control" placeholder="WSC Percentage - e.g: 66.50">
-              </div>
-            
+          <label for="operationType">operationType</label>
+          <div class="checkbox">
 
-              <div class="form-group text-left">
-                <label for="overageRate">overageRate</label>
-                  <input formControlName="overageRate" type="number" step='any' class="form-control" placeholder="Overage Rate - e.g: 50.00">                
-              </div>
+            <label>
+              <input formControlName="operationType" name="operationType" value="LOADING" type="radio" /> LOADING
+            </label>
 
-            
-              <div class="form-group text-left">
-                <label for="freightCommission">freightCommission</label>
-                  <input formControlName="freightCommission" type="number" step='any' class="form-control"  placeholder="Freight Comission - e.g: 2.50">
-              </div>
+            <label>
+              <input formControlName="operationType" name="operationType" value="DISCHARGING" type="radio" /> DISCHARGING
+            </label>
 
-            
-              <div class="form-group text-left">
-                <label for="demurrageRate">demurrageRate</label>
-                  <input formControlName="demurrageRate" type="number" step='any' class="form-control" placeholder="Demurrage Rate - e.g: 30000">
-              </div>
+          </div>
 
-            
-              <div class="form-group text-left">
-                <label for="operationTime">operationTime</label>
-                  <input formControlName="operationTime" type="number" step='any' class="form-control" placeholder="Operation Time - e.g: 3.46">
-              </div>
-            
-            
-              <div class="form-group text-left">
-                <label for="charterDate">charterDate</label>
-                  <input formControlName="charterDate" type="datetime-local" class="form-control">
-              </div>
-          
-            
-              <div class="form-group text-left">
-                <label for="option1">option1</label>      
-                    <textarea formControlName="option1" class="form-control" rows="3" placeholder="Freight Option Rate - e.g: 1.2" ></textarea>
-              </div>
 
-            
-              <div class="form-group text-left">
-                <label for="option2">option2</label>
-                    <textarea formControlName="option2" class="form-control" rows="3" placeholder="Freight Option Rate - e.g: 1.2"></textarea>
-              </div>
+          <div class="form-group text-left">
+            <label for="nominatedQuantity">nominatedQuantity</label>
+            <input formControlName="nominatedQuantity" type="number" step='any' class="form-control" placeholder="Quantity - e.g: 130000">
+          </div>
 
-            
-              <div class="form-group text-left">
-                <label for="option3">option3</label>
-                    <textarea formControlName="option3" class="form-control" rows="3" placeholder="Freight Option Rate - e.g: 1.2"></textarea>
-              </div>
-          
-            
-              <div class="form-group text-left">
-                <label for="allowedLayTimeHours">allowedLayTimeHours</label>
-                  <input formControlName="allowedLayTimeHours" type="number" class="form-control" placeholder="Allowed Laytime HOurs - e.g: 3.00">      
-              </div>
-            
-          
-              <div class="form-group text-left">
-                <label for="charterer">charterer</label>
-                    <textarea formControlName="charterer" class="form-control" rows="3" placeholder="Charterer ID - e.g: CHAR-001" ></textarea>
-              </div>
-            
-            
-              <div class="form-group text-left">
-                <label for="voyageManager">voyageManager</label>
-                    <textarea formControlName="voyageManager" class="form-control" rows="3" placeholder="Voyage Manager Id - e.g: VM-001"></textarea>
-              </div>
-            
-            
-              <div class="form-group text-left">
-                <label for="shippingCompany">shippingCompany</label>
-                
-                    <textarea formControlName="shippingCompany" class="form-control" rows="3" placeholder="Shipping Company ID - e.g: ShipComp-001"></textarea>
-                
-              </div>
-            
-          
-              <div class="form-group text-left">
-                <label for="maxQuantity">maxQuantity</label>
-                  <input formControlName="maxQuantity" type="number" step='any' class="form-control" placeholder="Maximum Quantity - e.g: 130000">
-              </div>
-            
-          
-              <div class="form-group text-left">
-                <label for="minQuantity">minQuantity</label>
-                  <input formControlName="minQuantity" type="number" step='any' class="form-control" placeholder="Minimum Quantity - e.g: 130000">
-              </div>
-            
-            
-              <div class="form-group text-left">
-                <label for="madeBy">madeBy</label>
-                    <textarea formControlName="madeBy" class="form-control" rows="3" placeholder="Made By - e.g: VM-..1"></textarea>
-              </div>
-            
-            
-              <!-- <div class="form-group text-left">
+
+          <div class="form-group text-left">
+            <label for="wscFlat">wscFlat</label>
+            <input formControlName="wscFlat" type="number" step='any' class="form-control" placeholder="WSC Flat - e.g: 10.47">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="wscPercent">wscPercent</label>
+            <input formControlName="wscPercent" type="number" step='any' class="form-control" placeholder="WSC Percentage - e.g: 66.50">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="overageRate">overageRate</label>
+            <input formControlName="overageRate" type="number" step='any' class="form-control" placeholder="Overage Rate - e.g: 50.00">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="freightCommission">freightCommission</label>
+            <input formControlName="freightCommission" type="number" step='any' class="form-control" placeholder="Freight Comission - e.g: 2.50">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="demurrageRate">demurrageRate</label>
+            <input formControlName="demurrageRate" type="number" step='any' class="form-control" placeholder="Demurrage Rate - e.g: 30000">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="operationTime">operationTime</label>
+            <input formControlName="operationTime" type="number" step='any' class="form-control" placeholder="Operation Time - e.g: 3.46">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="charterDate">charterDate</label>
+            <input formControlName="charterDate" type="datetime-local" class="form-control">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="option1">option1</label>
+            <textarea formControlName="option1" class="form-control" rows="3" placeholder="Freight Option Rate - e.g: 1.2"></textarea>
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="option2">option2</label>
+            <textarea formControlName="option2" class="form-control" rows="3" placeholder="Freight Option Rate - e.g: 1.2"></textarea>
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="option3">option3</label>
+            <textarea formControlName="option3" class="form-control" rows="3" placeholder="Freight Option Rate - e.g: 1.2"></textarea>
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="allowedLayTimeHours">allowedLayTimeHours</label>
+            <input formControlName="allowedLayTimeHours" type="number" class="form-control" placeholder="Allowed Laytime HOurs - e.g: 3.00">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="charterer">charterer</label>
+            <textarea formControlName="charterer" class="form-control" rows="3" placeholder="Charterer ID - e.g: CHAR-001"></textarea>
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="voyageManager">voyageManager</label>
+            <textarea formControlName="voyageManager" class="form-control" rows="3" placeholder="Voyage Manager Id - e.g: VM-001"></textarea>
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="shippingCompany">shippingCompany</label>
+
+            <textarea formControlName="shippingCompany" class="form-control" rows="3" placeholder="Shipping Company ID - e.g: ShipComp-001"></textarea>
+
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="maxQuantity">maxQuantity</label>
+            <input formControlName="maxQuantity" type="number" step='any' class="form-control" placeholder="Maximum Quantity - e.g: 130000">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="minQuantity">minQuantity</label>
+            <input formControlName="minQuantity" type="number" step='any' class="form-control" placeholder="Minimum Quantity - e.g: 130000">
+          </div>
+
+
+          <div class="form-group text-left">
+            <label for="madeBy">madeBy</label>
+            <textarea formControlName="madeBy" class="form-control" rows="3" placeholder="Made By - e.g: VM-..1"></textarea>
+          </div>
+
+
+          <!-- <div class="form-group text-left">
                 <label for="verified">verified</label>
                   <input formControlName="verified" type="checkbox" class="form-control">
                 
               </div> -->
 
 
-              <div class="form-group text-left">
-                <label for="captain">captainId</label>
-                  <input formControlName="captain" type="text" class="form-control" placeholder="Captain Id - e.g: CAP-001">
-              </div>
-           
+          <div class="form-group text-left">
+            <label for="captain">captainId</label>
+            <input formControlName="captain" type="text" class="form-control" placeholder="Captain Id - e.g: CAP-001">
+          </div>
+
 
         </div>
 
@@ -279,7 +271,8 @@
             value="Refresh Page"  data-dismiss="modal">
             Confirm
           </button> -->
-          <button (click)="saveNomInfo(myForm);" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#addCargoModal">Next</button>
+          <button (click)="saveNomInfo(myForm);" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#addCargoModal"
+            data-backdrop="static" data-keyboard="false">Next</button>
         </div>
 
       </form>
@@ -292,50 +285,52 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="updateAssetModalLabel">Update Asset</h4>
       </div>
       <form [formGroup]="myForm">
         <div class="modal-body">
 
 
-          
-            <div class="form-group text-left">
-              <label for="nominationId">nominationId</label>
-                <input [ngModel]="nominationId" formControlName="nominationId" class="form-control" disabled="disabled">  
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="vesselName">vesselName</label>
-                <input [ngModel]="vesselName"formControlName="vesselName" type="text" class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="IMONumber">IMONumber</label>
-                <input [ngModel]="IMONumber"formControlName="IMONumber" type="text" class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="voyageNumber">voyageNumber</label>
-                <input [ngModel]="voyageNumber"formControlName="voyageNumber" type="text" class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="departure">departure</label>
-                  <textarea [ngModel]="departure" formControlName="departure" class="form-control" rows="3"></textarea>
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="destination">destination</label>
-                  <textarea [ngModel]="destination" formControlName="destination" class="form-control" rows="3"></textarea>
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="ETA">ETA</label>
-                <input [ngModel]="ETA" formControlName="ETA" type="text" class="form-control">
-            </div>
-          
-            <!-- <div class="form-group text-left">
+
+          <div class="form-group text-left">
+            <label for="nominationId">nominationId</label>
+            <input [ngModel]="nominationId" formControlName="nominationId" class="form-control" disabled="disabled">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="vesselName">vesselName</label>
+            <input [ngModel]="vesselName" formControlName="vesselName" type="text" class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="IMONumber">IMONumber</label>
+            <input [ngModel]="IMONumber" formControlName="IMONumber" type="text" class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="voyageNumber">voyageNumber</label>
+            <input [ngModel]="voyageNumber" formControlName="voyageNumber" type="text" class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="departure">departure</label>
+            <textarea [ngModel]="departure" formControlName="departure" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="form-group text-left">
+            <label for="destination">destination</label>
+            <textarea [ngModel]="destination" formControlName="destination" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="form-group text-left">
+            <label for="ETA">ETA</label>
+            <input [ngModel]="ETA" formControlName="ETA" type="text" class="form-control">
+          </div>
+
+          <!-- <div class="form-group text-left">
                 <label for="cargo">Cargo Name</label>
                     <textarea [ngModel]="cargoName" formControlName="cargoName" class="form-control" rows="3"></textarea>
               </div>
@@ -355,150 +350,131 @@
                   <option value="RORO">Roll on Roll off</option>
                 </select>
               </div>            -->
-          
-            <div class="form-group text-left">
-              <label for="operationType">operationType</label>
-              
-                
-                  <div class="row">
-                    <div class="col-xs-12 checkbox">
-                    
-                      <label>
-                        <input
-                          
-                            formControlName="operationType"
-                            [ngModel]="operationType"
-                          
-                          name="operationType"
-                          value="LOADING"
-                          type="radio"
-                          
-                        />
-                        LOADING
-                      </label>
-                    
-                      <label>
-                        <input
-                          
-                            formControlName="operationType"
-                            [ngModel]="operationType"
-                          
-                          name="operationType"
-                          value="DISCHARGING"
-                          type="radio"
-                          
-                        />
-                        DISCHARGING
-                      </label>
-                    
-                    </div>
-                  </div>
-                
-              
 
+          <div class="form-group text-left">
+            <label for="operationType">operationType</label>
+
+
+            <div class="row">
+              <div class="col-xs-12 checkbox">
+
+                <label>
+                  <input formControlName="operationType" [ngModel]="operationType" name="operationType" value="LOADING" type="radio" /> LOADING
+                </label>
+
+                <label>
+                  <input formControlName="operationType" [ngModel]="operationType" name="operationType" value="DISCHARGING" type="radio" /> DISCHARGING
+                </label>
+
+              </div>
             </div>
-          
-            <div class="form-group text-left">
-              <label for="nominatedQuantity">nominatedQuantity</label>
-                <input [ngModel]="nominatedQuantity" formControlName="nominatedQuantity" type="number" step='any' class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="wscFlat">wscFlat</label>
-                <input [ngModel]="wscFlat" formControlName="wscFlat" type="number" step='any' class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="wscPercent">wscPercent</label>
-                <input [ngModel]="wscPercent" formControlName="wscPercent" type="number" step='any' class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="overageRate">overageRate</label>
-                <input [ngModel]="overageRate" formControlName="overageRate" type="number" step='any' class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="freightCommission">freightCommission</label>
-                <input [ngModel]="freightCommission" formControlName="freightCommission" type="number" step='any' class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="demurrageRate">demurrageRate</label>
-                <input [ngModel]="demurrageRate" formControlName="demurrageRate" type="number" step='any' class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="operationTime">operationTime</label>
-                <input [ngModel]="operationTime" formControlName="operationTime" type="number" step='any' class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="charterDate">charterDate</label>
-                <input [ngModel]="charterDate"formControlName="charterDate" type="text" class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="option1">option1</label>
-                  <textarea [ngModel]="option1" formControlName="option1" class="form-control" rows="3"></textarea>
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="option2">option2</label>
-                  <textarea [ngModel]="option2" formControlName="option2" class="form-control" rows="3"></textarea>
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="option3">option3</label>
-                  <textarea [ngModel]="option3" formControlName="option3" class="form-control" rows="3"></textarea>
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="allowedLayTimeHours">allowedLayTimeHours</label>
-                <input [ngModel]="allowedLayTimeHours" formControlName="allowedLayTimeHours" type="number" class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="charterer">charterer</label>
-                  <textarea [ngModel]="charterer" formControlName="charterer" class="form-control" rows="3"></textarea>
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="voyageManager">voyageManager</label>
-                  <textarea [ngModel]="voyageManager" formControlName="voyageManager" class="form-control" rows="3"></textarea>
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="shippingCompany">shippingCompany</label>
-                  <textarea [ngModel]="shippingCompany" formControlName="shippingCompany" class="form-control" rows="3"></textarea>
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="maxQuantity">maxQuantity</label>
-                <input [ngModel]="maxQuantity" formControlName="maxQuantity" type="number" step='any' class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="minQuantity">minQuantity</label>
-                <input [ngModel]="minQuantity" formControlName="minQuantity" type="number" step='any' class="form-control">
-            </div>
-          
-            <div class="form-group text-left">
-              <label for="madeBy">madeBy</label>
-                  <textarea [ngModel]="madeBy" formControlName="madeBy" class="form-control" rows="3"></textarea>
-            </div>
-          
-            <!-- <div class="form-group text-left">
+
+
+
+          </div>
+
+          <div class="form-group text-left">
+            <label for="nominatedQuantity">nominatedQuantity</label>
+            <input [ngModel]="nominatedQuantity" formControlName="nominatedQuantity" type="number" step='any' class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="wscFlat">wscFlat</label>
+            <input [ngModel]="wscFlat" formControlName="wscFlat" type="number" step='any' class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="wscPercent">wscPercent</label>
+            <input [ngModel]="wscPercent" formControlName="wscPercent" type="number" step='any' class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="overageRate">overageRate</label>
+            <input [ngModel]="overageRate" formControlName="overageRate" type="number" step='any' class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="freightCommission">freightCommission</label>
+            <input [ngModel]="freightCommission" formControlName="freightCommission" type="number" step='any' class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="demurrageRate">demurrageRate</label>
+            <input [ngModel]="demurrageRate" formControlName="demurrageRate" type="number" step='any' class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="operationTime">operationTime</label>
+            <input [ngModel]="operationTime" formControlName="operationTime" type="number" step='any' class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="charterDate">charterDate</label>
+            <input [ngModel]="charterDate" formControlName="charterDate" type="text" class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="option1">option1</label>
+            <textarea [ngModel]="option1" formControlName="option1" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="form-group text-left">
+            <label for="option2">option2</label>
+            <textarea [ngModel]="option2" formControlName="option2" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="form-group text-left">
+            <label for="option3">option3</label>
+            <textarea [ngModel]="option3" formControlName="option3" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="form-group text-left">
+            <label for="allowedLayTimeHours">allowedLayTimeHours</label>
+            <input [ngModel]="allowedLayTimeHours" formControlName="allowedLayTimeHours" type="number" class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="charterer">charterer</label>
+            <textarea [ngModel]="charterer" formControlName="charterer" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="form-group text-left">
+            <label for="voyageManager">voyageManager</label>
+            <textarea [ngModel]="voyageManager" formControlName="voyageManager" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="form-group text-left">
+            <label for="shippingCompany">shippingCompany</label>
+            <textarea [ngModel]="shippingCompany" formControlName="shippingCompany" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="form-group text-left">
+            <label for="maxQuantity">maxQuantity</label>
+            <input [ngModel]="maxQuantity" formControlName="maxQuantity" type="number" step='any' class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="minQuantity">minQuantity</label>
+            <input [ngModel]="minQuantity" formControlName="minQuantity" type="number" step='any' class="form-control">
+          </div>
+
+          <div class="form-group text-left">
+            <label for="madeBy">madeBy</label>
+            <textarea [ngModel]="madeBy" formControlName="madeBy" class="form-control" rows="3"></textarea>
+          </div>
+
+          <!-- <div class="form-group text-left">
               <label for="verified">verified</label>
                 <input [ngModel]="verified" formControlName="verified" type="checkbox" class="form-control">
             </div> -->
-          
+
 
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button (click)="updateAsset(myForm)" type="submit" class="btn btn-success" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" data-dismiss="modal">Submit</button>
+          <button (click)="updateAsset(myForm)" type="submit" class="btn btn-success" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 2000);"
+            data-dismiss="modal">Submit</button>
         </div>
       </form>
     </div>
@@ -511,7 +487,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="deleteAssetModalLabel">Delete Asset</h4>
       </div>
       <form [formGroup]="myForm" (ngSubmit)="deleteAsset()">
@@ -532,7 +510,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="deleteAssetModalLabel">Generate and Email Invoices</h4>
       </div>
       <form [formGroup]="myForm" (ngSubmit)="deleteAsset()">
@@ -541,7 +521,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-          <button (click)="generateInvoices();" type="submit" class="btn btn-danger" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" data-dismiss="modal">Yes</button>
+          <button (click)="generateInvoices();" type="submit" class="btn btn-danger" value="Refresh Page" onClick="setTimeout(window.location.reload.bind(window.location), 2000);"
+            data-dismiss="modal">Yes</button>
         </div>
       </form>
     </div>
@@ -553,7 +534,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="deleteAssetModalLabel">Cargo Items</h4>
       </div>
       <div>
@@ -583,32 +566,34 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="addAssetModalLabel">Add Cargo Items</h4>
-          <p class="modal-intro">Enter the required values below.</p>
+        <p class="modal-intro">Enter the required values below.</p>
       </div>
       <form [formGroup]="Form3">
         <div class="modal-body">
-              <div class="form-group text-left">
-                <label for="cargo">Cargo Name</label>
-                    <textarea formControlName="cargoName" class="form-control" rows="3"></textarea>
-              </div>
+          <div class="form-group text-left">
+            <label for="cargo">Cargo Name</label>
+            <textarea formControlName="cargoName" class="form-control" rows="3"></textarea>
+          </div>
 
-              <div class="form-group text-left">
-                <label for="cargo">Cargo Quantity</label>
-                  <textarea formControlName="cargoQuantity" class="form-control" rows="3"></textarea>
-              </div>
+          <div class="form-group text-left">
+            <label for="cargo">Cargo Quantity</label>
+            <textarea formControlName="cargoQuantity" class="form-control" rows="3"></textarea>
+          </div>
 
-              <div class="form-group text-left">
-                <label for="cargo">Cargo Type</label>
-                <select formControlName="cargoType" class="form-control">
-                  <option value="CONTAINER_CARGO">Cargo</option>
-                  <option value="LIQUID_BULK">Liquid Bulk</option>
-                  <option value="DRY_BULK">Dry Bulk</option>
-                  <option value="BREAK_BULK">Break Bulk</option>
-                  <option value="RORO">Roll on Roll off</option>
-                </select>
-              </div>     
+          <div class="form-group text-left">
+            <label for="cargo">Cargo Type</label>
+            <select formControlName="cargoType" class="form-control">
+              <option value="CONTAINER_CARGO">Cargo</option>
+              <option value="LIQUID_BULK">Liquid Bulk</option>
+              <option value="DRY_BULK">Dry Bulk</option>
+              <option value="BREAK_BULK">Break Bulk</option>
+              <option value="RORO">Roll on Roll off</option>
+            </select>
+          </div>
 
         </div>
 
@@ -616,46 +601,48 @@
           <!-- <button (click)="scrollCargoItems(2, 1);" [disabled]="!this.scrollMin" type="button" class="btn btn-default"></button>
           <button (click)="scrollCargoItems(1, 1);" [disabled]="!this.scrollMax" type="button" class="btn btn-default"></button> -->
           <!-- <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addAssetModal">Back</button> -->
-          <button (click)="saveCargoItem(Form3);" type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addSuccessModal">
+          <button (click)="saveCargoItem(Form3);" type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addSuccessModal"
+            data-backdrop="static" data-keyboard="false">
             Add
           </button>
-          <button (click)="addNomAsset();" type="submit" class="btn btn-success" onClick="setTimeout(window.location.reload.bind(window.location), 2000);" 
-            value="Refresh Page"  data-dismiss="modal">
+          <button (click)="addNomAsset();" type="submit" class="btn btn-success" onClick="setTimeout(window.location.reload.bind(window.location), 2000);"
+            value="Refresh Page" data-dismiss="modal">
             Confirm
           </button>
         </div>
 
       </form>
       <div>
-          <h4 class="modal-title" id="addAssetModalLabel">List of Cargo Items</h4>
-          <table class="table table-responsive">
-            <thead class="thead">
-              <tr class="thead-cols">
-                <th class="info">Name</th>
-                <th class="info">Quantity</th>
-                <th class="info">Type</th>
-                <th class="info-actions">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of cargoItemList">
-                <td class="asset-properties">{{item.name}}</td>
-                <td class="asset-properties">{{item.quantity}}</td>
-                <td class="asset-properties">{{item.cargoType}}</td>
-                <button (click)="saveCargoName(item.name);" type="button" class="btn btn-delete" data-dismiss="modal" data-toggle="modal" data-target="#deleteCargoModal">
-                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                    width="13.8px" height="16px" viewBox="0 0 65.9 76.2" style="enable-background:new 0 0 65.9 76.2;" xml:space="preserve">
-                <path d="M42.8,60.2V22.6c0-1.7-1.3-3-3-3s-3,1.3-3,3v37.6c0,1.7,1.3,3,3,3S42.8,61.9,42.8,60.2z M29.1,60.2V22.6c0-1.7-1.3-3-3-3
+        <h4 class="modal-title" id="addAssetModalLabel">List of Cargo Items</h4>
+        <table class="table table-responsive">
+          <thead class="thead">
+            <tr class="thead-cols">
+              <th class="info">Name</th>
+              <th class="info">Quantity</th>
+              <th class="info">Type</th>
+              <th class="info-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cargoItemList">
+              <td class="asset-properties">{{item.name}}</td>
+              <td class="asset-properties">{{item.quantity}}</td>
+              <td class="asset-properties">{{item.cargoType}}</td>
+              <button (click)="saveCargoName(item.name);" type="button" class="btn btn-delete" data-dismiss="modal" data-toggle="modal"
+                data-target="#deleteCargoModal">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  width="13.8px" height="16px" viewBox="0 0 65.9 76.2" style="enable-background:new 0 0 65.9 76.2;" xml:space="preserve">
+                  <path d="M42.8,60.2V22.6c0-1.7-1.3-3-3-3s-3,1.3-3,3v37.6c0,1.7,1.3,3,3,3S42.8,61.9,42.8,60.2z M29.1,60.2V22.6c0-1.7-1.3-3-3-3
                   s-3,1.3-3,3v37.6c0,1.7,1.3,3,3,3S29.1,61.9,29.1,60.2z M56.2,19.6c-1.7,0-3,1.3-3,3V68c0,1.2-1,2.2-2.2,2.2H14.9
                   c-1.2,0-2.2-1-2.2-2.2V22.6c0-1.7-1.3-3-3-3s-3,1.3-3,3V68c0,4.5,3.7,8.2,8.2,8.2H51c4.5,0,8.2-3.7,8.2-8.2V22.6
                   C59.2,21,57.9,19.6,56.2,19.6z M62.9,10.3H49.3V3c0-1.7-1.3-3-3-3H19.6c-1.7,0-3,1.3-3,3v7.3H3c-1.7,0-3,1.3-3,3s1.3,3,3,3h59.9
-                  c1.7,0,3-1.3,3-3S64.5,10.3,62.9,10.3z M43.3,10.3H22.6V6h20.7L43.3,10.3L43.3,10.3z"/>
+                  c1.7,0,3-1.3,3-3S64.5,10.3,62.9,10.3z M43.3,10.3H22.6V6h20.7L43.3,10.3L43.3,10.3z" />
                 </svg>
-                </button>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+              </button>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -665,52 +652,60 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title" id="deleteAssetModalLabel">Added!</h4>
       </div>
       <div class="modal-footer">
-          <button (click)="resetCargoForm();" type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addCargoModal">Back</button>
-        </div>
+        <button (click)="resetCargoForm();" type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addCargoModal"
+          data-backdrop="static" data-keyboard="false">Back</button>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Delete cargo modal. -->
 <div class="modal fade" id="deleteCargoModal" tabindex="-1" role="dialog" aria-labelledby="deleteCargoModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="deleteAssetModalLabel">Deleted!</h4>
-        </div>
-        <div class="modal-footer">
-            <button (click)="deleteCargoItem();" type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addCargoModal">Back</button>
-          </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="deleteAssetModalLabel">Deleted!</h4>
+      </div>
+      <div class="modal-footer">
+        <button (click)="deleteCargoItem();" type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#addCargoModal"
+          data-backdrop="static" data-keyboard="false">Back</button>
       </div>
     </div>
   </div>
+</div>
 
 
 <!-- PAGE CONTENT -->
 <div class="container">
-	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-		<strong>Error:</strong> {{errorMessage}}
-	</div>
-  
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    <strong>Error:</strong> {{errorMessage}}
+  </div>
+
   <div class="row">
     <div class="col-md-9">
-        <h1 class="asset-title" id='assetName'>Nomination</h1>
+      <h1 class="asset-title" id='assetName'>Nomination</h1>
     </div>
-      <button type="button" class="btn btn-functions" data-toggle="modal" data-target="#captainModal">
-          Captain's App
-      </button>
+    <button type="button" class="btn btn-functions" data-toggle="modal" data-target="#captainModal">
+      Captain's App
+    </button>
     <div class="col-md-3">
-      <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAssetModal">
-          <span style="font-size: 14px;font-family: inherit;border-right:1px solid rgba(255,255,255,0.5);padding-right:0.6em;margin-right:0.5em;vertical-align:middle;">
-              <svg class="plus-svg" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                <path fill-rule="evenodd" d="M5.5,4.5 L9.5,4.5 L10,4.5 L10,5.5 L9.5,5.5 L5.5,5.5 L5.5,9.5 L5.5,10 L4.5,10 L4.5,9.5 L4.5,5.5 L0.5,5.5 L0,5.5 L0,4.5 L0.5,4.5 L4.5,4.5 L4.5,0.5 L4.5,0 L5.5,0 L5.5,0.5 L5.5,4.5 Z"/>
-              </svg>
-          </span>
+      <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAssetModal" data-backdrop="static"
+        data-keyboard="false">
+        <span style="font-size: 14px;font-family: inherit;border-right:1px solid rgba(255,255,255,0.5);padding-right:0.6em;margin-right:0.5em;vertical-align:middle;">
+          <svg class="plus-svg" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+            <path fill-rule="evenodd" d="M5.5,4.5 L9.5,4.5 L10,4.5 L10,5.5 L9.5,5.5 L5.5,5.5 L5.5,9.5 L5.5,10 L4.5,10 L4.5,9.5 L4.5,5.5 L0.5,5.5 L0,5.5 L0,4.5 L0.5,4.5 L4.5,4.5 L4.5,0.5 L4.5,0 L5.5,0 L5.5,0.5 L5.5,4.5 Z"
+            />
+          </svg>
+        </span>
         Create Nomination
       </button>
     </div>
@@ -721,13 +716,13 @@
       <table class="table table-responsive">
         <thead class="thead">
           <tr class="thead-cols">
-            
-                <th class="info">nominationId</th>
-                <th class="info">vesselName</th>
-                <th class="info">IMONumber</th>
-                <th class="info">voyageNumber</th>
-                <th class="info">Cargo Items</th>
-                <th class="info-actions">Actions</th>
+
+            <th class="info">nominationId</th>
+            <th class="info">vesselName</th>
+            <th class="info">IMONumber</th>
+            <th class="info">voyageNumber</th>
+            <th class="info">Cargo Items</th>
+            <th class="info-actions">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -748,19 +743,19 @@
               <button (click)="searchNomination(asset.nominationId, 2);" type="button" class="btn btn-functions">
                 Discharging
               </button>
-              <button (click)="saveNomId(asset.nominationId);" [disabled]="!asset.verified || !asset.loadingDone || !asset.dischargeDone"  type="button" 
-                class="btn btn-functions" data-toggle="modal" data-target="#invoiceModal">
+              <button (click)="saveNomId(asset.nominationId);" [disabled]="!asset.verified || !asset.loadingDone || !asset.dischargeDone"
+                type="button" class="btn btn-functions" data-toggle="modal" data-target="#invoiceModal">
                 Generate and Email Invoices
               </button>
               <button (click)="setId(asset.nominationId);" type="button" class="btn btn-delete" data-toggle="modal" data-target="#deleteAssetModal">
-                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                   width="13.8px" height="16px" viewBox="0 0 65.9 76.2" style="enable-background:new 0 0 65.9 76.2;" xml:space="preserve">
-              <path d="M42.8,60.2V22.6c0-1.7-1.3-3-3-3s-3,1.3-3,3v37.6c0,1.7,1.3,3,3,3S42.8,61.9,42.8,60.2z M29.1,60.2V22.6c0-1.7-1.3-3-3-3
+                  <path d="M42.8,60.2V22.6c0-1.7-1.3-3-3-3s-3,1.3-3,3v37.6c0,1.7,1.3,3,3,3S42.8,61.9,42.8,60.2z M29.1,60.2V22.6c0-1.7-1.3-3-3-3
                 s-3,1.3-3,3v37.6c0,1.7,1.3,3,3,3S29.1,61.9,29.1,60.2z M56.2,19.6c-1.7,0-3,1.3-3,3V68c0,1.2-1,2.2-2.2,2.2H14.9
                 c-1.2,0-2.2-1-2.2-2.2V22.6c0-1.7-1.3-3-3-3s-3,1.3-3,3V68c0,4.5,3.7,8.2,8.2,8.2H51c4.5,0,8.2-3.7,8.2-8.2V22.6
                 C59.2,21,57.9,19.6,56.2,19.6z M62.9,10.3H49.3V3c0-1.7-1.3-3-3-3H19.6c-1.7,0-3,1.3-3,3v7.3H3c-1.7,0-3,1.3-3,3s1.3,3,3,3h59.9
-                c1.7,0,3-1.3,3-3S64.5,10.3,62.9,10.3z M43.3,10.3H22.6V6h20.7L43.3,10.3L43.3,10.3z"/>
-              </svg>
+                c1.7,0,3-1.3,3-3S64.5,10.3,62.9,10.3z M43.3,10.3H22.6V6h20.7L43.3,10.3L43.3,10.3z" />
+                </svg>
               </button>
             </td>
           </tr>
@@ -769,5 +764,3 @@
     </div>
   </div>
 </div>
-
-
